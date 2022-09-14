@@ -1,0 +1,33 @@
+% Idhotel,nombre,direccionciaKM,estrellas,habsimple,habdoble,precioxcomida,departamento,distancia
+hotel(1,'Camino Real','14 calle zona 10',4,100.0,200.0,50.0,14,7).
+hotel(2,'Holiday Inn','puerto barrios 10ma calle',4,200.0,350.0,75.0,2,20).
+hotel(3,'Hu-nal ye','Los Amates 4ta av',1,50.0,100.0,60.0,2,260).
+hotel(4,'Onetwo','Santa Cruz 12 calle',3,200.0,350.0,80.0,4,288).
+hotel(5,'Paradise','Carcha 12-45',2,150.0,250.0,80.0,3,40).
+hotel(6,'Tikal','Santa Elena 54-85',1,200.0,350.0,100.0,1,350).
+hotel(7,'Atanacio','San Angel 5-8',5,350.0,700.0,100.0,12,102).
+hotel(8,'Pana Inn','Calzada Principal zona 3',4,250.0,500.0,50.0,16,80).
+hotel(9,'Tzul','San Agustin zona 1',3,150.0,400.0,50.0,20,156).
+hotel(10,'Ktuz','San Juan Tzul 8-24',3,300.0,600.0,50.0,18,150).
+hotel(11,'Patulul','Km 67',3,300.0,500.0,150.0,7,64).
+hotel(12,'Patzul','Km 90',2,250.0,400.0,100.0,17,90).
+hotel(13,'Libfresh','Km 100',2,250.0,400.0,50.0,7,100).
+hotel(14,'Kenel','Km 180',3,250.0,400.0,70.0,8,180).
+hotel(15,'Manoi','Km 40',1,250.0,400.0,40.0,10,40).
+hotel(16,'Palmeras','Km 7',2,250.0,400.0,30.0,15,7).
+hotel(17,'Ovni','Km 8',4,250.0,400.0,70.0,19,8).
+hotel(18,'Ovni 2','Km 270',5,250.0,400.0,95.0,21,270).
+hotel(19,'Runners','Km 187',3,200.0,350.0,35.0,22,187).
+hotel(20,'Tutuc','Km 365',4,150.0,280.0,25.0,14,365).
+hotel(21,'Las Palmas','Km 650',3,450.0,700.0,150.0,11,650).
+hotel(22,'Kinal','Km 354',4,500.0,800.0,200.0,10,354).
+hotel(23,'Prank','Km 269',5,400.0,700.0,150.0,13,269).
+hotel(24,'Doña Rosa','Km 34',4,250.0,500.0,100.0,11,34).
+hotel(25,'Los Pulpos','Km 70',3,500.0,700.0,100.0,6,70).
+hotel(26,'Las Canarias','Km 65',2,450.0,600.0,200.0,10,65).
+hotel(27,'Hawaii','Km 123',1,400.0,700.0,150.0,12,123).
+hotel(28,'Yocute','Km 500',4,350.0,500.0,100.0,9,500).
+hotel(29,'Renuevate','Km 90',3,280.0,600.0,65.0,20,90).
+hotel(30,'Las Islas','Km 241',2,340.0,600.0,80.0,14,241).
+hotel(31,'Usac','zona 12',3,100.0,50.0,7.0,4,10).
+hotel(33,'El Bosque','Km 280',5,500.0,700.0,175.0,5,280).

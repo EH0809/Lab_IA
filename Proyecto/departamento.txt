@@ -1,0 +1,22 @@
+departamento(1,'Peten',8,'espanol','tropical',600).
+departamento(2,'Izabal',5,'espanol','calor',200).
+departamento(3,'Alta Verapaz',6,'espanol','frio',300).
+departamento(4,'Quiche',5,'katchikel','frio',400).
+departamento(5,'Huehuetenango',7,'espanol','frio',500).
+departamento(6,'Escuintla',2,'espanol','calor',50).
+departamento(7,'San Marcos',3,'ingles','calor',400).
+departamento(8,'Jutiapa',4,'katchikel','calor',100).
+departamento(9,'Baja Verapaz',5,'ingles','templado',200).
+departamento(10,'Santa Rosa',4,'ingles','calor',100).
+departamento(11,'Zacapa',3,'ingles','calor',100).
+departamento(12,'Suchitepequez',5,'espanol','templado',50).
+departamento(13,'Chiquimula',4,'katchikel','calor',300).
+departamento(14,'Guatemala',0,'ingles','templado',10).
+departamento(15,'Jalapa',4,'ingles','calor',100).
+departamento(16,'Chimaltenango',3,'katchikel','calor',100).
+departamento(17,'Quetzaltenango',3,'ingles','frio',300).
+departamento(18,'El Progreso',4,'katchikel','calor',150).
+departamento(19,'Retalhuleu',4,'ingles','calor',200).
+departamento(20,'Solola',6,'Ketchi','frio',200).
+departamento(21,'Totonicapan',5,'ingles','templado',200).
+departamento(22,'Sacatepequez',2,'espanol','templado',100).

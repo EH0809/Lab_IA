@@ -1,0 +1,229 @@
+para leer una entrada por el teclado 
+read(Seleccion) ---> Nombre de variable que va a guardar la seleccion del susuario 
+nl,
+diferenciador(Seleccion) ----> Metodo que va ir a la produccion de cada opcione que ingrese 
+
+diferenciador(VARS):- (
+    VARS == 1 -> opcion1()
+    VARS == 1 -> opcion1();
+    VARS == 1 -> opcion1();
+)
+
+
+opcion1 :- write ('opcion 1')
+
+
+Prespuesto alto 
+    1. No importa el hotel 
+        Hotel de 
+    2. Se cataloga solo con 5 estrellas los hoteles 
+    3. no importa la distancia 
+
+Hoteles 
+    Habitacion Simple 
+        Economico - 0 - 300
+        Alto - 300 - 500
+
+    Habitacion Doble 
+        Economico - 0 - 500
+        Alto - 500 - 800
+
+    
+    Comida 
+        Economico - 0 - 250
+        Alto - 250 - 500
+
+
+    Distancia 
+        Economico - 0 - 350
+        Alto - 350 - 700
+
+Clima 
+    Pasaje
+        Economico - 0 - 300
+        Alto - 300 - 500
+
+    Distancia 
+        Lejos 
+        Cerca 
+
+    Idioma
+
+
+Idioma 
+    Presupuesto 
+
+    Distancia
+
+
+
+
+%-----> Preguntas Genericas 
+preguntasgenericas():- write('Conteste las siguientes preguntas '),
+    nl,
+    write('Tipo de Habitacion \n1. Individual \n2. Doble'),
+    read(Var_TipoHabitacion),
+    nl, 
+    write('Cantidad de Noches a quedarse'),
+    nl,
+    read(Var_CantNoches),
+    nl, 
+    write('Vehiculo S/N'),
+    nl,
+    read(Var_Vehiculo),
+    nl, 
+    write('Cantidad de Tiempos de Comida de 0 - 3'),
+    nl, 
+    read(Var_CantidadComida),
+    nl, 
+    write('Numero de Personas'),
+    nl, 
+    read(Var1_CantPersonas),
+    nl. 
+
+
+
+
+
+
+
+%-------Distancia mas que  100 km 
+analisisprespuestobajodistancialejos(Var_Presupuesto):-write('Tipo de habitacion: \n1. Simple \n2. Doble'),
+    nl, 
+    read(Var_TipoHabitacion),
+    nl,
+    write('Cantidad de Noches a quedarse'),
+    nl,
+    read(Var_CantNoches),
+    nl, 
+    write('Vehiculo S/N'),
+    nl,
+    read(Var_Vehiculo),
+    nl, 
+    write('Cantidad de Tiempos de Comida de 0 - 3'),
+    nl, 
+    read(Var_CantidadComida),
+    nl, 
+    write('Numero de Personas'),
+    nl, 
+    read(Var_CantPersonas),
+    nl,
+    write('Clima 1.Calor \n2. Frio \n3. Tropical \n4. Templado'),
+    nl, 
+    read(Var_Clima),
+    nl,
+    analisisprespuestobajodistancialejoshabitacionvehiculo(Var_Presupuesto,Var_TipoHabitacion, Var_CantNoches, Var_Vehiculo, Var_CantidadComida,Var_CantPersonas, Var_Clima, Var_Distancia)
+    nl.
+
+analisisprespuestobajodistancialejoshabitacionvehiculo(Var_Presupuesto,Var_TipoHabitacion, Var_CantNoches, Var_Vehiculo, Var_CantidadComida,Var_CantPersonas,Var_Clima,Var_Distancia):- (
+    %- Habitaciones - Simples 
+    Var_TipoHabitacion = 1  , Var_Vehiculo = 's' -> analisis_bajo_lejos_vehiculos_hsimple(Var_Presupuesto, Var_Clima, Var_Disntancia, Var_CantNoches, Var_CantidadComida,Var_CantPersonas),
+    Var_TipoHabitacion = 1  , Var_Vehiculo = 'n' ->  analisis_bajo_lejos_vehiculon_hsimple(Var_Presupuesto, Var_Clima, Var_Disntancia, Var_CantNoches, Var_CantidadComida,Var_CantPersona),
+    %- Habitacion - dobles 
+     Var_TipoHabitacion = 2  , Var_Vehiculo = 's' ->  analisis_bajo_lejos_vehiculos_hdoble(Var_Presupuesto, Var_Clima, Var_Disntancia, Var_CantNoches, Var_CantidadComida,Var_CantPersona),
+    Var_TipoHabitacion = 2  , Var_Vehiculo = 'n' ->  analisis_bajo_lejos_vehiculon_hdoble(Var_Presupuesto, Var_Clima, Var_Disntancia, Var_CantNoches, Var_CantidadComida,Var_CantPersona),
+).
+
+
+
+
+
+
+-------------------------------
+
+%-------- Presupuesto Bajo - Distancia
+presupuestobajo(Var_Presupuesto):- write('Como desea la distancia del punto de partida \n1. Cerca (0 - 100km)  \n2. Lejos (> 100Km)'),
+    read(Var_Distancia),
+    nl, 
+    analisisprespuestobajodistancia(Var_Presupuesto, Var_Distancia),
+    nl.
+
+
+analisisprespuestobajodistancia(Var_Presupuesto, Var_Distancia):- (
+    Var_Distancia == 1 -> analisisprespuestobajodistanciacerca(Var_Presupuesto);
+    Var_Distancia == 2 -> analisisprespuestobajodistancialejos(Var_Presupuesto);
+    ).
+
+
+analisisprespuestobajodistanciacerca(Var_Presupuesto):- write('Tipo de habitacion: \n1. Simple \n2. Doble'),
+    nl, 
+    read(Var_TipoHabitacion),
+    nl,
+    write('Cantidad de Noches a quedarse'),
+    nl,
+    read(Var_CantNoches),
+    nl, 
+    write('Vehiculo S/N'),
+    nl,
+    read(Var_Vehiculo),
+    nl, 
+    write('Cantidad de Tiempos de Comida de 0 - 3'),
+    nl, 
+    read(Var_CantidadComida),
+    nl, 
+    write('Numero de Personas'),
+    nl, 
+    read(Var_CantPersonas),
+    nl,
+    write('Clima 1.Calor \n2. Frio \n3. Tropical \n4. Templado'),
+    nl, 
+    read(Var_Clima),
+    nl,
+    analisisprespuestobajodistanciacercahabitacionvehiculo(Var_Presupuesto,Var_TipoHabitacion, Var_CantNoches, Var_Vehiculo, Var_CantidadComida,Var_CantPersonas, Var_Clima, Var_Distancia)
+    nl.
+
+
+
+
+analisisprespuestobajodistanciacercahabitacionvehiculo(Var_Presupuesto,Var_TipoHabitacion, Var_CantNoches, Var_Vehiculo, Var_CantidadComida,Var_CantPersonas,Var_Clima,Var_Distancia):- (
+    %- Habitaciones - Simples 
+    Var_TipoHabitacion == 1  , Var_Vehiculo == 's' -> analisis_bajo_cerca_vehiculos_hsimple(Var_Presupuesto, Var_Clima, Var_Disntancia, Var_CantNoches, Var_CantidadComida,Var_CantPersonas),
+    Var_TipoHabitacion == 1  , Var_Vehiculo == 'n' ->  analisis_bajo_cerca_vehiculon_hsimple(Var_Presupuesto, Var_Clima, Var_Disntancia, Var_CantNoches, Var_CantidadComida,Var_CantPersona),
+    %- Habitacion - dobles 
+     Var_TipoHabitacion == 2  , Var_Vehiculo == 's' ->  analisis_bajo_cerca_vehiculos_hdoble(Var_Presupuesto, Var_Clima, Var_Disntancia, Var_CantNoches, Var_CantidadComida,Var_CantPersona),
+    Var_TipoHabitacion == 2  , Var_Vehiculo == 'n' ->  analisis_bajo_cerca_vehiculon_hdoble(Var_Presupuesto, Var_Clima, Var_Disntancia, Var_CantNoches, Var_CantidadComida,Var_CantPersona),
+    
+).
+
+%------------------- Reglas para Presupuesto Bajo - Cerca 
+
+analisis_bajo_cerca_vehiculos_hsimple(Var_Presupuesto, Var_Clima, Var_Disntancia, Var_CantNoches, Var_CantidadComida,Var_CantPersonas):- 
+departamento(Id_depa, NombreDepartamento, _,__,Clima_dep),
+hotel(Id_Hotel, NombreHotel, DireccionHotel, _, HSimple, _, PComida, Id_depa, DistanciaHotel),
+
+
+CostoGasolina is (DistanciaHotel * 5.60)*2,
+
+CostoComida is  (((PComida*Var_CantidadComida)* Var_CantPersonas) * Var_CantNoches),
+
+CostoHabitacion is (HSimple * Var_CantPersonas) ,
+
+Sumatoria is CostoGasolina + CostoHabitacion + CostoComida,
+
+Var_Disntancia =< DistanciaHotel
+Clima == Var_Clima,
+Var_Presupuesto >=Sumatoria,
+
+Ahorro is Var_Presupuesto - Sumatoria,
+
+mostrarinferencia (NombreHotel,NombreDepartamento, DireccionHotel,  CostoGasolina, CostoHabitacion, CostoComida, Sumatoria,Ahorro).
+
+
+
+
+mostrarinferencia(NombreHotel,NombreDepartamento, DireccionHotel,  CostoGasolina, CostoHabitacion, CostoComida, Sumatoria,Ahorro):-
+    nl,
+    write('-----------------------------------------'),
+    nl, 
+    format('Segun el nivel de Presupuesto, estas pueden ser sus opciones
+            \n Hotel: ~a
+            \n Departamento: ~a
+            \n Direccion: ~a
+            \n Gasolina: ~a
+            \n Habitacion: ~a
+            \n Alimentacion: ~a
+            \n Total de Presupuesto: ~a
+            \n Usted Ahorro: ~a', [NombreHotel,NombreDepartamento, DireccionHotel,  CostoGasolina, CostoHabitacion, CostoComida, Sumatoria,Ahorro]
+            ),
+    fail.
+

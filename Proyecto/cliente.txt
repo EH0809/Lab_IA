@@ -1,0 +1,24 @@
+% Idcliente,nombre,apellidos,pais,edad,estadocivil,Motivo
+cliente(1,'Jose','Morales','Guatemala',27,'Soltero','Vacaciones').
+cliente(2,'Fabrizio','Sartini','Italia',25,'Casado','Vacaciones').
+cliente(3,'Gustavo','Molina','Holanda',15,'Soltero','Trabajo').
+cliente(4,'Maria','Gutierrez','Guatemala',20,'Soltero','Vacaciones').
+cliente(5,'Cornelio','Bustamante','Guatemala',18,'Soltero','Trabajo').
+cliente(6,'Loraine','Cortez','Española',34,'Divorciado','Paso').
+cliente(7,'Paco','Estanley','Guatemala',30,'Soltero','Vacaciones').
+cliente(8,'Daniela','Samayoa','Guatemala',21,'Casado','Trabajo').
+cliente(9,'Silvia','Santis','El Salvador',50,'Casado','Paso').
+cliente(10,'Luis','Ortega','El Salvador',35,'Soltero','Vacaciones').
+cliente(11,'Tatiana','Lopez','El Salvador',28,'Soltero','Paso').
+cliente(12,'Ronny','Paiz','Honduras',20,'Soltero','Trabajo').
+cliente(13,'Cesar','Ortiz','Guatemala',36,'Soltero','Paso').
+cliente(14,'Margot','Claus','USA',32,'Soltero','Vacaciones').
+cliente(15,'Jorge','Calderon','Venezuela',26,'Casado','Paso').
+cliente(17,'Maira','Martinez','Mexico',25,'Soltero','Trabajo').
+cliente(18,'Jazmin','Dolores','Venezuela',27,'Casado','Vacaciones').
+cliente(19,'Mauro','Hernandez','Español',22,'Soltero','Vacaciones').
+cliente(20,'Luis','Sagastume','Costa Rica',20,'Soltero','Trabajo').
+cliente(21,'Rcharson','Patric','Inglaterra',30,'Casado','Vacaciones').
+cliente(22,'Montheri','Lois','Inglaterra',32,'Casado','Vacaciones').
+cliente(23,'Silverio','Perez','Mexico',33,'Casado','Paso').
+cliente(24,'Monica','Suarez','Mexico',30,'Casado','Trabajo').
