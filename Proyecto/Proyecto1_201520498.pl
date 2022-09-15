@@ -459,7 +459,7 @@ menu:- write('Bienvendio al selector de vacaciones 2022'),
     nl,
     write('3. Idioma'),
     nl, 
-    write('4. Distancia'),
+    write('4. Calidad de Hotel (Estrellas)'),
     nl,
     write('5. Reportes'),
     nl,
@@ -470,7 +470,8 @@ menu:- write('Bienvendio al selector de vacaciones 2022'),
 seleccion(Var_Opcion):-(
     Var_Opcion == 1 -> preguntaspresupuesto();
     Var_Opcion == 2 -> preguntasclima();
-    Var_Opcion == 3 -> preguntasidioma()
+    Var_Opcion == 3 -> preguntasidioma();
+    Var_Opcion == 4 -> preguntasestrellas()
     ).
 
 
@@ -4451,12 +4452,15 @@ preguntasidioma():-write('Conteste las siguientes preguntas sobre la preferencia
 
 
 analisis_idioma(Var_Idioma):- (
-    Var_Idioma == 'espanol' -> analisis_espanol(Var_Idioma)
-    %-Var_Idioma == 'ingles' -> analisis_ingles(Var_Idioma);
-    %-Var_Idioma == 'ketchi' -> analisis_ketchi(Var_Idioma);
-    %-Var_Idioma == 'katchikel' -> analisis_katchikel(Var_Idioma)
+    Var_Idioma == 'espanol' -> analisis_espanol(Var_Idioma);
+    Var_Idioma == 'ingles' -> analisis_ingles(Var_Idioma);
+    Var_Idioma == 'ketchi' -> analisis_ketchi(Var_Idioma);
+    Var_Idioma == 'katchikel' -> analisis_katchikel(Var_Idioma)
     ).
 
+%------------------------------------------------------------------------Espanol---------------------------------------
+%------------------------------------------------------------------------Espanol---------------------------------------
+%------------------------------------------------------------------------Espanol---------------------------------------
 analisis_espanol(Var_Idioma):- write('Conteste las siguientes preguntas sobre presupuesto'),
     nl,
     write('Cual es su presupuesto? \n1. Bajo (Q. 0 - 5000) \n2. Alto (>Q.5000)'),
@@ -4468,8 +4472,8 @@ analisis_espanol(Var_Idioma):- write('Conteste las siguientes preguntas sobre pr
 
 analsis_idioma_espanol_presupuesto(Var_Idioma, Var_Presupuesto):-
     (
-        Var_Presupuesto == 1 -> analisis_idioma_espanol_bajo(Var_Idioma, Var_Presupuesto)
-        %-Var_Presupuesto == 2 -> analisis_idioma_espanol_alto(Var_Idioma, Var_Presupuesto)
+        Var_Presupuesto == 1 -> analisis_idioma_espanol_bajo(Var_Idioma, Var_Presupuesto);
+        Var_Presupuesto == 2 -> analisis_idioma_espanol_alto(Var_Idioma, Var_Presupuesto)
     ). 
 
 analisis_idioma_espanol_bajo(Var_Idioma, Var_Presupuesto):-
@@ -4482,9 +4486,10 @@ analisis_idioma_espanol_bajo(Var_Idioma, Var_Presupuesto):-
     
 analsis_idioma_espanol_presupuesto_distancia(Var_Idioma, Var_Presupuesto,Var_Distancia):-
     (
-    Var_Distancia == 1 -> analisis_idioma_espanol_bajo_cerca(Var_Idioma)
-    %-Var_Distancia == 2 -> analisis_idioma_espanol_bajo_lejos(Var_Idioma)
+    Var_Distancia == 1 -> analisis_idioma_espanol_bajo_cerca(Var_Idioma);
+    Var_Distancia == 2 -> analisis_idioma_espanol_bajo_lejos(Var_Idioma)
     ).
+
 
 analisis_idioma_espanol_bajo_cerca(Var_Idioma):-
     write('Tipo de habitacion: \n1. Simple \n2. Doble'),
@@ -4518,12 +4523,13 @@ analsis_idioma_espanol_cerca_bajo_generales(Var_Idioma, Var_TipoHabitacion, Var_
     (
      %- Habitaciones - Simples 
     (Var_TipoHabitacion == 1 , Var_Vehiculo == 's')-> analisis_idioma_espanol_cerca_bajo_vehiculos_hsimple(Var_Idioma, Var_Clima, Var_CantNoches, Var_CantidadComida,Var_CantPersonas);
-    (Var_TipoHabitacion == 1 , Var_Vehiculo == 'n')-> analisis_idioma_espanol_cerca_bajo_vehiculon_hsimple(Var_Idioma, Var_Clima,  Var_CantNoches, Var_CantidadComida,Var_CantPersonas)
+    (Var_TipoHabitacion == 1 , Var_Vehiculo == 'n')-> analisis_idioma_espanol_cerca_bajo_vehiculon_hsimple(Var_Idioma, Var_Clima,  Var_CantNoches, Var_CantidadComida,Var_CantPersonas);
     %- Habitacion - dobles 
-    %-(Var_TipoHabitacion == 2  , Var_Vehiculo == 's') ->  analisis_idioma_espanol_bajo_cerca_vehiculos_hdoble(Var_Idioma, Var_Clima,  Var_CantNoches, Var_CantidadComida,Var_CantPersonas);
-    %-(Var_TipoHabitacion == 2  , Var_Vehiculo == 'n') ->  analisis_idioma_espanol_bajo_cerca_vehiculon_hdoble(Var_Idioma, Var_Clima,  Var_CantNoches, Var_CantidadComida,Var_CantPersonas)
+    (Var_TipoHabitacion == 2  , Var_Vehiculo == 's') ->  analisis_idioma_espanol_bajo_cerca_vehiculos_hdoble(Var_Idioma, Var_Clima,  Var_CantNoches, Var_CantidadComida,Var_CantPersonas);
+    (Var_TipoHabitacion == 2  , Var_Vehiculo == 'n') ->  analisis_idioma_espanol_bajo_cerca_vehiculon_hdoble(Var_Idioma, Var_Clima,  Var_CantNoches, Var_CantidadComida,Var_CantPersonas)
     ).
 
+%---------------------------Espanol-cerca-bajo-simple-----------------
 %---------------------------Espanol-cerca-bajo-simple-----------------
 analisis_idioma_espanol_cerca_bajo_vehiculos_hsimple(Var_Idioma, Var_Clima, Var_CantNoches, Var_CantidadComida,Var_CantPersonas):-
    departamento(Id_depa, NombreDepartamento, _,Var_lenguaje,Clima_dep,_),
@@ -4601,7 +4607,7 @@ analisis_idioma_espanol_bajo_cerca_vehiculos_hdoble(Var_Idioma, Var_Clima,  Var_
 
     Sumatoria is (CostoGasolina + CostoHabitacion + CostoComida),
 
-    
+    Var_lenguaje == Var_Idioma,
     100 >= DistanciaHotel,
     Var_Clima == Clima_dep,
     Sumatoria =< 5000,
@@ -4634,7 +4640,7 @@ analisis_idioma_espanol_bajo_cerca_vehiculon_hdoble(Var_Idioma, Var_Clima,  Var_
     CostoHabitacion is (Hdoble * round(Var_CantPersonas/2)),
     Sumatoria is ( CostoHabitacion + CostoComida + CostoPasaje),
 
-    
+    Var_lenguaje == Var_Idioma,
     100 >= DistanciaHotel,
     Var_Clima == Clima_dep,
     Sumatoria =< 5000,
@@ -4656,3 +4662,3526 @@ mostrarinferencia_idioma_espanol_cerca_bajo_vehiculon_hdoble(Var_Idioma, NombreH
             ),
     nl, 
     fail.
+
+
+
+%------------------------Espanol-lejos-bajo-------------------
+%------------------------Espanol-lejos-bajo-------------------
+analisis_idioma_espanol_bajo_lejos(Var_Idioma):-
+    write('Tipo de habitacion: \n1. Simple \n2. Doble'),
+    nl, 
+    read(Var_TipoHabitacion),
+    nl,
+    write('Cantidad de Noches a quedarse'),
+    nl,
+    read(Var_CantNoches),
+    nl, 
+    write('Vehiculo s/n'),
+    nl,
+    read(Var_Vehiculo),
+    nl, 
+    write('Cantidad de Tiempos de Comida de 0 - 3'),
+    nl, 
+    read(Var_CantidadComida),
+    nl, 
+    write('Numero de Personas'),
+    nl, 
+    read(Var_CantPersonas),
+    nl,
+    write('Clima \n1. Calor \n2. Frio \n3. Tropical \n4. Templado'),
+    nl, 
+    read(Var_Clima),
+    nl,
+    analsis_idioma_espanol_lejos_bajo_generales(Var_Idioma, Var_TipoHabitacion, Var_CantNoches, Var_CantNoches, Var_Vehiculo,Var_CantidadComida, Var_CantPersonas,Var_Clima),
+    nl.
+
+analsis_idioma_espanol_lejos_bajo_generales(Var_Idioma, Var_TipoHabitacion, Var_CantNoches, Var_CantNoches, Var_Vehiculo,Var_CantidadComida, Var_CantPersonas,Var_Clima):-
+    (
+     %- Habitaciones - Simples 
+    (Var_TipoHabitacion == 1 , Var_Vehiculo == 's')-> analisis_idioma_espanol_lejos_bajo_vehiculos_hsimple(Var_Idioma, Var_Clima, Var_CantNoches, Var_CantidadComida,Var_CantPersonas);
+    (Var_TipoHabitacion == 1 , Var_Vehiculo == 'n')-> analisis_idioma_espanol_lejos_bajo_vehiculon_hsimple(Var_Idioma, Var_Clima,  Var_CantNoches, Var_CantidadComida,Var_CantPersonas);
+    %- Habitacion - dobles 
+    (Var_TipoHabitacion == 2  , Var_Vehiculo == 's') ->  analisis_idioma_espanol_lejos_cerca_vehiculos_hdoble(Var_Idioma, Var_Clima,  Var_CantNoches, Var_CantidadComida,Var_CantPersonas);
+    (Var_TipoHabitacion == 2  , Var_Vehiculo == 'n') ->  analisis_idioma_espanol_lejos_cerca_vehiculon_hdoble(Var_Idioma, Var_Clima,  Var_CantNoches, Var_CantidadComida,Var_CantPersonas)
+    ).
+
+%---------------------------Espanol-cerca-lejos-simple-----------------
+analisis_idioma_espanol_lejos_bajo_vehiculos_hsimple(Var_Idioma, Var_Clima, Var_CantNoches, Var_CantidadComida,Var_CantPersonas):-
+   departamento(Id_depa, NombreDepartamento, _,Var_lenguaje,Clima_dep,_),
+    hotel(_, NombreHotel, DireccionHotel, _, HSimple, _, PComida, Id_depa, DistanciaHotel),
+
+    CostoGasolina is ((DistanciaHotel * 5.60)*2),
+    CostoComida is  (((PComida*Var_CantidadComida)* Var_CantPersonas) * Var_CantNoches),
+    CostoHabitacion is (HSimple * Var_CantPersonas) ,
+
+    Sumatoria is (CostoGasolina + CostoHabitacion + CostoComida),
+
+    Var_lenguaje == Var_Idioma,
+    100 < DistanciaHotel,
+    Var_Clima == Clima_dep,
+    Sumatoria =< 5000,
+
+    mostrarinferencia_idioma_espanol_lejos_bajo_vehiculos_hsimple(Var_lenguaje, NombreHotel,NombreDepartamento, DireccionHotel,  CostoGasolina, CostoHabitacion, CostoComida, Sumatoria).
+
+mostrarinferencia_idioma_espanol_lejos_bajo_vehiculos_hsimple(Var_lenguaje, NombreHotel,NombreDepartamento, DireccionHotel,  CostoGasolina, CostoHabitacion, CostoComida, Sumatoria):-
+    write('-----------------------------------------'),
+    nl, 
+    format('Segun el Idioma ~a, estas pueden ser sus opciones
+            \n Hotel: ~a
+            \n Departamento: ~a
+            \n Direccion: ~a
+            \n Gasolina: ~a
+            \n Habitacion: ~a
+            \n Alimentacion: ~a
+            \n Total de Presupuesto: ~a', [Var_lenguaje, NombreHotel,NombreDepartamento, DireccionHotel,  CostoGasolina, CostoHabitacion, CostoComida,Sumatoria]
+            ),
+    nl, 
+    fail.
+
+
+analisis_idioma_espanol_lejos_bajo_vehiculon_hsimple(Var_Idioma, Var_Clima,  Var_CantNoches, Var_CantidadComida,Var_CantPersonas):-
+    departamento(Id_depa, NombreDepartamento, CantidadHoras,Var_lenguaje,Clima_dep,Pasaje),
+    hotel(_, NombreHotel, DireccionHotel, _, HSimple, _, PComida, Id_depa, DistanciaHotel),
+
+    CostoPasaje is (Pasaje * Var_CantPersonas),
+    CostoComida is  (((PComida*Var_CantidadComida)* Var_CantPersonas) * Var_CantNoches),
+    CostoHabitacion is (HSimple * Var_CantPersonas),
+    Sumatoria is ( CostoHabitacion + CostoComida + CostoPasaje),
+
+    Var_lenguaje == Var_Idioma,
+    100 < DistanciaHotel,
+    Var_Clima == Clima_dep,
+    Sumatoria =< 5000,
+
+    mostrarinferencia_idioma_espanol_lejos_bajo_vehiculon_hsimple(Var_Idioma, NombreHotel,NombreDepartamento, DireccionHotel,  CostoPasaje, CantidadHoras, CostoHabitacion, CostoComida, Sumatoria).
+
+mostrarinferencia_idioma_espanol_lejos_bajo_vehiculon_hsimple(Var_Idioma, NombreHotel,NombreDepartamento, DireccionHotel,  CostoPasaje, CantidadHoras, CostoHabitacion, CostoComida, Sumatoria):-
+    write('-----------------------------------------'),
+    nl, 
+    format('Segun el Idioma ~a, estas pueden ser sus opciones
+            \n Hotel: ~a
+            \n Departamento: ~a
+            \n Direccion: ~a
+            \n Pasaje: ~a
+            \n Cantidad de Horas: ~a
+            \n Habitacion: ~a
+            \n Alimentacion: ~a
+            \n Total de Presupuesto: ~a', [Var_Idioma ,NombreHotel,NombreDepartamento, DireccionHotel,  CostoPasaje, CantidadHoras, CostoHabitacion, CostoComida, Sumatoria]
+            ),
+    nl, 
+    fail.
+
+%---------------------------Espanol-cerca-bajo-doble-----------------
+analisis_idioma_espanol_lejos_cerca_vehiculos_hdoble(Var_Idioma, Var_Clima,  Var_CantNoches, Var_CantidadComida,Var_CantPersonas):-
+    departamento(Id_depa, NombreDepartamento, _,Var_lenguaje,Clima_dep,_),
+    hotel(_, NombreHotel, DireccionHotel, _, _, Hdoble, PComida, Id_depa, DistanciaHotel),
+
+    CostoGasolina is ((DistanciaHotel * 5.60)*2),
+    CostoComida is  (((PComida*Var_CantidadComida)* Var_CantPersonas) * Var_CantNoches),
+    CostoHabitacion is (Hdoble * round(Var_CantPersonas /2)) ,
+
+    Sumatoria is (CostoGasolina + CostoHabitacion + CostoComida),
+
+    Var_lenguaje == Var_Idioma,
+    100 < DistanciaHotel,
+    Var_Clima == Clima_dep,
+    Sumatoria =< 5000,
+
+  
+
+    mostrarinferencia_idioma_espanol_lejos_bajo_vehiculos_hdoble(Var_Idioma, NombreHotel,NombreDepartamento, DireccionHotel,  CostoGasolina, CostoHabitacion, CostoComida, Sumatoria).
+
+mostrarinferencia_idioma_espanol_lejos_bajo_vehiculos_hdoble(Var_Idioma, NombreHotel,NombreDepartamento, DireccionHotel,  CostoGasolina, CostoHabitacion, CostoComida, Sumatoria):-
+    write('-----------------------------------------'),
+    nl, 
+    format('Segun el Idioma ~a, estas pueden ser sus opciones
+            \n Hotel: ~a
+            \n Departamento: ~a
+            \n Direccion: ~a
+            \n Gasolina: ~a
+            \n Habitacion: ~a
+            \n Alimentacion: ~a
+            \n Total de Presupuesto: ~a', [Var_Idioma, NombreHotel,NombreDepartamento, DireccionHotel,  CostoGasolina, CostoHabitacion, CostoComida,Sumatoria]
+            ),
+    nl, 
+    fail.
+
+analisis_idioma_espanol_lejos_cerca_vehiculon_hdoble(Var_Idioma, Var_Clima,  Var_CantNoches, Var_CantidadComida,Var_CantPersonas):-
+    departamento(Id_depa, NombreDepartamento, CantidadHoras,Var_lenguaje,Clima_dep,Pasaje),
+    hotel(_, NombreHotel, DireccionHotel, _, _, Hdoble, PComida, Id_depa, DistanciaHotel),
+
+    CostoPasaje is (Pasaje * Var_CantPersonas),
+    CostoComida is  (((PComida*Var_CantidadComida)* Var_CantPersonas) * Var_CantNoches),
+    CostoHabitacion is (Hdoble * round(Var_CantPersonas/2)),
+    Sumatoria is ( CostoHabitacion + CostoComida + CostoPasaje),
+
+    Var_lenguaje == Var_Idioma,
+    100 < DistanciaHotel,
+    Var_Clima == Clima_dep,
+    Sumatoria =< 5000,
+    
+    mostrarinferencia_idioma_espanol_lejos_bajo_vehiculon_hdoble(Var_Idioma, NombreHotel,NombreDepartamento, DireccionHotel,  CostoPasaje, CantidadHoras, CostoHabitacion, CostoComida, Sumatoria).
+
+mostrarinferencia_idioma_espanol_lejos_bajo_vehiculon_hdoble(Var_Idioma, NombreHotel,NombreDepartamento, DireccionHotel,  CostoPasaje, CantidadHoras, CostoHabitacion, CostoComida, Sumatoria):-
+    write('-----------------------------------------'),
+    nl, 
+    format('Segun el Idioma ~a, estas pueden ser sus opciones
+            \n Hotel: ~a
+            \n Departamento: ~a
+            \n Direccion: ~a
+            \n Pasaje: ~a
+            \n Cantidad de Horas: ~a
+            \n Habitacion: ~a
+            \n Alimentacion: ~a
+            \n Total de Presupuesto: ~a', [Var_Idioma ,NombreHotel,NombreDepartamento, DireccionHotel,  CostoPasaje, CantidadHoras, CostoHabitacion, CostoComida, Sumatoria]
+            ),
+    nl, 
+    fail.
+
+%-------------------------Espanol-Alto--------------
+%-------------------------Espanol-Alto--------------
+analisis_idioma_espanol_alto(Var_Idioma, Var_Presupuesto):-   write('Como desea la distancia del punto de partida \n1. Cerca (0 - 100km)  \n2. Lejos (> 100Km)'),
+    nl,
+    read(Var_Distancia),
+    nl, 
+    analsis_idioma_espanol_presupuesto_distancia_alto(Var_Idioma, Var_Presupuesto,Var_Distancia),
+    nl.
+    analsis_idioma_espanol_presupuesto_distancia_alto(Var_Idioma, Var_Presupuesto,Var_Distancia):-
+    (
+    Var_Distancia == 1 -> analisis_idioma_espanol_alto_cerca(Var_Idioma);
+    Var_Distancia == 2 -> analisis_idioma_espanol_alto_lejos(Var_Idioma)
+    ).
+
+
+analisis_idioma_espanol_alto_cerca(Var_Idioma):-
+    write('Tipo de habitacion: \n1. Simple \n2. Doble'),
+    nl, 
+    read(Var_TipoHabitacion),
+    nl,
+    write('Cantidad de Noches a quedarse'),
+    nl,
+    read(Var_CantNoches),
+    nl, 
+    write('Vehiculo s/n'),
+    nl,
+    read(Var_Vehiculo),
+    nl, 
+    write('Cantidad de Tiempos de Comida de 0 - 3'),
+    nl, 
+    read(Var_CantidadComida),
+    nl, 
+    write('Numero de Personas'),
+    nl, 
+    read(Var_CantPersonas),
+    nl,
+    write('Clima \n1. Calor \n2. Frio \n3. Tropical \n4. Templado'),
+    nl, 
+    read(Var_Clima),
+    nl,
+    analsis_idioma_espanol_cerca_alto_generales(Var_Idioma, Var_TipoHabitacion, Var_CantNoches, Var_CantNoches, Var_Vehiculo,Var_CantidadComida, Var_CantPersonas,Var_Clima),
+    nl.
+
+analsis_idioma_espanol_cerca_alto_generales(Var_Idioma, Var_TipoHabitacion, Var_CantNoches, Var_CantNoches, Var_Vehiculo,Var_CantidadComida, Var_CantPersonas,Var_Clima):-
+    (
+     %- Habitaciones - Simples 
+    (Var_TipoHabitacion == 1 , Var_Vehiculo == 's')-> analisis_idioma_espanol_cerca_alto_vehiculos_hsimple(Var_Idioma, Var_Clima, Var_CantNoches, Var_CantidadComida,Var_CantPersonas);
+    (Var_TipoHabitacion == 1 , Var_Vehiculo == 'n')-> analisis_idioma_espanol_cerca_alto_vehiculon_hsimple(Var_Idioma, Var_Clima,  Var_CantNoches, Var_CantidadComida,Var_CantPersonas);
+    %- Habitacion - dobles 
+    (Var_TipoHabitacion == 2  , Var_Vehiculo == 's') ->  analisis_idioma_espanol_alto_cerca_vehiculos_hdoble(Var_Idioma, Var_Clima,  Var_CantNoches, Var_CantidadComida,Var_CantPersonas);
+    (Var_TipoHabitacion == 2  , Var_Vehiculo == 'n') ->  analisis_idioma_espanol_alto_cerca_vehiculon_hdoble(Var_Idioma, Var_Clima,  Var_CantNoches, Var_CantidadComida,Var_CantPersonas)
+    ).
+
+%---------------------------Espanol-cerca-alto-simple-----------------
+%---------------------------Espanol-cerca-alto-simple-----------------
+analisis_idioma_espanol_cerca_alto_vehiculos_hsimple(Var_Idioma, Var_Clima, Var_CantNoches, Var_CantidadComida,Var_CantPersonas):-
+   departamento(Id_depa, NombreDepartamento, _,Var_lenguaje,Clima_dep,_),
+    hotel(_, NombreHotel, DireccionHotel, _, HSimple, _, PComida, Id_depa, DistanciaHotel),
+
+    CostoGasolina is ((DistanciaHotel * 5.60)*2),
+    CostoComida is  (((PComida*Var_CantidadComida)* Var_CantPersonas) * Var_CantNoches),
+    CostoHabitacion is (HSimple * Var_CantPersonas) ,
+
+    Sumatoria is (CostoGasolina + CostoHabitacion + CostoComida),
+
+    Var_lenguaje == Var_Idioma,
+    100 >= DistanciaHotel,
+    Var_Clima == Clima_dep,
+    Sumatoria > 5000,
+
+    mostrarinferencia_idioma_espanol_cerca_alto_vehiculos_hsimple(Var_lenguaje, NombreHotel,NombreDepartamento, DireccionHotel,  CostoGasolina, CostoHabitacion, CostoComida, Sumatoria).
+
+mostrarinferencia_idioma_espanol_cerca_alto_vehiculos_hsimple(Var_lenguaje, NombreHotel,NombreDepartamento, DireccionHotel,  CostoGasolina, CostoHabitacion, CostoComida, Sumatoria):-
+    write('-----------------------------------------'),
+    nl, 
+    format('Segun el Idioma ~a, estas pueden ser sus opciones
+            \n Hotel: ~a
+            \n Departamento: ~a
+            \n Direccion: ~a
+            \n Gasolina: ~a
+            \n Habitacion: ~a
+            \n Alimentacion: ~a
+            \n Total de Presupuesto: ~a', [Var_lenguaje, NombreHotel,NombreDepartamento, DireccionHotel,  CostoGasolina, CostoHabitacion, CostoComida,Sumatoria]
+            ),
+    nl, 
+    fail.
+
+
+analisis_idioma_espanol_cerca_alto_vehiculon_hsimple(Var_Idioma, Var_Clima,  Var_CantNoches, Var_CantidadComida,Var_CantPersonas):-
+    departamento(Id_depa, NombreDepartamento, CantidadHoras,Var_lenguaje,Clima_dep,Pasaje),
+    hotel(_, NombreHotel, DireccionHotel, _, HSimple, _, PComida, Id_depa, DistanciaHotel),
+
+    CostoPasaje is (Pasaje * Var_CantPersonas),
+    CostoComida is  (((PComida*Var_CantidadComida)* Var_CantPersonas) * Var_CantNoches),
+    CostoHabitacion is (HSimple * Var_CantPersonas),
+    Sumatoria is ( CostoHabitacion + CostoComida + CostoPasaje),
+
+    Var_lenguaje == Var_Idioma,
+    100 >= DistanciaHotel,
+    Var_Clima == Clima_dep,
+    Sumatoria > 5000,
+
+    mostrarinferencia_idioma_espanol_cerca_alto_vehiculon_hsimple(Var_Idioma, NombreHotel,NombreDepartamento, DireccionHotel,  CostoPasaje, CantidadHoras, CostoHabitacion, CostoComida, Sumatoria).
+
+mostrarinferencia_idioma_espanol_cerca_alto_vehiculon_hsimple(Var_Idioma, NombreHotel,NombreDepartamento, DireccionHotel,  CostoPasaje, CantidadHoras, CostoHabitacion, CostoComida, Sumatoria):-
+    write('-----------------------------------------'),
+    nl, 
+    format('Segun el Idioma ~a, estas pueden ser sus opciones
+            \n Hotel: ~a
+            \n Departamento: ~a
+            \n Direccion: ~a
+            \n Pasaje: ~a
+            \n Cantidad de Horas: ~a
+            \n Habitacion: ~a
+            \n Alimentacion: ~a
+            \n Total de Presupuesto: ~a', [Var_Idioma ,NombreHotel,NombreDepartamento, DireccionHotel,  CostoPasaje, CantidadHoras, CostoHabitacion, CostoComida, Sumatoria]
+            ),
+    nl, 
+    fail.
+
+%---------------------------Espanol-lejos-alto-doble-----------------
+analisis_idioma_espanol_alto_cerca_vehiculos_hdoble(Var_Idioma, Var_Clima,  Var_CantNoches, Var_CantidadComida,Var_CantPersonas):-
+    departamento(Id_depa, NombreDepartamento, _,Var_lenguaje,Clima_dep,_),
+    hotel(_, NombreHotel, DireccionHotel, _, _, Hdoble, PComida, Id_depa, DistanciaHotel),
+
+    CostoGasolina is ((DistanciaHotel * 5.60)*2),
+    CostoComida is  (((PComida*Var_CantidadComida)* Var_CantPersonas) * Var_CantNoches),
+    CostoHabitacion is (Hdoble * round(Var_CantPersonas /2)) ,
+
+    Sumatoria is (CostoGasolina + CostoHabitacion + CostoComida),
+
+    Var_lenguaje == Var_Idioma,
+    100 >= DistanciaHotel,
+    Var_Clima == Clima_dep,
+    Sumatoria > 5000,
+
+  
+
+    mostrarinferencia_idioma_espanol_cerca_alto_vehiculos_hdoble(Var_Idioma, NombreHotel,NombreDepartamento, DireccionHotel,  CostoGasolina, CostoHabitacion, CostoComida, Sumatoria).
+
+mostrarinferencia_idioma_espanol_cerca_alto_vehiculos_hdoble(Var_Idioma, NombreHotel,NombreDepartamento, DireccionHotel,  CostoGasolina, CostoHabitacion, CostoComida, Sumatoria):-
+    write('-----------------------------------------'),
+    nl, 
+    format('Segun el Idioma ~a, estas pueden ser sus opciones
+            \n Hotel: ~a
+            \n Departamento: ~a
+            \n Direccion: ~a
+            \n Gasolina: ~a
+            \n Habitacion: ~a
+            \n Alimentacion: ~a
+            \n Total de Presupuesto: ~a', [Var_Idioma, NombreHotel,NombreDepartamento, DireccionHotel,  CostoGasolina, CostoHabitacion, CostoComida,Sumatoria]
+            ),
+    nl, 
+    fail.
+
+analisis_idioma_espanol_alto_cerca_vehiculon_hdoble(Var_Idioma, Var_Clima,  Var_CantNoches, Var_CantidadComida,Var_CantPersonas):-
+    departamento(Id_depa, NombreDepartamento, CantidadHoras,Var_lenguaje,Clima_dep,Pasaje),
+    hotel(_, NombreHotel, DireccionHotel, _, _, Hdoble, PComida, Id_depa, DistanciaHotel),
+
+    CostoPasaje is (Pasaje * Var_CantPersonas),
+    CostoComida is  (((PComida*Var_CantidadComida)* Var_CantPersonas) * Var_CantNoches),
+    CostoHabitacion is (Hdoble * round(Var_CantPersonas/2)),
+    Sumatoria is ( CostoHabitacion + CostoComida + CostoPasaje),
+
+    Var_lenguaje == Var_Idioma,
+    100 >= DistanciaHotel,
+    Var_Clima == Clima_dep,
+    Sumatoria > 5000,
+    
+    mostrarinferencia_idioma_espanol_cerca_alto_vehiculon_hdoble(Var_Idioma, NombreHotel,NombreDepartamento, DireccionHotel,  CostoPasaje, CantidadHoras, CostoHabitacion, CostoComida, Sumatoria).
+
+mostrarinferencia_idioma_espanol_cerca_alto_vehiculon_hdoble(Var_Idioma, NombreHotel,NombreDepartamento, DireccionHotel,  CostoPasaje, CantidadHoras, CostoHabitacion, CostoComida, Sumatoria):-
+    write('-----------------------------------------'),
+    nl, 
+    format('Segun el Idioma ~a, estas pueden ser sus opciones
+            \n Hotel: ~a
+            \n Departamento: ~a
+            \n Direccion: ~a
+            \n Pasaje: ~a
+            \n Cantidad de Horas: ~a
+            \n Habitacion: ~a
+            \n Alimentacion: ~a
+            \n Total de Presupuesto: ~a', [Var_Idioma ,NombreHotel,NombreDepartamento, DireccionHotel,  CostoPasaje, CantidadHoras, CostoHabitacion, CostoComida, Sumatoria]
+            ),
+    nl, 
+    fail.
+
+
+%------------------------Espanol-lejos-alto-------------------
+%------------------------Espanol-lejos-alto-------------------
+analisis_idioma_espanol_alto_lejos(Var_Idioma):-
+    write('Tipo de habitacion: \n1. Simple \n2. Doble'),
+    nl, 
+    read(Var_TipoHabitacion),
+    nl,
+    write('Cantidad de Noches a quedarse'),
+    nl,
+    read(Var_CantNoches),
+    nl, 
+    write('Vehiculo s/n'),
+    nl,
+    read(Var_Vehiculo),
+    nl, 
+    write('Cantidad de Tiempos de Comida de 0 - 3'),
+    nl, 
+    read(Var_CantidadComida),
+    nl, 
+    write('Numero de Personas'),
+    nl, 
+    read(Var_CantPersonas),
+    nl,
+    write('Clima \n1. Calor \n2. Frio \n3. Tropical \n4. Templado'),
+    nl, 
+    read(Var_Clima),
+    nl,
+    analsis_idioma_espanol_lejos_alto_generales(Var_Idioma, Var_TipoHabitacion, Var_CantNoches, Var_CantNoches, Var_Vehiculo,Var_CantidadComida, Var_CantPersonas,Var_Clima),
+    nl.
+
+analsis_idioma_espanol_lejos_alto_generales(Var_Idioma, Var_TipoHabitacion, Var_CantNoches, Var_CantNoches, Var_Vehiculo,Var_CantidadComida, Var_CantPersonas,Var_Clima):-
+    (
+     %- Habitaciones - Simples 
+    (Var_TipoHabitacion == 1 , Var_Vehiculo == 's')-> analisis_idioma_espanol_lejos_alto_vehiculos_hsimple(Var_Idioma, Var_Clima, Var_CantNoches, Var_CantidadComida,Var_CantPersonas);
+    (Var_TipoHabitacion == 1 , Var_Vehiculo == 'n')-> analisis_idioma_espanol_lejos_alto_vehiculon_hsimple(Var_Idioma, Var_Clima,  Var_CantNoches, Var_CantidadComida,Var_CantPersonas);
+    %- Habitacion - dobles 
+    (Var_TipoHabitacion == 2  , Var_Vehiculo == 's') ->  analisis_idioma_espanol_lejos_alto_vehiculos_hdoble(Var_Idioma, Var_Clima,  Var_CantNoches, Var_CantidadComida,Var_CantPersonas);
+    (Var_TipoHabitacion == 2  , Var_Vehiculo == 'n') ->  analisis_idioma_espanol_lejos_alto_vehiculon_hdoble(Var_Idioma, Var_Clima,  Var_CantNoches, Var_CantidadComida,Var_CantPersonas)
+    ).
+
+%---------------------------Espanol-alto-lejos-simple-----------------
+analisis_idioma_espanol_lejos_alto_vehiculos_hsimple(Var_Idioma, Var_Clima, Var_CantNoches, Var_CantidadComida,Var_CantPersonas):-
+   departamento(Id_depa, NombreDepartamento, _,Var_lenguaje,Clima_dep,_),
+    hotel(_, NombreHotel, DireccionHotel, _, HSimple, _, PComida, Id_depa, DistanciaHotel),
+
+    CostoGasolina is ((DistanciaHotel * 5.60)*2),
+    CostoComida is  (((PComida*Var_CantidadComida)* Var_CantPersonas) * Var_CantNoches),
+    CostoHabitacion is (HSimple * Var_CantPersonas) ,
+
+    Sumatoria is (CostoGasolina + CostoHabitacion + CostoComida),
+
+    Var_lenguaje == Var_Idioma,
+    100 < DistanciaHotel,
+    Var_Clima == Clima_dep,
+    Sumatoria > 5000,
+
+    mostrarinferencia_idioma_espanol_lejos_alto_vehiculos_hsimple(Var_lenguaje, NombreHotel,NombreDepartamento, DireccionHotel,  CostoGasolina, CostoHabitacion, CostoComida, Sumatoria).
+
+mostrarinferencia_idioma_espanol_lejos_alto_vehiculos_hsimple(Var_lenguaje, NombreHotel,NombreDepartamento, DireccionHotel,  CostoGasolina, CostoHabitacion, CostoComida, Sumatoria):-
+    write('-----------------------------------------'),
+    nl, 
+    format('Segun el Idioma ~a, estas pueden ser sus opciones
+            \n Hotel: ~a
+            \n Departamento: ~a
+            \n Direccion: ~a
+            \n Gasolina: ~a
+            \n Habitacion: ~a
+            \n Alimentacion: ~a
+            \n Total de Presupuesto: ~a', [Var_lenguaje, NombreHotel,NombreDepartamento, DireccionHotel,  CostoGasolina, CostoHabitacion, CostoComida,Sumatoria]
+            ),
+    nl, 
+    fail.
+
+
+analisis_idioma_espanol_lejos_alto_vehiculon_hsimple(Var_Idioma, Var_Clima,  Var_CantNoches, Var_CantidadComida,Var_CantPersonas):-
+    departamento(Id_depa, NombreDepartamento, CantidadHoras,Var_lenguaje,Clima_dep,Pasaje),
+    hotel(_, NombreHotel, DireccionHotel, _, HSimple, _, PComida, Id_depa, DistanciaHotel),
+
+    CostoPasaje is (Pasaje * Var_CantPersonas),
+    CostoComida is  (((PComida*Var_CantidadComida)* Var_CantPersonas) * Var_CantNoches),
+    CostoHabitacion is (HSimple * Var_CantPersonas),
+    Sumatoria is ( CostoHabitacion + CostoComida + CostoPasaje),
+
+    Var_lenguaje == Var_Idioma,
+    100 < DistanciaHotel,
+    Var_Clima == Clima_dep,
+    Sumatoria > 5000,
+
+    mostrarinferencia_idioma_espanol_lejos_alto_vehiculon_hsimple(Var_Idioma, NombreHotel,NombreDepartamento, DireccionHotel,  CostoPasaje, CantidadHoras, CostoHabitacion, CostoComida, Sumatoria).
+
+mostrarinferencia_idioma_espanol_lejos_alto_vehiculon_hsimple(Var_Idioma, NombreHotel,NombreDepartamento, DireccionHotel,  CostoPasaje, CantidadHoras, CostoHabitacion, CostoComida, Sumatoria):-
+    write('-----------------------------------------'),
+    nl, 
+    format('Segun el Idioma ~a, estas pueden ser sus opciones
+            \n Hotel: ~a
+            \n Departamento: ~a
+            \n Direccion: ~a
+            \n Pasaje: ~a
+            \n Cantidad de Horas: ~a
+            \n Habitacion: ~a
+            \n Alimentacion: ~a
+            \n Total de Presupuesto: ~a', [Var_Idioma ,NombreHotel,NombreDepartamento, DireccionHotel,  CostoPasaje, CantidadHoras, CostoHabitacion, CostoComida, Sumatoria]
+            ),
+    nl, 
+    fail.
+
+%---------------------------Espanol-alto-alto-doble-----------------
+analisis_idioma_espanol_lejos_alto_vehiculos_hdoble(Var_Idioma, Var_Clima,  Var_CantNoches, Var_CantidadComida,Var_CantPersonas):-
+    departamento(Id_depa, NombreDepartamento, _,Var_lenguaje,Clima_dep,_),
+    hotel(_, NombreHotel, DireccionHotel, _, _, Hdoble, PComida, Id_depa, DistanciaHotel),
+
+    CostoGasolina is ((DistanciaHotel * 5.60)*2),
+    CostoComida is  (((PComida*Var_CantidadComida)* Var_CantPersonas) * Var_CantNoches),
+    CostoHabitacion is (Hdoble * round(Var_CantPersonas /2)) ,
+
+    Sumatoria is (CostoGasolina + CostoHabitacion + CostoComida),
+
+    Var_lenguaje == Var_Idioma,
+    100 < DistanciaHotel,
+    Var_Clima == Clima_dep,
+    Sumatoria > 5000,
+
+  
+
+    mostrarinferencia_idioma_espanol_lejos_alto_vehiculos_hdoble(Var_Idioma, NombreHotel,NombreDepartamento, DireccionHotel,  CostoGasolina, CostoHabitacion, CostoComida, Sumatoria).
+
+mostrarinferencia_idioma_espanol_lejos_alto_vehiculos_hdoble(Var_Idioma, NombreHotel,NombreDepartamento, DireccionHotel,  CostoGasolina, CostoHabitacion, CostoComida, Sumatoria):-
+    write('-----------------------------------------'),
+    nl, 
+    format('Segun el Idioma ~a, estas pueden ser sus opciones
+            \n Hotel: ~a
+            \n Departamento: ~a
+            \n Direccion: ~a
+            \n Gasolina: ~a
+            \n Habitacion: ~a
+            \n Alimentacion: ~a
+            \n Total de Presupuesto: ~a', [Var_Idioma, NombreHotel,NombreDepartamento, DireccionHotel,  CostoGasolina, CostoHabitacion, CostoComida,Sumatoria]
+            ),
+    nl, 
+    fail.
+
+analisis_idioma_espanol_lejos_alto_vehiculon_hdoble(Var_Idioma, Var_Clima,  Var_CantNoches, Var_CantidadComida,Var_CantPersonas):-
+    departamento(Id_depa, NombreDepartamento, CantidadHoras,Var_lenguaje,Clima_dep,Pasaje),
+    hotel(_, NombreHotel, DireccionHotel, _, _, Hdoble, PComida, Id_depa, DistanciaHotel),
+
+    CostoPasaje is (Pasaje * Var_CantPersonas),
+    CostoComida is  (((PComida*Var_CantidadComida)* Var_CantPersonas) * Var_CantNoches),
+    CostoHabitacion is (Hdoble * round(Var_CantPersonas/2)),
+    Sumatoria is ( CostoHabitacion + CostoComida + CostoPasaje),
+
+    Var_lenguaje == Var_Idioma,
+    100 < DistanciaHotel,
+    Var_Clima == Clima_dep,
+    Sumatoria > 5000,
+    
+    mostrarinferencia_idioma_espanol_lejos_alto_vehiculon_hdoble(Var_Idioma, NombreHotel,NombreDepartamento, DireccionHotel,  CostoPasaje, CantidadHoras, CostoHabitacion, CostoComida, Sumatoria).
+
+mostrarinferencia_idioma_espanol_lejos_alto_vehiculon_hdoble(Var_Idioma, NombreHotel,NombreDepartamento, DireccionHotel,  CostoPasaje, CantidadHoras, CostoHabitacion, CostoComida, Sumatoria):-
+    write('-----------------------------------------'),
+    nl, 
+    format('Segun el Idioma ~a, estas pueden ser sus opciones
+            \n Hotel: ~a
+            \n Departamento: ~a
+            \n Direccion: ~a
+            \n Pasaje: ~a
+            \n Cantidad de Horas: ~a
+            \n Habitacion: ~a
+            \n Alimentacion: ~a
+            \n Total de Presupuesto: ~a', [Var_Idioma ,NombreHotel,NombreDepartamento, DireccionHotel,  CostoPasaje, CantidadHoras, CostoHabitacion, CostoComida, Sumatoria]
+            ),
+    nl, 
+    fail.
+
+
+%-----------------------------------------------------------------INGLES-----------------------
+%-----------------------------------------------------------------INGLES-----------------------
+%-----------------------------------------------------------------INGLES-----------------------
+analisis_ingles(Var_Idioma):- write('Conteste las siguientes preguntas sobre presupuesto'),
+    nl,
+    write('Cual es su presupuesto? \n1. Bajo (Q. 0 - 5000) \n2. Alto (>Q.5000)'),
+    nl, 
+    read(Var_Presupuesto),
+    nl,
+    analsis_idioma_ingles_presupuesto(Var_Idioma, Var_Presupuesto),
+    nl.
+
+analsis_idioma_ingles_presupuesto(Var_Idioma, Var_Presupuesto):-
+    (
+        Var_Presupuesto == 1 -> analisis_idioma_ingles_bajo(Var_Idioma, Var_Presupuesto);
+        Var_Presupuesto == 2 -> analisis_idioma_ingles_alto(Var_Idioma, Var_Presupuesto)
+    ). 
+
+analisis_idioma_ingles_bajo(Var_Idioma, Var_Presupuesto):-
+    write('Como desea la distancia del punto de partida \n1. Cerca (0 - 100km)  \n2. Lejos (> 100Km)'),
+    nl,
+    read(Var_Distancia),
+    nl, 
+    analsis_idioma_ingles_presupuesto_distancia(Var_Idioma, Var_Presupuesto,Var_Distancia),
+    nl.
+    
+analsis_idioma_ingles_presupuesto_distancia(Var_Idioma, Var_Presupuesto,Var_Distancia):-
+    (
+    Var_Distancia == 1 -> analisis_idioma_ingles_bajo_cerca(Var_Idioma);
+    Var_Distancia == 2 -> analisis_idioma_ingles_bajo_lejos(Var_Idioma)
+    ).
+
+
+analisis_idioma_ingles_bajo_cerca(Var_Idioma):-
+    write('Tipo de habitacion: \n1. Simple \n2. Doble'),
+    nl, 
+    read(Var_TipoHabitacion),
+    nl,
+    write('Cantidad de Noches a quedarse'),
+    nl,
+    read(Var_CantNoches),
+    nl, 
+    write('Vehiculo s/n'),
+    nl,
+    read(Var_Vehiculo),
+    nl, 
+    write('Cantidad de Tiempos de Comida de 0 - 3'),
+    nl, 
+    read(Var_CantidadComida),
+    nl, 
+    write('Numero de Personas'),
+    nl, 
+    read(Var_CantPersonas),
+    nl,
+    write('Clima \n1. Calor \n2. Frio \n3. Tropical \n4. Templado'),
+    nl, 
+    read(Var_Clima),
+    nl,
+    analsis_idioma_ingles_cerca_bajo_generales(Var_Idioma, Var_TipoHabitacion, Var_CantNoches, Var_CantNoches, Var_Vehiculo,Var_CantidadComida, Var_CantPersonas,Var_Clima),
+    nl.
+
+analsis_idioma_ingles_cerca_bajo_generales(Var_Idioma, Var_TipoHabitacion, Var_CantNoches, Var_CantNoches, Var_Vehiculo,Var_CantidadComida, Var_CantPersonas,Var_Clima):-
+    (
+     %- Habitaciones - Simples 
+    (Var_TipoHabitacion == 1 , Var_Vehiculo == 's')-> analisis_idioma_ingles_cerca_bajo_vehiculos_hsimple(Var_Idioma, Var_Clima, Var_CantNoches, Var_CantidadComida,Var_CantPersonas);
+    (Var_TipoHabitacion == 1 , Var_Vehiculo == 'n')-> analisis_idioma_ingles_cerca_bajo_vehiculon_hsimple(Var_Idioma, Var_Clima,  Var_CantNoches, Var_CantidadComida,Var_CantPersonas);
+    %- Habitacion - dobles 
+    (Var_TipoHabitacion == 2  , Var_Vehiculo == 's') ->  analisis_idioma_ingles_bajo_cerca_vehiculos_hdoble(Var_Idioma, Var_Clima,  Var_CantNoches, Var_CantidadComida,Var_CantPersonas);
+    (Var_TipoHabitacion == 2  , Var_Vehiculo == 'n') ->  analisis_idioma_ingles_bajo_cerca_vehiculon_hdoble(Var_Idioma, Var_Clima,  Var_CantNoches, Var_CantidadComida,Var_CantPersonas)
+    ).
+
+%---------------------------ingles-cerca-bajo-simple-----------------
+%---------------------------ingles-cerca-bajo-simple-----------------
+analisis_idioma_ingles_cerca_bajo_vehiculos_hsimple(Var_Idioma, Var_Clima, Var_CantNoches, Var_CantidadComida,Var_CantPersonas):-
+   departamento(Id_depa, NombreDepartamento, _,Var_lenguaje,Clima_dep,_),
+    hotel(_, NombreHotel, DireccionHotel, _, HSimple, _, PComida, Id_depa, DistanciaHotel),
+
+    CostoGasolina is ((DistanciaHotel * 5.60)*2),
+    CostoComida is  (((PComida*Var_CantidadComida)* Var_CantPersonas) * Var_CantNoches),
+    CostoHabitacion is (HSimple * Var_CantPersonas) ,
+
+    Sumatoria is (CostoGasolina + CostoHabitacion + CostoComida),
+
+    Var_lenguaje == Var_Idioma,
+    100 >= DistanciaHotel,
+    Var_Clima == Clima_dep,
+    Sumatoria =< 5000,
+
+    mostrarinferencia_idioma_ingles_cerca_bajo_vehiculos_hsimple(Var_lenguaje, NombreHotel,NombreDepartamento, DireccionHotel,  CostoGasolina, CostoHabitacion, CostoComida, Sumatoria).
+
+mostrarinferencia_idioma_ingles_cerca_bajo_vehiculos_hsimple(Var_lenguaje, NombreHotel,NombreDepartamento, DireccionHotel,  CostoGasolina, CostoHabitacion, CostoComida, Sumatoria):-
+    write('-----------------------------------------'),
+    nl, 
+    format('Segun el Idioma ~a, estas pueden ser sus opciones
+            \n Hotel: ~a
+            \n Departamento: ~a
+            \n Direccion: ~a
+            \n Gasolina: ~a
+            \n Habitacion: ~a
+            \n Alimentacion: ~a
+            \n Total de Presupuesto: ~a', [Var_lenguaje, NombreHotel,NombreDepartamento, DireccionHotel,  CostoGasolina, CostoHabitacion, CostoComida,Sumatoria]
+            ),
+    nl, 
+    fail.
+
+
+analisis_idioma_ingles_cerca_bajo_vehiculon_hsimple(Var_Idioma, Var_Clima,  Var_CantNoches, Var_CantidadComida,Var_CantPersonas):-
+    departamento(Id_depa, NombreDepartamento, CantidadHoras,Var_lenguaje,Clima_dep,Pasaje),
+    hotel(_, NombreHotel, DireccionHotel, _, HSimple, _, PComida, Id_depa, DistanciaHotel),
+
+    CostoPasaje is (Pasaje * Var_CantPersonas),
+    CostoComida is  (((PComida*Var_CantidadComida)* Var_CantPersonas) * Var_CantNoches),
+    CostoHabitacion is (HSimple * Var_CantPersonas),
+    Sumatoria is ( CostoHabitacion + CostoComida + CostoPasaje),
+
+    Var_lenguaje == Var_Idioma,
+    100 >= DistanciaHotel,
+    Var_Clima == Clima_dep,
+    Sumatoria =< 5000,
+
+    mostrarinferencia_idioma_ingles_cerca_bajo_vehiculon_hsimple(Var_Idioma, NombreHotel,NombreDepartamento, DireccionHotel,  CostoPasaje, CantidadHoras, CostoHabitacion, CostoComida, Sumatoria).
+
+mostrarinferencia_idioma_ingles_cerca_bajo_vehiculon_hsimple(Var_Idioma, NombreHotel,NombreDepartamento, DireccionHotel,  CostoPasaje, CantidadHoras, CostoHabitacion, CostoComida, Sumatoria):-
+    write('-----------------------------------------'),
+    nl, 
+    format('Segun el Idioma ~a, estas pueden ser sus opciones
+            \n Hotel: ~a
+            \n Departamento: ~a
+            \n Direccion: ~a
+            \n Pasaje: ~a
+            \n Cantidad de Horas: ~a
+            \n Habitacion: ~a
+            \n Alimentacion: ~a
+            \n Total de Presupuesto: ~a', [Var_Idioma ,NombreHotel,NombreDepartamento, DireccionHotel,  CostoPasaje, CantidadHoras, CostoHabitacion, CostoComida, Sumatoria]
+            ),
+    nl, 
+    fail.
+
+%---------------------------ingles-cerca-bajo-doble-----------------
+analisis_idioma_ingles_bajo_cerca_vehiculos_hdoble(Var_Idioma, Var_Clima,  Var_CantNoches, Var_CantidadComida,Var_CantPersonas):-
+    departamento(Id_depa, NombreDepartamento, _,Var_lenguaje,Clima_dep,_),
+    hotel(_, NombreHotel, DireccionHotel, _, _, Hdoble, PComida, Id_depa, DistanciaHotel),
+
+    CostoGasolina is ((DistanciaHotel * 5.60)*2),
+    CostoComida is  (((PComida*Var_CantidadComida)* Var_CantPersonas) * Var_CantNoches),
+    CostoHabitacion is (Hdoble * round(Var_CantPersonas /2)) ,
+
+    Sumatoria is (CostoGasolina + CostoHabitacion + CostoComida),
+
+    Var_lenguaje == Var_Idioma,
+    100 >= DistanciaHotel,
+    Var_Clima == Clima_dep,
+    Sumatoria =< 5000,
+
+  
+
+    mostrarinferencia_idioma_ingles_cerca_bajo_vehiculos_hdoble(Var_Idioma, NombreHotel,NombreDepartamento, DireccionHotel,  CostoGasolina, CostoHabitacion, CostoComida, Sumatoria).
+
+mostrarinferencia_idioma_ingles_cerca_bajo_vehiculos_hdoble(Var_Idioma, NombreHotel,NombreDepartamento, DireccionHotel,  CostoGasolina, CostoHabitacion, CostoComida, Sumatoria):-
+    write('-----------------------------------------'),
+    nl, 
+    format('Segun el Idioma ~a, estas pueden ser sus opciones
+            \n Hotel: ~a
+            \n Departamento: ~a
+            \n Direccion: ~a
+            \n Gasolina: ~a
+            \n Habitacion: ~a
+            \n Alimentacion: ~a
+            \n Total de Presupuesto: ~a', [Var_Idioma, NombreHotel,NombreDepartamento, DireccionHotel,  CostoGasolina, CostoHabitacion, CostoComida,Sumatoria]
+            ),
+    nl, 
+    fail.
+
+analisis_idioma_ingles_bajo_cerca_vehiculon_hdoble(Var_Idioma, Var_Clima,  Var_CantNoches, Var_CantidadComida,Var_CantPersonas):-
+    departamento(Id_depa, NombreDepartamento, CantidadHoras,Var_lenguaje,Clima_dep,Pasaje),
+    hotel(_, NombreHotel, DireccionHotel, _, _, Hdoble, PComida, Id_depa, DistanciaHotel),
+
+    CostoPasaje is (Pasaje * Var_CantPersonas),
+    CostoComida is  (((PComida*Var_CantidadComida)* Var_CantPersonas) * Var_CantNoches),
+    CostoHabitacion is (Hdoble * round(Var_CantPersonas/2)),
+    Sumatoria is ( CostoHabitacion + CostoComida + CostoPasaje),
+
+    Var_lenguaje == Var_Idioma,
+    100 >= DistanciaHotel,
+    Var_Clima == Clima_dep,
+    Sumatoria =< 5000,
+    
+    mostrarinferencia_idioma_ingles_cerca_bajo_vehiculon_hdoble(Var_Idioma, NombreHotel,NombreDepartamento, DireccionHotel,  CostoPasaje, CantidadHoras, CostoHabitacion, CostoComida, Sumatoria).
+
+mostrarinferencia_idioma_ingles_cerca_bajo_vehiculon_hdoble(Var_Idioma, NombreHotel,NombreDepartamento, DireccionHotel,  CostoPasaje, CantidadHoras, CostoHabitacion, CostoComida, Sumatoria):-
+    write('-----------------------------------------'),
+    nl, 
+    format('Segun el Idioma ~a, estas pueden ser sus opciones
+            \n Hotel: ~a
+            \n Departamento: ~a
+            \n Direccion: ~a
+            \n Pasaje: ~a
+            \n Cantidad de Horas: ~a
+            \n Habitacion: ~a
+            \n Alimentacion: ~a
+            \n Total de Presupuesto: ~a', [Var_Idioma ,NombreHotel,NombreDepartamento, DireccionHotel,  CostoPasaje, CantidadHoras, CostoHabitacion, CostoComida, Sumatoria]
+            ),
+    nl, 
+    fail.
+
+
+
+%------------------------ingles-lejos-bajo-------------------
+%------------------------ingles-lejos-bajo-------------------
+analisis_idioma_ingles_bajo_lejos(Var_Idioma):-
+    write('Tipo de habitacion: \n1. Simple \n2. Doble'),
+    nl, 
+    read(Var_TipoHabitacion),
+    nl,
+    write('Cantidad de Noches a quedarse'),
+    nl,
+    read(Var_CantNoches),
+    nl, 
+    write('Vehiculo s/n'),
+    nl,
+    read(Var_Vehiculo),
+    nl, 
+    write('Cantidad de Tiempos de Comida de 0 - 3'),
+    nl, 
+    read(Var_CantidadComida),
+    nl, 
+    write('Numero de Personas'),
+    nl, 
+    read(Var_CantPersonas),
+    nl,
+    write('Clima \n1. Calor \n2. Frio \n3. Tropical \n4. Templado'),
+    nl, 
+    read(Var_Clima),
+    nl,
+    analsis_idioma_ingles_lejos_bajo_generales(Var_Idioma, Var_TipoHabitacion, Var_CantNoches, Var_CantNoches, Var_Vehiculo,Var_CantidadComida, Var_CantPersonas,Var_Clima),
+    nl.
+
+analsis_idioma_ingles_lejos_bajo_generales(Var_Idioma, Var_TipoHabitacion, Var_CantNoches, Var_CantNoches, Var_Vehiculo,Var_CantidadComida, Var_CantPersonas,Var_Clima):-
+    (
+     %- Habitaciones - Simples 
+    (Var_TipoHabitacion == 1 , Var_Vehiculo == 's')-> analisis_idioma_ingles_lejos_bajo_vehiculos_hsimple(Var_Idioma, Var_Clima, Var_CantNoches, Var_CantidadComida,Var_CantPersonas);
+    (Var_TipoHabitacion == 1 , Var_Vehiculo == 'n')-> analisis_idioma_ingles_lejos_bajo_vehiculon_hsimple(Var_Idioma, Var_Clima,  Var_CantNoches, Var_CantidadComida,Var_CantPersonas);
+    %- Habitacion - dobles 
+    (Var_TipoHabitacion == 2  , Var_Vehiculo == 's') ->  analisis_idioma_ingles_lejos_cerca_vehiculos_hdoble(Var_Idioma, Var_Clima,  Var_CantNoches, Var_CantidadComida,Var_CantPersonas);
+    (Var_TipoHabitacion == 2  , Var_Vehiculo == 'n') ->  analisis_idioma_ingles_lejos_cerca_vehiculon_hdoble(Var_Idioma, Var_Clima,  Var_CantNoches, Var_CantidadComida,Var_CantPersonas)
+    ).
+
+%---------------------------ingles-cerca-lejos-simple-----------------
+analisis_idioma_ingles_lejos_bajo_vehiculos_hsimple(Var_Idioma, Var_Clima, Var_CantNoches, Var_CantidadComida,Var_CantPersonas):-
+   departamento(Id_depa, NombreDepartamento, _,Var_lenguaje,Clima_dep,_),
+    hotel(_, NombreHotel, DireccionHotel, _, HSimple, _, PComida, Id_depa, DistanciaHotel),
+
+    CostoGasolina is ((DistanciaHotel * 5.60)*2),
+    CostoComida is  (((PComida*Var_CantidadComida)* Var_CantPersonas) * Var_CantNoches),
+    CostoHabitacion is (HSimple * Var_CantPersonas) ,
+
+    Sumatoria is (CostoGasolina + CostoHabitacion + CostoComida),
+
+    Var_lenguaje == Var_Idioma,
+    100 < DistanciaHotel,
+    Var_Clima == Clima_dep,
+    Sumatoria =< 5000,
+
+    mostrarinferencia_idioma_ingles_lejos_bajo_vehiculos_hsimple(Var_lenguaje, NombreHotel,NombreDepartamento, DireccionHotel,  CostoGasolina, CostoHabitacion, CostoComida, Sumatoria).
+
+mostrarinferencia_idioma_ingles_lejos_bajo_vehiculos_hsimple(Var_lenguaje, NombreHotel,NombreDepartamento, DireccionHotel,  CostoGasolina, CostoHabitacion, CostoComida, Sumatoria):-
+    write('-----------------------------------------'),
+    nl, 
+    format('Segun el Idioma ~a, estas pueden ser sus opciones
+            \n Hotel: ~a
+            \n Departamento: ~a
+            \n Direccion: ~a
+            \n Gasolina: ~a
+            \n Habitacion: ~a
+            \n Alimentacion: ~a
+            \n Total de Presupuesto: ~a', [Var_lenguaje, NombreHotel,NombreDepartamento, DireccionHotel,  CostoGasolina, CostoHabitacion, CostoComida,Sumatoria]
+            ),
+    nl, 
+    fail.
+
+
+analisis_idioma_ingles_lejos_bajo_vehiculon_hsimple(Var_Idioma, Var_Clima,  Var_CantNoches, Var_CantidadComida,Var_CantPersonas):-
+    departamento(Id_depa, NombreDepartamento, CantidadHoras,Var_lenguaje,Clima_dep,Pasaje),
+    hotel(_, NombreHotel, DireccionHotel, _, HSimple, _, PComida, Id_depa, DistanciaHotel),
+
+    CostoPasaje is (Pasaje * Var_CantPersonas),
+    CostoComida is  (((PComida*Var_CantidadComida)* Var_CantPersonas) * Var_CantNoches),
+    CostoHabitacion is (HSimple * Var_CantPersonas),
+    Sumatoria is ( CostoHabitacion + CostoComida + CostoPasaje),
+
+    Var_lenguaje == Var_Idioma,
+    100 < DistanciaHotel,
+    Var_Clima == Clima_dep,
+    Sumatoria =< 5000,
+
+    mostrarinferencia_idioma_ingles_lejos_bajo_vehiculon_hsimple(Var_Idioma, NombreHotel,NombreDepartamento, DireccionHotel,  CostoPasaje, CantidadHoras, CostoHabitacion, CostoComida, Sumatoria).
+
+mostrarinferencia_idioma_ingles_lejos_bajo_vehiculon_hsimple(Var_Idioma, NombreHotel,NombreDepartamento, DireccionHotel,  CostoPasaje, CantidadHoras, CostoHabitacion, CostoComida, Sumatoria):-
+    write('-----------------------------------------'),
+    nl, 
+    format('Segun el Idioma ~a, estas pueden ser sus opciones
+            \n Hotel: ~a
+            \n Departamento: ~a
+            \n Direccion: ~a
+            \n Pasaje: ~a
+            \n Cantidad de Horas: ~a
+            \n Habitacion: ~a
+            \n Alimentacion: ~a
+            \n Total de Presupuesto: ~a', [Var_Idioma ,NombreHotel,NombreDepartamento, DireccionHotel,  CostoPasaje, CantidadHoras, CostoHabitacion, CostoComida, Sumatoria]
+            ),
+    nl, 
+    fail.
+
+%---------------------------ingles-cerca-bajo-doble-----------------
+analisis_idioma_ingles_lejos_cerca_vehiculos_hdoble(Var_Idioma, Var_Clima,  Var_CantNoches, Var_CantidadComida,Var_CantPersonas):-
+    departamento(Id_depa, NombreDepartamento, _,Var_lenguaje,Clima_dep,_),
+    hotel(_, NombreHotel, DireccionHotel, _, _, Hdoble, PComida, Id_depa, DistanciaHotel),
+
+    CostoGasolina is ((DistanciaHotel * 5.60)*2),
+    CostoComida is  (((PComida*Var_CantidadComida)* Var_CantPersonas) * Var_CantNoches),
+    CostoHabitacion is (Hdoble * round(Var_CantPersonas /2)) ,
+
+    Sumatoria is (CostoGasolina + CostoHabitacion + CostoComida),
+
+    Var_lenguaje == Var_Idioma,
+    100 < DistanciaHotel,
+    Var_Clima == Clima_dep,
+    Sumatoria =< 5000,
+
+  
+
+    mostrarinferencia_idioma_ingles_lejos_bajo_vehiculos_hdoble(Var_Idioma, NombreHotel,NombreDepartamento, DireccionHotel,  CostoGasolina, CostoHabitacion, CostoComida, Sumatoria).
+
+mostrarinferencia_idioma_ingles_lejos_bajo_vehiculos_hdoble(Var_Idioma, NombreHotel,NombreDepartamento, DireccionHotel,  CostoGasolina, CostoHabitacion, CostoComida, Sumatoria):-
+    write('-----------------------------------------'),
+    nl, 
+    format('Segun el Idioma ~a, estas pueden ser sus opciones
+            \n Hotel: ~a
+            \n Departamento: ~a
+            \n Direccion: ~a
+            \n Gasolina: ~a
+            \n Habitacion: ~a
+            \n Alimentacion: ~a
+            \n Total de Presupuesto: ~a', [Var_Idioma, NombreHotel,NombreDepartamento, DireccionHotel,  CostoGasolina, CostoHabitacion, CostoComida,Sumatoria]
+            ),
+    nl, 
+    fail.
+
+analisis_idioma_ingles_lejos_cerca_vehiculon_hdoble(Var_Idioma, Var_Clima,  Var_CantNoches, Var_CantidadComida,Var_CantPersonas):-
+    departamento(Id_depa, NombreDepartamento, CantidadHoras,Var_lenguaje,Clima_dep,Pasaje),
+    hotel(_, NombreHotel, DireccionHotel, _, _, Hdoble, PComida, Id_depa, DistanciaHotel),
+
+    CostoPasaje is (Pasaje * Var_CantPersonas),
+    CostoComida is  (((PComida*Var_CantidadComida)* Var_CantPersonas) * Var_CantNoches),
+    CostoHabitacion is (Hdoble * round(Var_CantPersonas/2)),
+    Sumatoria is ( CostoHabitacion + CostoComida + CostoPasaje),
+
+    Var_lenguaje == Var_Idioma,
+    100 < DistanciaHotel,
+    Var_Clima == Clima_dep,
+    Sumatoria =< 5000,
+    
+    mostrarinferencia_idioma_ingles_lejos_bajo_vehiculon_hdoble(Var_Idioma, NombreHotel,NombreDepartamento, DireccionHotel,  CostoPasaje, CantidadHoras, CostoHabitacion, CostoComida, Sumatoria).
+
+mostrarinferencia_idioma_ingles_lejos_bajo_vehiculon_hdoble(Var_Idioma, NombreHotel,NombreDepartamento, DireccionHotel,  CostoPasaje, CantidadHoras, CostoHabitacion, CostoComida, Sumatoria):-
+    write('-----------------------------------------'),
+    nl, 
+    format('Segun el Idioma ~a, estas pueden ser sus opciones
+            \n Hotel: ~a
+            \n Departamento: ~a
+            \n Direccion: ~a
+            \n Pasaje: ~a
+            \n Cantidad de Horas: ~a
+            \n Habitacion: ~a
+            \n Alimentacion: ~a
+            \n Total de Presupuesto: ~a', [Var_Idioma ,NombreHotel,NombreDepartamento, DireccionHotel,  CostoPasaje, CantidadHoras, CostoHabitacion, CostoComida, Sumatoria]
+            ),
+    nl, 
+    fail.
+
+%-------------------------ingles-Alto--------------
+%-------------------------ingles-Alto--------------
+analisis_idioma_ingles_alto(Var_Idioma, Var_Presupuesto):-   write('Como desea la distancia del punto de partida \n1. Cerca (0 - 100km)  \n2. Lejos (> 100Km)'),
+    nl,
+    read(Var_Distancia),
+    nl, 
+    analsis_idioma_ingles_presupuesto_distancia_alto(Var_Idioma, Var_Presupuesto,Var_Distancia),
+    nl.
+    analsis_idioma_ingles_presupuesto_distancia_alto(Var_Idioma, Var_Presupuesto,Var_Distancia):-
+    (
+    Var_Distancia == 1 -> analisis_idioma_ingles_alto_cerca(Var_Idioma);
+    Var_Distancia == 2 -> analisis_idioma_ingles_alto_lejos(Var_Idioma)
+    ).
+
+
+analisis_idioma_ingles_alto_cerca(Var_Idioma):-
+    write('Tipo de habitacion: \n1. Simple \n2. Doble'),
+    nl, 
+    read(Var_TipoHabitacion),
+    nl,
+    write('Cantidad de Noches a quedarse'),
+    nl,
+    read(Var_CantNoches),
+    nl, 
+    write('Vehiculo s/n'),
+    nl,
+    read(Var_Vehiculo),
+    nl, 
+    write('Cantidad de Tiempos de Comida de 0 - 3'),
+    nl, 
+    read(Var_CantidadComida),
+    nl, 
+    write('Numero de Personas'),
+    nl, 
+    read(Var_CantPersonas),
+    nl,
+    write('Clima \n1. Calor \n2. Frio \n3. Tropical \n4. Templado'),
+    nl, 
+    read(Var_Clima),
+    nl,
+    analsis_idioma_ingles_cerca_alto_generales(Var_Idioma, Var_TipoHabitacion, Var_CantNoches, Var_CantNoches, Var_Vehiculo,Var_CantidadComida, Var_CantPersonas,Var_Clima),
+    nl.
+
+analsis_idioma_ingles_cerca_alto_generales(Var_Idioma, Var_TipoHabitacion, Var_CantNoches, Var_CantNoches, Var_Vehiculo,Var_CantidadComida, Var_CantPersonas,Var_Clima):-
+    (
+     %- Habitaciones - Simples 
+    (Var_TipoHabitacion == 1 , Var_Vehiculo == 's')-> analisis_idioma_ingles_cerca_alto_vehiculos_hsimple(Var_Idioma, Var_Clima, Var_CantNoches, Var_CantidadComida,Var_CantPersonas);
+    (Var_TipoHabitacion == 1 , Var_Vehiculo == 'n')-> analisis_idioma_ingles_cerca_alto_vehiculon_hsimple(Var_Idioma, Var_Clima,  Var_CantNoches, Var_CantidadComida,Var_CantPersonas);
+    %- Habitacion - dobles 
+    (Var_TipoHabitacion == 2  , Var_Vehiculo == 's') ->  analisis_idioma_ingles_alto_cerca_vehiculos_hdoble(Var_Idioma, Var_Clima,  Var_CantNoches, Var_CantidadComida,Var_CantPersonas);
+    (Var_TipoHabitacion == 2  , Var_Vehiculo == 'n') ->  analisis_idioma_ingles_alto_cerca_vehiculon_hdoble(Var_Idioma, Var_Clima,  Var_CantNoches, Var_CantidadComida,Var_CantPersonas)
+    ).
+
+%---------------------------ingles-cerca-alto-simple-----------------
+%---------------------------ingles-cerca-alto-simple-----------------
+analisis_idioma_ingles_cerca_alto_vehiculos_hsimple(Var_Idioma, Var_Clima, Var_CantNoches, Var_CantidadComida,Var_CantPersonas):-
+   departamento(Id_depa, NombreDepartamento, _,Var_lenguaje,Clima_dep,_),
+    hotel(_, NombreHotel, DireccionHotel, _, HSimple, _, PComida, Id_depa, DistanciaHotel),
+
+    CostoGasolina is ((DistanciaHotel * 5.60)*2),
+    CostoComida is  (((PComida*Var_CantidadComida)* Var_CantPersonas) * Var_CantNoches),
+    CostoHabitacion is (HSimple * Var_CantPersonas) ,
+
+    Sumatoria is (CostoGasolina + CostoHabitacion + CostoComida),
+
+    Var_lenguaje == Var_Idioma,
+    100 >= DistanciaHotel,
+    Var_Clima == Clima_dep,
+    Sumatoria > 5000,
+
+    mostrarinferencia_idioma_ingles_cerca_alto_vehiculos_hsimple(Var_lenguaje, NombreHotel,NombreDepartamento, DireccionHotel,  CostoGasolina, CostoHabitacion, CostoComida, Sumatoria).
+
+mostrarinferencia_idioma_ingles_cerca_alto_vehiculos_hsimple(Var_lenguaje, NombreHotel,NombreDepartamento, DireccionHotel,  CostoGasolina, CostoHabitacion, CostoComida, Sumatoria):-
+    write('-----------------------------------------'),
+    nl, 
+    format('Segun el Idioma ~a, estas pueden ser sus opciones
+            \n Hotel: ~a
+            \n Departamento: ~a
+            \n Direccion: ~a
+            \n Gasolina: ~a
+            \n Habitacion: ~a
+            \n Alimentacion: ~a
+            \n Total de Presupuesto: ~a', [Var_lenguaje, NombreHotel,NombreDepartamento, DireccionHotel,  CostoGasolina, CostoHabitacion, CostoComida,Sumatoria]
+            ),
+    nl, 
+    fail.
+
+
+analisis_idioma_ingles_cerca_alto_vehiculon_hsimple(Var_Idioma, Var_Clima,  Var_CantNoches, Var_CantidadComida,Var_CantPersonas):-
+    departamento(Id_depa, NombreDepartamento, CantidadHoras,Var_lenguaje,Clima_dep,Pasaje),
+    hotel(_, NombreHotel, DireccionHotel, _, HSimple, _, PComida, Id_depa, DistanciaHotel),
+
+    CostoPasaje is (Pasaje * Var_CantPersonas),
+    CostoComida is  (((PComida*Var_CantidadComida)* Var_CantPersonas) * Var_CantNoches),
+    CostoHabitacion is (HSimple * Var_CantPersonas),
+    Sumatoria is ( CostoHabitacion + CostoComida + CostoPasaje),
+
+    Var_lenguaje == Var_Idioma,
+    100 >= DistanciaHotel,
+    Var_Clima == Clima_dep,
+    Sumatoria > 5000,
+
+    mostrarinferencia_idioma_ingles_cerca_alto_vehiculon_hsimple(Var_Idioma, NombreHotel,NombreDepartamento, DireccionHotel,  CostoPasaje, CantidadHoras, CostoHabitacion, CostoComida, Sumatoria).
+
+mostrarinferencia_idioma_ingles_cerca_alto_vehiculon_hsimple(Var_Idioma, NombreHotel,NombreDepartamento, DireccionHotel,  CostoPasaje, CantidadHoras, CostoHabitacion, CostoComida, Sumatoria):-
+    write('-----------------------------------------'),
+    nl, 
+    format('Segun el Idioma ~a, estas pueden ser sus opciones
+            \n Hotel: ~a
+            \n Departamento: ~a
+            \n Direccion: ~a
+            \n Pasaje: ~a
+            \n Cantidad de Horas: ~a
+            \n Habitacion: ~a
+            \n Alimentacion: ~a
+            \n Total de Presupuesto: ~a', [Var_Idioma ,NombreHotel,NombreDepartamento, DireccionHotel,  CostoPasaje, CantidadHoras, CostoHabitacion, CostoComida, Sumatoria]
+            ),
+    nl, 
+    fail.
+
+%---------------------------ingles-lejos-alto-doble-----------------
+analisis_idioma_ingles_alto_cerca_vehiculos_hdoble(Var_Idioma, Var_Clima,  Var_CantNoches, Var_CantidadComida,Var_CantPersonas):-
+    departamento(Id_depa, NombreDepartamento, _,Var_lenguaje,Clima_dep,_),
+    hotel(_, NombreHotel, DireccionHotel, _, _, Hdoble, PComida, Id_depa, DistanciaHotel),
+
+    CostoGasolina is ((DistanciaHotel * 5.60)*2),
+    CostoComida is  (((PComida*Var_CantidadComida)* Var_CantPersonas) * Var_CantNoches),
+    CostoHabitacion is (Hdoble * round(Var_CantPersonas /2)) ,
+
+    Sumatoria is (CostoGasolina + CostoHabitacion + CostoComida),
+
+    Var_lenguaje == Var_Idioma,
+    100 >= DistanciaHotel,
+    Var_Clima == Clima_dep,
+    Sumatoria > 5000,
+
+  
+
+    mostrarinferencia_idioma_ingles_cerca_alto_vehiculos_hdoble(Var_Idioma, NombreHotel,NombreDepartamento, DireccionHotel,  CostoGasolina, CostoHabitacion, CostoComida, Sumatoria).
+
+mostrarinferencia_idioma_ingles_cerca_alto_vehiculos_hdoble(Var_Idioma, NombreHotel,NombreDepartamento, DireccionHotel,  CostoGasolina, CostoHabitacion, CostoComida, Sumatoria):-
+    write('-----------------------------------------'),
+    nl, 
+    format('Segun el Idioma ~a, estas pueden ser sus opciones
+            \n Hotel: ~a
+            \n Departamento: ~a
+            \n Direccion: ~a
+            \n Gasolina: ~a
+            \n Habitacion: ~a
+            \n Alimentacion: ~a
+            \n Total de Presupuesto: ~a', [Var_Idioma, NombreHotel,NombreDepartamento, DireccionHotel,  CostoGasolina, CostoHabitacion, CostoComida,Sumatoria]
+            ),
+    nl, 
+    fail.
+
+analisis_idioma_ingles_alto_cerca_vehiculon_hdoble(Var_Idioma, Var_Clima,  Var_CantNoches, Var_CantidadComida,Var_CantPersonas):-
+    departamento(Id_depa, NombreDepartamento, CantidadHoras,Var_lenguaje,Clima_dep,Pasaje),
+    hotel(_, NombreHotel, DireccionHotel, _, _, Hdoble, PComida, Id_depa, DistanciaHotel),
+
+    CostoPasaje is (Pasaje * Var_CantPersonas),
+    CostoComida is  (((PComida*Var_CantidadComida)* Var_CantPersonas) * Var_CantNoches),
+    CostoHabitacion is (Hdoble * round(Var_CantPersonas/2)),
+    Sumatoria is ( CostoHabitacion + CostoComida + CostoPasaje),
+
+    Var_lenguaje == Var_Idioma,
+    100 >= DistanciaHotel,
+    Var_Clima == Clima_dep,
+    Sumatoria > 5000,
+    
+    mostrarinferencia_idioma_ingles_cerca_alto_vehiculon_hdoble(Var_Idioma, NombreHotel,NombreDepartamento, DireccionHotel,  CostoPasaje, CantidadHoras, CostoHabitacion, CostoComida, Sumatoria).
+
+mostrarinferencia_idioma_ingles_cerca_alto_vehiculon_hdoble(Var_Idioma, NombreHotel,NombreDepartamento, DireccionHotel,  CostoPasaje, CantidadHoras, CostoHabitacion, CostoComida, Sumatoria):-
+    write('-----------------------------------------'),
+    nl, 
+    format('Segun el Idioma ~a, estas pueden ser sus opciones
+            \n Hotel: ~a
+            \n Departamento: ~a
+            \n Direccion: ~a
+            \n Pasaje: ~a
+            \n Cantidad de Horas: ~a
+            \n Habitacion: ~a
+            \n Alimentacion: ~a
+            \n Total de Presupuesto: ~a', [Var_Idioma ,NombreHotel,NombreDepartamento, DireccionHotel,  CostoPasaje, CantidadHoras, CostoHabitacion, CostoComida, Sumatoria]
+            ),
+    nl, 
+    fail.
+
+
+%------------------------ingles-lejos-alto-------------------
+%------------------------ingles-lejos-alto-------------------
+analisis_idioma_ingles_alto_lejos(Var_Idioma):-
+    write('Tipo de habitacion: \n1. Simple \n2. Doble'),
+    nl, 
+    read(Var_TipoHabitacion),
+    nl,
+    write('Cantidad de Noches a quedarse'),
+    nl,
+    read(Var_CantNoches),
+    nl, 
+    write('Vehiculo s/n'),
+    nl,
+    read(Var_Vehiculo),
+    nl, 
+    write('Cantidad de Tiempos de Comida de 0 - 3'),
+    nl, 
+    read(Var_CantidadComida),
+    nl, 
+    write('Numero de Personas'),
+    nl, 
+    read(Var_CantPersonas),
+    nl,
+    write('Clima \n1. Calor \n2. Frio \n3. Tropical \n4. Templado'),
+    nl, 
+    read(Var_Clima),
+    nl,
+    analsis_idioma_ingles_lejos_alto_generales(Var_Idioma, Var_TipoHabitacion, Var_CantNoches, Var_CantNoches, Var_Vehiculo,Var_CantidadComida, Var_CantPersonas,Var_Clima),
+    nl.
+
+analsis_idioma_ingles_lejos_alto_generales(Var_Idioma, Var_TipoHabitacion, Var_CantNoches, Var_CantNoches, Var_Vehiculo,Var_CantidadComida, Var_CantPersonas,Var_Clima):-
+    (
+     %- Habitaciones - Simples 
+    (Var_TipoHabitacion == 1 , Var_Vehiculo == 's')-> analisis_idioma_ingles_lejos_alto_vehiculos_hsimple(Var_Idioma, Var_Clima, Var_CantNoches, Var_CantidadComida,Var_CantPersonas);
+    (Var_TipoHabitacion == 1 , Var_Vehiculo == 'n')-> analisis_idioma_ingles_lejos_alto_vehiculon_hsimple(Var_Idioma, Var_Clima,  Var_CantNoches, Var_CantidadComida,Var_CantPersonas);
+    %- Habitacion - dobles 
+    (Var_TipoHabitacion == 2  , Var_Vehiculo == 's') ->  analisis_idioma_ingles_lejos_alto_vehiculos_hdoble(Var_Idioma, Var_Clima,  Var_CantNoches, Var_CantidadComida,Var_CantPersonas);
+    (Var_TipoHabitacion == 2  , Var_Vehiculo == 'n') ->  analisis_idioma_ingles_lejos_alto_vehiculon_hdoble(Var_Idioma, Var_Clima,  Var_CantNoches, Var_CantidadComida,Var_CantPersonas)
+    ).
+
+%---------------------------ingles-alto-lejos-simple-----------------
+analisis_idioma_ingles_lejos_alto_vehiculos_hsimple(Var_Idioma, Var_Clima, Var_CantNoches, Var_CantidadComida,Var_CantPersonas):-
+   departamento(Id_depa, NombreDepartamento, _,Var_lenguaje,Clima_dep,_),
+    hotel(_, NombreHotel, DireccionHotel, _, HSimple, _, PComida, Id_depa, DistanciaHotel),
+
+    CostoGasolina is ((DistanciaHotel * 5.60)*2),
+    CostoComida is  (((PComida*Var_CantidadComida)* Var_CantPersonas) * Var_CantNoches),
+    CostoHabitacion is (HSimple * Var_CantPersonas) ,
+
+    Sumatoria is (CostoGasolina + CostoHabitacion + CostoComida),
+
+    Var_lenguaje == Var_Idioma,
+    100 < DistanciaHotel,
+    Var_Clima == Clima_dep,
+    Sumatoria > 5000,
+
+    mostrarinferencia_idioma_ingles_lejos_alto_vehiculos_hsimple(Var_lenguaje, NombreHotel,NombreDepartamento, DireccionHotel,  CostoGasolina, CostoHabitacion, CostoComida, Sumatoria).
+
+mostrarinferencia_idioma_ingles_lejos_alto_vehiculos_hsimple(Var_lenguaje, NombreHotel,NombreDepartamento, DireccionHotel,  CostoGasolina, CostoHabitacion, CostoComida, Sumatoria):-
+    write('-----------------------------------------'),
+    nl, 
+    format('Segun el Idioma ~a, estas pueden ser sus opciones
+            \n Hotel: ~a
+            \n Departamento: ~a
+            \n Direccion: ~a
+            \n Gasolina: ~a
+            \n Habitacion: ~a
+            \n Alimentacion: ~a
+            \n Total de Presupuesto: ~a', [Var_lenguaje, NombreHotel,NombreDepartamento, DireccionHotel,  CostoGasolina, CostoHabitacion, CostoComida,Sumatoria]
+            ),
+    nl, 
+    fail.
+
+
+analisis_idioma_ingles_lejos_alto_vehiculon_hsimple(Var_Idioma, Var_Clima,  Var_CantNoches, Var_CantidadComida,Var_CantPersonas):-
+    departamento(Id_depa, NombreDepartamento, CantidadHoras,Var_lenguaje,Clima_dep,Pasaje),
+    hotel(_, NombreHotel, DireccionHotel, _, HSimple, _, PComida, Id_depa, DistanciaHotel),
+
+    CostoPasaje is (Pasaje * Var_CantPersonas),
+    CostoComida is  (((PComida*Var_CantidadComida)* Var_CantPersonas) * Var_CantNoches),
+    CostoHabitacion is (HSimple * Var_CantPersonas),
+    Sumatoria is ( CostoHabitacion + CostoComida + CostoPasaje),
+
+    Var_lenguaje == Var_Idioma,
+    100 < DistanciaHotel,
+    Var_Clima == Clima_dep,
+    Sumatoria > 5000,
+
+    mostrarinferencia_idioma_ingles_lejos_alto_vehiculon_hsimple(Var_Idioma, NombreHotel,NombreDepartamento, DireccionHotel,  CostoPasaje, CantidadHoras, CostoHabitacion, CostoComida, Sumatoria).
+
+mostrarinferencia_idioma_ingles_lejos_alto_vehiculon_hsimple(Var_Idioma, NombreHotel,NombreDepartamento, DireccionHotel,  CostoPasaje, CantidadHoras, CostoHabitacion, CostoComida, Sumatoria):-
+    write('-----------------------------------------'),
+    nl, 
+    format('Segun el Idioma ~a, estas pueden ser sus opciones
+            \n Hotel: ~a
+            \n Departamento: ~a
+            \n Direccion: ~a
+            \n Pasaje: ~a
+            \n Cantidad de Horas: ~a
+            \n Habitacion: ~a
+            \n Alimentacion: ~a
+            \n Total de Presupuesto: ~a', [Var_Idioma ,NombreHotel,NombreDepartamento, DireccionHotel,  CostoPasaje, CantidadHoras, CostoHabitacion, CostoComida, Sumatoria]
+            ),
+    nl, 
+    fail.
+
+%---------------------------ingles-alto-alto-doble-----------------
+analisis_idioma_ingles_lejos_alto_vehiculos_hdoble(Var_Idioma, Var_Clima,  Var_CantNoches, Var_CantidadComida,Var_CantPersonas):-
+    departamento(Id_depa, NombreDepartamento, _,Var_lenguaje,Clima_dep,_),
+    hotel(_, NombreHotel, DireccionHotel, _, _, Hdoble, PComida, Id_depa, DistanciaHotel),
+
+    CostoGasolina is ((DistanciaHotel * 5.60)*2),
+    CostoComida is  (((PComida*Var_CantidadComida)* Var_CantPersonas) * Var_CantNoches),
+    CostoHabitacion is (Hdoble * round(Var_CantPersonas /2)) ,
+
+    Sumatoria is (CostoGasolina + CostoHabitacion + CostoComida),
+
+    Var_lenguaje == Var_Idioma,
+    100 < DistanciaHotel,
+    Var_Clima == Clima_dep,
+    Sumatoria > 5000,
+
+  
+
+    mostrarinferencia_idioma_ingles_lejos_alto_vehiculos_hdoble(Var_Idioma, NombreHotel,NombreDepartamento, DireccionHotel,  CostoGasolina, CostoHabitacion, CostoComida, Sumatoria).
+
+mostrarinferencia_idioma_ingles_lejos_alto_vehiculos_hdoble(Var_Idioma, NombreHotel,NombreDepartamento, DireccionHotel,  CostoGasolina, CostoHabitacion, CostoComida, Sumatoria):-
+    write('-----------------------------------------'),
+    nl, 
+    format('Segun el Idioma ~a, estas pueden ser sus opciones
+            \n Hotel: ~a
+            \n Departamento: ~a
+            \n Direccion: ~a
+            \n Gasolina: ~a
+            \n Habitacion: ~a
+            \n Alimentacion: ~a
+            \n Total de Presupuesto: ~a', [Var_Idioma, NombreHotel,NombreDepartamento, DireccionHotel,  CostoGasolina, CostoHabitacion, CostoComida,Sumatoria]
+            ),
+    nl, 
+    fail.
+
+analisis_idioma_ingles_lejos_alto_vehiculon_hdoble(Var_Idioma, Var_Clima,  Var_CantNoches, Var_CantidadComida,Var_CantPersonas):-
+    departamento(Id_depa, NombreDepartamento, CantidadHoras,Var_lenguaje,Clima_dep,Pasaje),
+    hotel(_, NombreHotel, DireccionHotel, _, _, Hdoble, PComida, Id_depa, DistanciaHotel),
+
+    CostoPasaje is (Pasaje * Var_CantPersonas),
+    CostoComida is  (((PComida*Var_CantidadComida)* Var_CantPersonas) * Var_CantNoches),
+    CostoHabitacion is (Hdoble * round(Var_CantPersonas/2)),
+    Sumatoria is ( CostoHabitacion + CostoComida + CostoPasaje),
+
+    Var_lenguaje == Var_Idioma,
+    100 < DistanciaHotel,
+    Var_Clima == Clima_dep,
+    Sumatoria > 5000,
+    
+    mostrarinferencia_idioma_ingles_lejos_alto_vehiculon_hdoble(Var_Idioma, NombreHotel,NombreDepartamento, DireccionHotel,  CostoPasaje, CantidadHoras, CostoHabitacion, CostoComida, Sumatoria).
+
+mostrarinferencia_idioma_ingles_lejos_alto_vehiculon_hdoble(Var_Idioma, NombreHotel,NombreDepartamento, DireccionHotel,  CostoPasaje, CantidadHoras, CostoHabitacion, CostoComida, Sumatoria):-
+    write('-----------------------------------------'),
+    nl, 
+    format('Segun el Idioma ~a, estas pueden ser sus opciones
+            \n Hotel: ~a
+            \n Departamento: ~a
+            \n Direccion: ~a
+            \n Pasaje: ~a
+            \n Cantidad de Horas: ~a
+            \n Habitacion: ~a
+            \n Alimentacion: ~a
+            \n Total de Presupuesto: ~a', [Var_Idioma ,NombreHotel,NombreDepartamento, DireccionHotel,  CostoPasaje, CantidadHoras, CostoHabitacion, CostoComida, Sumatoria]
+            ),
+    nl, 
+    fail.
+
+
+
+
+
+%-----------------------------------------------------------------KETCHI-----------------------
+%-----------------------------------------------------------------KETCHI-----------------------
+%-----------------------------------------------------------------KETCHI-----------------------
+analisis_ketchi(Var_Idioma):- write('Conteste las siguientes preguntas sobre presupuesto'),
+    nl,
+    write('Cual es su presupuesto? \n1. Bajo (Q. 0 - 5000) \n2. Alto (>Q.5000)'),
+    nl, 
+    read(Var_Presupuesto),
+    nl,
+    analsis_idioma_ketchi_presupuesto(Var_Idioma, Var_Presupuesto),
+    nl.
+
+analsis_idioma_ketchi_presupuesto(Var_Idioma, Var_Presupuesto):-
+    (
+        Var_Presupuesto == 1 -> analisis_idioma_ketchi_bajo(Var_Idioma, Var_Presupuesto);
+        Var_Presupuesto == 2 -> analisis_idioma_ketchi_alto(Var_Idioma, Var_Presupuesto)
+    ). 
+
+analisis_idioma_ketchi_bajo(Var_Idioma, Var_Presupuesto):-
+    write('Como desea la distancia del punto de partida \n1. Cerca (0 - 100km)  \n2. Lejos (> 100Km)'),
+    nl,
+    read(Var_Distancia),
+    nl, 
+    analsis_idioma_ketchi_presupuesto_distancia(Var_Idioma, Var_Presupuesto,Var_Distancia),
+    nl.
+    
+analsis_idioma_ketchi_presupuesto_distancia(Var_Idioma, Var_Presupuesto,Var_Distancia):-
+    (
+    Var_Distancia == 1 -> analisis_idioma_ketchi_bajo_cerca(Var_Idioma);
+    Var_Distancia == 2 -> analisis_idioma_ketchi_bajo_lejos(Var_Idioma)
+    ).
+
+
+analisis_idioma_ketchi_bajo_cerca(Var_Idioma):-
+    write('Tipo de habitacion: \n1. Simple \n2. Doble'),
+    nl, 
+    read(Var_TipoHabitacion),
+    nl,
+    write('Cantidad de Noches a quedarse'),
+    nl,
+    read(Var_CantNoches),
+    nl, 
+    write('Vehiculo s/n'),
+    nl,
+    read(Var_Vehiculo),
+    nl, 
+    write('Cantidad de Tiempos de Comida de 0 - 3'),
+    nl, 
+    read(Var_CantidadComida),
+    nl, 
+    write('Numero de Personas'),
+    nl, 
+    read(Var_CantPersonas),
+    nl,
+    write('Clima \n1. Calor \n2. Frio \n3. Tropical \n4. Templado'),
+    nl, 
+    read(Var_Clima),
+    nl,
+    analsis_idioma_ketchi_cerca_bajo_generales(Var_Idioma, Var_TipoHabitacion, Var_CantNoches, Var_CantNoches, Var_Vehiculo,Var_CantidadComida, Var_CantPersonas,Var_Clima),
+    nl.
+
+analsis_idioma_ketchi_cerca_bajo_generales(Var_Idioma, Var_TipoHabitacion, Var_CantNoches, Var_CantNoches, Var_Vehiculo,Var_CantidadComida, Var_CantPersonas,Var_Clima):-
+    (
+     %- Habitaciones - Simples 
+    (Var_TipoHabitacion == 1 , Var_Vehiculo == 's')-> analisis_idioma_ketchi_cerca_bajo_vehiculos_hsimple(Var_Idioma, Var_Clima, Var_CantNoches, Var_CantidadComida,Var_CantPersonas);
+    (Var_TipoHabitacion == 1 , Var_Vehiculo == 'n')-> analisis_idioma_ketchi_cerca_bajo_vehiculon_hsimple(Var_Idioma, Var_Clima,  Var_CantNoches, Var_CantidadComida,Var_CantPersonas);
+    %- Habitacion - dobles 
+    (Var_TipoHabitacion == 2  , Var_Vehiculo == 's') ->  analisis_idioma_ketchi_bajo_cerca_vehiculos_hdoble(Var_Idioma, Var_Clima,  Var_CantNoches, Var_CantidadComida,Var_CantPersonas);
+    (Var_TipoHabitacion == 2  , Var_Vehiculo == 'n') ->  analisis_idioma_ketchi_bajo_cerca_vehiculon_hdoble(Var_Idioma, Var_Clima,  Var_CantNoches, Var_CantidadComida,Var_CantPersonas)
+    ).
+
+%---------------------------ketchi-cerca-bajo-simple-----------------
+%---------------------------ketchi-cerca-bajo-simple-----------------
+analisis_idioma_ketchi_cerca_bajo_vehiculos_hsimple(Var_Idioma, Var_Clima, Var_CantNoches, Var_CantidadComida,Var_CantPersonas):-
+   departamento(Id_depa, NombreDepartamento, _,Var_lenguaje,Clima_dep,_),
+    hotel(_, NombreHotel, DireccionHotel, _, HSimple, _, PComida, Id_depa, DistanciaHotel),
+
+    CostoGasolina is ((DistanciaHotel * 5.60)*2),
+    CostoComida is  (((PComida*Var_CantidadComida)* Var_CantPersonas) * Var_CantNoches),
+    CostoHabitacion is (HSimple * Var_CantPersonas) ,
+
+    Sumatoria is (CostoGasolina + CostoHabitacion + CostoComida),
+
+    Var_lenguaje == Var_Idioma,
+    100 >= DistanciaHotel,
+    Var_Clima == Clima_dep,
+    Sumatoria =< 5000,
+
+    mostrarinferencia_idioma_ketchi_cerca_bajo_vehiculos_hsimple(Var_lenguaje, NombreHotel,NombreDepartamento, DireccionHotel,  CostoGasolina, CostoHabitacion, CostoComida, Sumatoria).
+
+mostrarinferencia_idioma_ketchi_cerca_bajo_vehiculos_hsimple(Var_lenguaje, NombreHotel,NombreDepartamento, DireccionHotel,  CostoGasolina, CostoHabitacion, CostoComida, Sumatoria):-
+    write('-----------------------------------------'),
+    nl, 
+    format('Segun el Idioma ~a, estas pueden ser sus opciones
+            \n Hotel: ~a
+            \n Departamento: ~a
+            \n Direccion: ~a
+            \n Gasolina: ~a
+            \n Habitacion: ~a
+            \n Alimentacion: ~a
+            \n Total de Presupuesto: ~a', [Var_lenguaje, NombreHotel,NombreDepartamento, DireccionHotel,  CostoGasolina, CostoHabitacion, CostoComida,Sumatoria]
+            ),
+    nl, 
+    fail.
+
+
+analisis_idioma_ketchi_cerca_bajo_vehiculon_hsimple(Var_Idioma, Var_Clima,  Var_CantNoches, Var_CantidadComida,Var_CantPersonas):-
+    departamento(Id_depa, NombreDepartamento, CantidadHoras,Var_lenguaje,Clima_dep,Pasaje),
+    hotel(_, NombreHotel, DireccionHotel, _, HSimple, _, PComida, Id_depa, DistanciaHotel),
+
+    CostoPasaje is (Pasaje * Var_CantPersonas),
+    CostoComida is  (((PComida*Var_CantidadComida)* Var_CantPersonas) * Var_CantNoches),
+    CostoHabitacion is (HSimple * Var_CantPersonas),
+    Sumatoria is ( CostoHabitacion + CostoComida + CostoPasaje),
+
+    Var_lenguaje == Var_Idioma,
+    100 >= DistanciaHotel,
+    Var_Clima == Clima_dep,
+    Sumatoria =< 5000,
+
+    mostrarinferencia_idioma_ketchi_cerca_bajo_vehiculon_hsimple(Var_Idioma, NombreHotel,NombreDepartamento, DireccionHotel,  CostoPasaje, CantidadHoras, CostoHabitacion, CostoComida, Sumatoria).
+
+mostrarinferencia_idioma_ketchi_cerca_bajo_vehiculon_hsimple(Var_Idioma, NombreHotel,NombreDepartamento, DireccionHotel,  CostoPasaje, CantidadHoras, CostoHabitacion, CostoComida, Sumatoria):-
+    write('-----------------------------------------'),
+    nl, 
+    format('Segun el Idioma ~a, estas pueden ser sus opciones
+            \n Hotel: ~a
+            \n Departamento: ~a
+            \n Direccion: ~a
+            \n Pasaje: ~a
+            \n Cantidad de Horas: ~a
+            \n Habitacion: ~a
+            \n Alimentacion: ~a
+            \n Total de Presupuesto: ~a', [Var_Idioma ,NombreHotel,NombreDepartamento, DireccionHotel,  CostoPasaje, CantidadHoras, CostoHabitacion, CostoComida, Sumatoria]
+            ),
+    nl, 
+    fail.
+
+%---------------------------ketchi-cerca-bajo-doble-----------------
+analisis_idioma_ketchi_bajo_cerca_vehiculos_hdoble(Var_Idioma, Var_Clima,  Var_CantNoches, Var_CantidadComida,Var_CantPersonas):-
+    departamento(Id_depa, NombreDepartamento, _,Var_lenguaje,Clima_dep,_),
+    hotel(_, NombreHotel, DireccionHotel, _, _, Hdoble, PComida, Id_depa, DistanciaHotel),
+
+    CostoGasolina is ((DistanciaHotel * 5.60)*2),
+    CostoComida is  (((PComida*Var_CantidadComida)* Var_CantPersonas) * Var_CantNoches),
+    CostoHabitacion is (Hdoble * round(Var_CantPersonas /2)) ,
+
+    Sumatoria is (CostoGasolina + CostoHabitacion + CostoComida),
+
+    Var_lenguaje == Var_Idioma,
+    100 >= DistanciaHotel,
+    Var_Clima == Clima_dep,
+    Sumatoria =< 5000,
+
+  
+
+    mostrarinferencia_idioma_ketchi_cerca_bajo_vehiculos_hdoble(Var_Idioma, NombreHotel,NombreDepartamento, DireccionHotel,  CostoGasolina, CostoHabitacion, CostoComida, Sumatoria).
+
+mostrarinferencia_idioma_ketchi_cerca_bajo_vehiculos_hdoble(Var_Idioma, NombreHotel,NombreDepartamento, DireccionHotel,  CostoGasolina, CostoHabitacion, CostoComida, Sumatoria):-
+    write('-----------------------------------------'),
+    nl, 
+    format('Segun el Idioma ~a, estas pueden ser sus opciones
+            \n Hotel: ~a
+            \n Departamento: ~a
+            \n Direccion: ~a
+            \n Gasolina: ~a
+            \n Habitacion: ~a
+            \n Alimentacion: ~a
+            \n Total de Presupuesto: ~a', [Var_Idioma, NombreHotel,NombreDepartamento, DireccionHotel,  CostoGasolina, CostoHabitacion, CostoComida,Sumatoria]
+            ),
+    nl, 
+    fail.
+
+analisis_idioma_ketchi_bajo_cerca_vehiculon_hdoble(Var_Idioma, Var_Clima,  Var_CantNoches, Var_CantidadComida,Var_CantPersonas):-
+    departamento(Id_depa, NombreDepartamento, CantidadHoras,Var_lenguaje,Clima_dep,Pasaje),
+    hotel(_, NombreHotel, DireccionHotel, _, _, Hdoble, PComida, Id_depa, DistanciaHotel),
+
+    CostoPasaje is (Pasaje * Var_CantPersonas),
+    CostoComida is  (((PComida*Var_CantidadComida)* Var_CantPersonas) * Var_CantNoches),
+    CostoHabitacion is (Hdoble * round(Var_CantPersonas/2)),
+    Sumatoria is ( CostoHabitacion + CostoComida + CostoPasaje),
+
+    Var_lenguaje == Var_Idioma,
+    100 >= DistanciaHotel,
+    Var_Clima == Clima_dep,
+    Sumatoria =< 5000,
+    
+    mostrarinferencia_idioma_ketchi_cerca_bajo_vehiculon_hdoble(Var_Idioma, NombreHotel,NombreDepartamento, DireccionHotel,  CostoPasaje, CantidadHoras, CostoHabitacion, CostoComida, Sumatoria).
+
+mostrarinferencia_idioma_ketchi_cerca_bajo_vehiculon_hdoble(Var_Idioma, NombreHotel,NombreDepartamento, DireccionHotel,  CostoPasaje, CantidadHoras, CostoHabitacion, CostoComida, Sumatoria):-
+    write('-----------------------------------------'),
+    nl, 
+    format('Segun el Idioma ~a, estas pueden ser sus opciones
+            \n Hotel: ~a
+            \n Departamento: ~a
+            \n Direccion: ~a
+            \n Pasaje: ~a
+            \n Cantidad de Horas: ~a
+            \n Habitacion: ~a
+            \n Alimentacion: ~a
+            \n Total de Presupuesto: ~a', [Var_Idioma ,NombreHotel,NombreDepartamento, DireccionHotel,  CostoPasaje, CantidadHoras, CostoHabitacion, CostoComida, Sumatoria]
+            ),
+    nl, 
+    fail.
+
+
+
+%------------------------ketchi-lejos-bajo-------------------
+%------------------------ketchi-lejos-bajo-------------------
+analisis_idioma_ketchi_bajo_lejos(Var_Idioma):-
+    write('Tipo de habitacion: \n1. Simple \n2. Doble'),
+    nl, 
+    read(Var_TipoHabitacion),
+    nl,
+    write('Cantidad de Noches a quedarse'),
+    nl,
+    read(Var_CantNoches),
+    nl, 
+    write('Vehiculo s/n'),
+    nl,
+    read(Var_Vehiculo),
+    nl, 
+    write('Cantidad de Tiempos de Comida de 0 - 3'),
+    nl, 
+    read(Var_CantidadComida),
+    nl, 
+    write('Numero de Personas'),
+    nl, 
+    read(Var_CantPersonas),
+    nl,
+    write('Clima \n1. Calor \n2. Frio \n3. Tropical \n4. Templado'),
+    nl, 
+    read(Var_Clima),
+    nl,
+    analsis_idioma_ketchi_lejos_bajo_generales(Var_Idioma, Var_TipoHabitacion, Var_CantNoches, Var_CantNoches, Var_Vehiculo,Var_CantidadComida, Var_CantPersonas,Var_Clima),
+    nl.
+
+analsis_idioma_ketchi_lejos_bajo_generales(Var_Idioma, Var_TipoHabitacion, Var_CantNoches, Var_CantNoches, Var_Vehiculo,Var_CantidadComida, Var_CantPersonas,Var_Clima):-
+    (
+     %- Habitaciones - Simples 
+    (Var_TipoHabitacion == 1 , Var_Vehiculo == 's')-> analisis_idioma_ketchi_lejos_bajo_vehiculos_hsimple(Var_Idioma, Var_Clima, Var_CantNoches, Var_CantidadComida,Var_CantPersonas);
+    (Var_TipoHabitacion == 1 , Var_Vehiculo == 'n')-> analisis_idioma_ketchi_lejos_bajo_vehiculon_hsimple(Var_Idioma, Var_Clima,  Var_CantNoches, Var_CantidadComida,Var_CantPersonas);
+    %- Habitacion - dobles 
+    (Var_TipoHabitacion == 2  , Var_Vehiculo == 's') ->  analisis_idioma_ketchi_lejos_cerca_vehiculos_hdoble(Var_Idioma, Var_Clima,  Var_CantNoches, Var_CantidadComida,Var_CantPersonas);
+    (Var_TipoHabitacion == 2  , Var_Vehiculo == 'n') ->  analisis_idioma_ketchi_lejos_cerca_vehiculon_hdoble(Var_Idioma, Var_Clima,  Var_CantNoches, Var_CantidadComida,Var_CantPersonas)
+    ).
+
+%---------------------------ketchi-cerca-lejos-simple-----------------
+analisis_idioma_ketchi_lejos_bajo_vehiculos_hsimple(Var_Idioma, Var_Clima, Var_CantNoches, Var_CantidadComida,Var_CantPersonas):-
+   departamento(Id_depa, NombreDepartamento, _,Var_lenguaje,Clima_dep,_),
+    hotel(_, NombreHotel, DireccionHotel, _, HSimple, _, PComida, Id_depa, DistanciaHotel),
+
+    CostoGasolina is ((DistanciaHotel * 5.60)*2),
+    CostoComida is  (((PComida*Var_CantidadComida)* Var_CantPersonas) * Var_CantNoches),
+    CostoHabitacion is (HSimple * Var_CantPersonas) ,
+
+    Sumatoria is (CostoGasolina + CostoHabitacion + CostoComida),
+
+    Var_lenguaje == Var_Idioma,
+    100 < DistanciaHotel,
+    Var_Clima == Clima_dep,
+    Sumatoria =< 5000,
+
+    mostrarinferencia_idioma_ketchi_lejos_bajo_vehiculos_hsimple(Var_lenguaje, NombreHotel,NombreDepartamento, DireccionHotel,  CostoGasolina, CostoHabitacion, CostoComida, Sumatoria).
+
+mostrarinferencia_idioma_ketchi_lejos_bajo_vehiculos_hsimple(Var_lenguaje, NombreHotel,NombreDepartamento, DireccionHotel,  CostoGasolina, CostoHabitacion, CostoComida, Sumatoria):-
+    write('-----------------------------------------'),
+    nl, 
+    format('Segun el Idioma ~a, estas pueden ser sus opciones
+            \n Hotel: ~a
+            \n Departamento: ~a
+            \n Direccion: ~a
+            \n Gasolina: ~a
+            \n Habitacion: ~a
+            \n Alimentacion: ~a
+            \n Total de Presupuesto: ~a', [Var_lenguaje, NombreHotel,NombreDepartamento, DireccionHotel,  CostoGasolina, CostoHabitacion, CostoComida,Sumatoria]
+            ),
+    nl, 
+    fail.
+
+
+analisis_idioma_ketchi_lejos_bajo_vehiculon_hsimple(Var_Idioma, Var_Clima,  Var_CantNoches, Var_CantidadComida,Var_CantPersonas):-
+    departamento(Id_depa, NombreDepartamento, CantidadHoras,Var_lenguaje,Clima_dep,Pasaje),
+    hotel(_, NombreHotel, DireccionHotel, _, HSimple, _, PComida, Id_depa, DistanciaHotel),
+
+    CostoPasaje is (Pasaje * Var_CantPersonas),
+    CostoComida is  (((PComida*Var_CantidadComida)* Var_CantPersonas) * Var_CantNoches),
+    CostoHabitacion is (HSimple * Var_CantPersonas),
+    Sumatoria is ( CostoHabitacion + CostoComida + CostoPasaje),
+
+    Var_lenguaje == Var_Idioma,
+    100 < DistanciaHotel,
+    Var_Clima == Clima_dep,
+    Sumatoria =< 5000,
+
+    mostrarinferencia_idioma_ketchi_lejos_bajo_vehiculon_hsimple(Var_Idioma, NombreHotel,NombreDepartamento, DireccionHotel,  CostoPasaje, CantidadHoras, CostoHabitacion, CostoComida, Sumatoria).
+
+mostrarinferencia_idioma_ketchi_lejos_bajo_vehiculon_hsimple(Var_Idioma, NombreHotel,NombreDepartamento, DireccionHotel,  CostoPasaje, CantidadHoras, CostoHabitacion, CostoComida, Sumatoria):-
+    write('-----------------------------------------'),
+    nl, 
+    format('Segun el Idioma ~a, estas pueden ser sus opciones
+            \n Hotel: ~a
+            \n Departamento: ~a
+            \n Direccion: ~a
+            \n Pasaje: ~a
+            \n Cantidad de Horas: ~a
+            \n Habitacion: ~a
+            \n Alimentacion: ~a
+            \n Total de Presupuesto: ~a', [Var_Idioma ,NombreHotel,NombreDepartamento, DireccionHotel,  CostoPasaje, CantidadHoras, CostoHabitacion, CostoComida, Sumatoria]
+            ),
+    nl, 
+    fail.
+
+%---------------------------ketchi-cerca-bajo-doble-----------------
+analisis_idioma_ketchi_lejos_cerca_vehiculos_hdoble(Var_Idioma, Var_Clima,  Var_CantNoches, Var_CantidadComida,Var_CantPersonas):-
+    departamento(Id_depa, NombreDepartamento, _,Var_lenguaje,Clima_dep,_),
+    hotel(_, NombreHotel, DireccionHotel, _, _, Hdoble, PComida, Id_depa, DistanciaHotel),
+
+    CostoGasolina is ((DistanciaHotel * 5.60)*2),
+    CostoComida is  (((PComida*Var_CantidadComida)* Var_CantPersonas) * Var_CantNoches),
+    CostoHabitacion is (Hdoble * round(Var_CantPersonas /2)) ,
+
+    Sumatoria is (CostoGasolina + CostoHabitacion + CostoComida),
+
+    Var_lenguaje == Var_Idioma,
+    100 < DistanciaHotel,
+    Var_Clima == Clima_dep,
+    Sumatoria =< 5000,
+
+  
+
+    mostrarinferencia_idioma_ketchi_lejos_bajo_vehiculos_hdoble(Var_Idioma, NombreHotel,NombreDepartamento, DireccionHotel,  CostoGasolina, CostoHabitacion, CostoComida, Sumatoria).
+
+mostrarinferencia_idioma_ketchi_lejos_bajo_vehiculos_hdoble(Var_Idioma, NombreHotel,NombreDepartamento, DireccionHotel,  CostoGasolina, CostoHabitacion, CostoComida, Sumatoria):-
+    write('-----------------------------------------'),
+    nl, 
+    format('Segun el Idioma ~a, estas pueden ser sus opciones
+            \n Hotel: ~a
+            \n Departamento: ~a
+            \n Direccion: ~a
+            \n Gasolina: ~a
+            \n Habitacion: ~a
+            \n Alimentacion: ~a
+            \n Total de Presupuesto: ~a', [Var_Idioma, NombreHotel,NombreDepartamento, DireccionHotel,  CostoGasolina, CostoHabitacion, CostoComida,Sumatoria]
+            ),
+    nl, 
+    fail.
+
+analisis_idioma_ketchi_lejos_cerca_vehiculon_hdoble(Var_Idioma, Var_Clima,  Var_CantNoches, Var_CantidadComida,Var_CantPersonas):-
+    departamento(Id_depa, NombreDepartamento, CantidadHoras,Var_lenguaje,Clima_dep,Pasaje),
+    hotel(_, NombreHotel, DireccionHotel, _, _, Hdoble, PComida, Id_depa, DistanciaHotel),
+
+    CostoPasaje is (Pasaje * Var_CantPersonas),
+    CostoComida is  (((PComida*Var_CantidadComida)* Var_CantPersonas) * Var_CantNoches),
+    CostoHabitacion is (Hdoble * round(Var_CantPersonas/2)),
+    Sumatoria is ( CostoHabitacion + CostoComida + CostoPasaje),
+
+    Var_lenguaje == Var_Idioma,
+    100 < DistanciaHotel,
+    Var_Clima == Clima_dep,
+    Sumatoria =< 5000,
+    
+    mostrarinferencia_idioma_ketchi_lejos_bajo_vehiculon_hdoble(Var_Idioma, NombreHotel,NombreDepartamento, DireccionHotel,  CostoPasaje, CantidadHoras, CostoHabitacion, CostoComida, Sumatoria).
+
+mostrarinferencia_idioma_ketchi_lejos_bajo_vehiculon_hdoble(Var_Idioma, NombreHotel,NombreDepartamento, DireccionHotel,  CostoPasaje, CantidadHoras, CostoHabitacion, CostoComida, Sumatoria):-
+    write('-----------------------------------------'),
+    nl, 
+    format('Segun el Idioma ~a, estas pueden ser sus opciones
+            \n Hotel: ~a
+            \n Departamento: ~a
+            \n Direccion: ~a
+            \n Pasaje: ~a
+            \n Cantidad de Horas: ~a
+            \n Habitacion: ~a
+            \n Alimentacion: ~a
+            \n Total de Presupuesto: ~a', [Var_Idioma ,NombreHotel,NombreDepartamento, DireccionHotel,  CostoPasaje, CantidadHoras, CostoHabitacion, CostoComida, Sumatoria]
+            ),
+    nl, 
+    fail.
+
+%-------------------------ketchi-Alto--------------
+%-------------------------ketchi-Alto--------------
+analisis_idioma_ketchi_alto(Var_Idioma, Var_Presupuesto):-   write('Como desea la distancia del punto de partida \n1. Cerca (0 - 100km)  \n2. Lejos (> 100Km)'),
+    nl,
+    read(Var_Distancia),
+    nl, 
+    analsis_idioma_ketchi_presupuesto_distancia_alto(Var_Idioma, Var_Presupuesto,Var_Distancia),
+    nl.
+    analsis_idioma_ketchi_presupuesto_distancia_alto(Var_Idioma, Var_Presupuesto,Var_Distancia):-
+    (
+    Var_Distancia == 1 -> analisis_idioma_ketchi_alto_cerca(Var_Idioma);
+    Var_Distancia == 2 -> analisis_idioma_ketchi_alto_lejos(Var_Idioma)
+    ).
+
+
+analisis_idioma_ketchi_alto_cerca(Var_Idioma):-
+    write('Tipo de habitacion: \n1. Simple \n2. Doble'),
+    nl, 
+    read(Var_TipoHabitacion),
+    nl,
+    write('Cantidad de Noches a quedarse'),
+    nl,
+    read(Var_CantNoches),
+    nl, 
+    write('Vehiculo s/n'),
+    nl,
+    read(Var_Vehiculo),
+    nl, 
+    write('Cantidad de Tiempos de Comida de 0 - 3'),
+    nl, 
+    read(Var_CantidadComida),
+    nl, 
+    write('Numero de Personas'),
+    nl, 
+    read(Var_CantPersonas),
+    nl,
+    write('Clima \n1. Calor \n2. Frio \n3. Tropical \n4. Templado'),
+    nl, 
+    read(Var_Clima),
+    nl,
+    analsis_idioma_ketchi_cerca_alto_generales(Var_Idioma, Var_TipoHabitacion, Var_CantNoches, Var_CantNoches, Var_Vehiculo,Var_CantidadComida, Var_CantPersonas,Var_Clima),
+    nl.
+
+analsis_idioma_ketchi_cerca_alto_generales(Var_Idioma, Var_TipoHabitacion, Var_CantNoches, Var_CantNoches, Var_Vehiculo,Var_CantidadComida, Var_CantPersonas,Var_Clima):-
+    (
+     %- Habitaciones - Simples 
+    (Var_TipoHabitacion == 1 , Var_Vehiculo == 's')-> analisis_idioma_ketchi_cerca_alto_vehiculos_hsimple(Var_Idioma, Var_Clima, Var_CantNoches, Var_CantidadComida,Var_CantPersonas);
+    (Var_TipoHabitacion == 1 , Var_Vehiculo == 'n')-> analisis_idioma_ketchi_cerca_alto_vehiculon_hsimple(Var_Idioma, Var_Clima,  Var_CantNoches, Var_CantidadComida,Var_CantPersonas);
+    %- Habitacion - dobles 
+    (Var_TipoHabitacion == 2  , Var_Vehiculo == 's') ->  analisis_idioma_ketchi_alto_cerca_vehiculos_hdoble(Var_Idioma, Var_Clima,  Var_CantNoches, Var_CantidadComida,Var_CantPersonas);
+    (Var_TipoHabitacion == 2  , Var_Vehiculo == 'n') ->  analisis_idioma_ketchi_alto_cerca_vehiculon_hdoble(Var_Idioma, Var_Clima,  Var_CantNoches, Var_CantidadComida,Var_CantPersonas)
+    ).
+
+%---------------------------ketchi-cerca-alto-simple-----------------
+%---------------------------ketchi-cerca-alto-simple-----------------
+analisis_idioma_ketchi_cerca_alto_vehiculos_hsimple(Var_Idioma, Var_Clima, Var_CantNoches, Var_CantidadComida,Var_CantPersonas):-
+   departamento(Id_depa, NombreDepartamento, _,Var_lenguaje,Clima_dep,_),
+    hotel(_, NombreHotel, DireccionHotel, _, HSimple, _, PComida, Id_depa, DistanciaHotel),
+
+    CostoGasolina is ((DistanciaHotel * 5.60)*2),
+    CostoComida is  (((PComida*Var_CantidadComida)* Var_CantPersonas) * Var_CantNoches),
+    CostoHabitacion is (HSimple * Var_CantPersonas) ,
+
+    Sumatoria is (CostoGasolina + CostoHabitacion + CostoComida),
+
+    Var_lenguaje == Var_Idioma,
+    100 >= DistanciaHotel,
+    Var_Clima == Clima_dep,
+    Sumatoria > 5000,
+
+    mostrarinferencia_idioma_ketchi_cerca_alto_vehiculos_hsimple(Var_lenguaje, NombreHotel,NombreDepartamento, DireccionHotel,  CostoGasolina, CostoHabitacion, CostoComida, Sumatoria).
+
+mostrarinferencia_idioma_ketchi_cerca_alto_vehiculos_hsimple(Var_lenguaje, NombreHotel,NombreDepartamento, DireccionHotel,  CostoGasolina, CostoHabitacion, CostoComida, Sumatoria):-
+    write('-----------------------------------------'),
+    nl, 
+    format('Segun el Idioma ~a, estas pueden ser sus opciones
+            \n Hotel: ~a
+            \n Departamento: ~a
+            \n Direccion: ~a
+            \n Gasolina: ~a
+            \n Habitacion: ~a
+            \n Alimentacion: ~a
+            \n Total de Presupuesto: ~a', [Var_lenguaje, NombreHotel,NombreDepartamento, DireccionHotel,  CostoGasolina, CostoHabitacion, CostoComida,Sumatoria]
+            ),
+    nl, 
+    fail.
+
+
+analisis_idioma_ketchi_cerca_alto_vehiculon_hsimple(Var_Idioma, Var_Clima,  Var_CantNoches, Var_CantidadComida,Var_CantPersonas):-
+    departamento(Id_depa, NombreDepartamento, CantidadHoras,Var_lenguaje,Clima_dep,Pasaje),
+    hotel(_, NombreHotel, DireccionHotel, _, HSimple, _, PComida, Id_depa, DistanciaHotel),
+
+    CostoPasaje is (Pasaje * Var_CantPersonas),
+    CostoComida is  (((PComida*Var_CantidadComida)* Var_CantPersonas) * Var_CantNoches),
+    CostoHabitacion is (HSimple * Var_CantPersonas),
+    Sumatoria is ( CostoHabitacion + CostoComida + CostoPasaje),
+
+    Var_lenguaje == Var_Idioma,
+    100 >= DistanciaHotel,
+    Var_Clima == Clima_dep,
+    Sumatoria > 5000,
+
+    mostrarinferencia_idioma_ketchi_cerca_alto_vehiculon_hsimple(Var_Idioma, NombreHotel,NombreDepartamento, DireccionHotel,  CostoPasaje, CantidadHoras, CostoHabitacion, CostoComida, Sumatoria).
+
+mostrarinferencia_idioma_ketchi_cerca_alto_vehiculon_hsimple(Var_Idioma, NombreHotel,NombreDepartamento, DireccionHotel,  CostoPasaje, CantidadHoras, CostoHabitacion, CostoComida, Sumatoria):-
+    write('-----------------------------------------'),
+    nl, 
+    format('Segun el Idioma ~a, estas pueden ser sus opciones
+            \n Hotel: ~a
+            \n Departamento: ~a
+            \n Direccion: ~a
+            \n Pasaje: ~a
+            \n Cantidad de Horas: ~a
+            \n Habitacion: ~a
+            \n Alimentacion: ~a
+            \n Total de Presupuesto: ~a', [Var_Idioma ,NombreHotel,NombreDepartamento, DireccionHotel,  CostoPasaje, CantidadHoras, CostoHabitacion, CostoComida, Sumatoria]
+            ),
+    nl, 
+    fail.
+
+%---------------------------ketchi-lejos-alto-doble-----------------
+analisis_idioma_ketchi_alto_cerca_vehiculos_hdoble(Var_Idioma, Var_Clima,  Var_CantNoches, Var_CantidadComida,Var_CantPersonas):-
+    departamento(Id_depa, NombreDepartamento, _,Var_lenguaje,Clima_dep,_),
+    hotel(_, NombreHotel, DireccionHotel, _, _, Hdoble, PComida, Id_depa, DistanciaHotel),
+
+    CostoGasolina is ((DistanciaHotel * 5.60)*2),
+    CostoComida is  (((PComida*Var_CantidadComida)* Var_CantPersonas) * Var_CantNoches),
+    CostoHabitacion is (Hdoble * round(Var_CantPersonas /2)) ,
+
+    Sumatoria is (CostoGasolina + CostoHabitacion + CostoComida),
+
+    Var_lenguaje == Var_Idioma,
+    100 >= DistanciaHotel,
+    Var_Clima == Clima_dep,
+    Sumatoria > 5000,
+
+  
+
+    mostrarinferencia_idioma_ketchi_cerca_alto_vehiculos_hdoble(Var_Idioma, NombreHotel,NombreDepartamento, DireccionHotel,  CostoGasolina, CostoHabitacion, CostoComida, Sumatoria).
+
+mostrarinferencia_idioma_ketchi_cerca_alto_vehiculos_hdoble(Var_Idioma, NombreHotel,NombreDepartamento, DireccionHotel,  CostoGasolina, CostoHabitacion, CostoComida, Sumatoria):-
+    write('-----------------------------------------'),
+    nl, 
+    format('Segun el Idioma ~a, estas pueden ser sus opciones
+            \n Hotel: ~a
+            \n Departamento: ~a
+            \n Direccion: ~a
+            \n Gasolina: ~a
+            \n Habitacion: ~a
+            \n Alimentacion: ~a
+            \n Total de Presupuesto: ~a', [Var_Idioma, NombreHotel,NombreDepartamento, DireccionHotel,  CostoGasolina, CostoHabitacion, CostoComida,Sumatoria]
+            ),
+    nl, 
+    fail.
+
+analisis_idioma_ketchi_alto_cerca_vehiculon_hdoble(Var_Idioma, Var_Clima,  Var_CantNoches, Var_CantidadComida,Var_CantPersonas):-
+    departamento(Id_depa, NombreDepartamento, CantidadHoras,Var_lenguaje,Clima_dep,Pasaje),
+    hotel(_, NombreHotel, DireccionHotel, _, _, Hdoble, PComida, Id_depa, DistanciaHotel),
+
+    CostoPasaje is (Pasaje * Var_CantPersonas),
+    CostoComida is  (((PComida*Var_CantidadComida)* Var_CantPersonas) * Var_CantNoches),
+    CostoHabitacion is (Hdoble * round(Var_CantPersonas/2)),
+    Sumatoria is ( CostoHabitacion + CostoComida + CostoPasaje),
+
+    Var_lenguaje == Var_Idioma,
+    100 >= DistanciaHotel,
+    Var_Clima == Clima_dep,
+    Sumatoria > 5000,
+    
+    mostrarinferencia_idioma_ketchi_cerca_alto_vehiculon_hdoble(Var_Idioma, NombreHotel,NombreDepartamento, DireccionHotel,  CostoPasaje, CantidadHoras, CostoHabitacion, CostoComida, Sumatoria).
+
+mostrarinferencia_idioma_ketchi_cerca_alto_vehiculon_hdoble(Var_Idioma, NombreHotel,NombreDepartamento, DireccionHotel,  CostoPasaje, CantidadHoras, CostoHabitacion, CostoComida, Sumatoria):-
+    write('-----------------------------------------'),
+    nl, 
+    format('Segun el Idioma ~a, estas pueden ser sus opciones
+            \n Hotel: ~a
+            \n Departamento: ~a
+            \n Direccion: ~a
+            \n Pasaje: ~a
+            \n Cantidad de Horas: ~a
+            \n Habitacion: ~a
+            \n Alimentacion: ~a
+            \n Total de Presupuesto: ~a', [Var_Idioma ,NombreHotel,NombreDepartamento, DireccionHotel,  CostoPasaje, CantidadHoras, CostoHabitacion, CostoComida, Sumatoria]
+            ),
+    nl, 
+    fail.
+
+
+%------------------------ketchi-lejos-alto-------------------
+%------------------------ketchi-lejos-alto-------------------
+analisis_idioma_ketchi_alto_lejos(Var_Idioma):-
+    write('Tipo de habitacion: \n1. Simple \n2. Doble'),
+    nl, 
+    read(Var_TipoHabitacion),
+    nl,
+    write('Cantidad de Noches a quedarse'),
+    nl,
+    read(Var_CantNoches),
+    nl, 
+    write('Vehiculo s/n'),
+    nl,
+    read(Var_Vehiculo),
+    nl, 
+    write('Cantidad de Tiempos de Comida de 0 - 3'),
+    nl, 
+    read(Var_CantidadComida),
+    nl, 
+    write('Numero de Personas'),
+    nl, 
+    read(Var_CantPersonas),
+    nl,
+    write('Clima \n1. Calor \n2. Frio \n3. Tropical \n4. Templado'),
+    nl, 
+    read(Var_Clima),
+    nl,
+    analsis_idioma_ketchi_lejos_alto_generales(Var_Idioma, Var_TipoHabitacion, Var_CantNoches, Var_CantNoches, Var_Vehiculo,Var_CantidadComida, Var_CantPersonas,Var_Clima),
+    nl.
+
+analsis_idioma_ketchi_lejos_alto_generales(Var_Idioma, Var_TipoHabitacion, Var_CantNoches, Var_CantNoches, Var_Vehiculo,Var_CantidadComida, Var_CantPersonas,Var_Clima):-
+    (
+     %- Habitaciones - Simples 
+    (Var_TipoHabitacion == 1 , Var_Vehiculo == 's')-> analisis_idioma_ketchi_lejos_alto_vehiculos_hsimple(Var_Idioma, Var_Clima, Var_CantNoches, Var_CantidadComida,Var_CantPersonas);
+    (Var_TipoHabitacion == 1 , Var_Vehiculo == 'n')-> analisis_idioma_ketchi_lejos_alto_vehiculon_hsimple(Var_Idioma, Var_Clima,  Var_CantNoches, Var_CantidadComida,Var_CantPersonas);
+    %- Habitacion - dobles 
+    (Var_TipoHabitacion == 2  , Var_Vehiculo == 's') ->  analisis_idioma_ketchi_lejos_alto_vehiculos_hdoble(Var_Idioma, Var_Clima,  Var_CantNoches, Var_CantidadComida,Var_CantPersonas);
+    (Var_TipoHabitacion == 2  , Var_Vehiculo == 'n') ->  analisis_idioma_ketchi_lejos_alto_vehiculon_hdoble(Var_Idioma, Var_Clima,  Var_CantNoches, Var_CantidadComida,Var_CantPersonas)
+    ).
+
+%---------------------------ketchi-alto-lejos-simple-----------------
+analisis_idioma_ketchi_lejos_alto_vehiculos_hsimple(Var_Idioma, Var_Clima, Var_CantNoches, Var_CantidadComida,Var_CantPersonas):-
+   departamento(Id_depa, NombreDepartamento, _,Var_lenguaje,Clima_dep,_),
+    hotel(_, NombreHotel, DireccionHotel, _, HSimple, _, PComida, Id_depa, DistanciaHotel),
+
+    CostoGasolina is ((DistanciaHotel * 5.60)*2),
+    CostoComida is  (((PComida*Var_CantidadComida)* Var_CantPersonas) * Var_CantNoches),
+    CostoHabitacion is (HSimple * Var_CantPersonas) ,
+
+    Sumatoria is (CostoGasolina + CostoHabitacion + CostoComida),
+
+    Var_lenguaje == Var_Idioma,
+    100 < DistanciaHotel,
+    Var_Clima == Clima_dep,
+    Sumatoria > 5000,
+
+    mostrarinferencia_idioma_ketchi_lejos_alto_vehiculos_hsimple(Var_lenguaje, NombreHotel,NombreDepartamento, DireccionHotel,  CostoGasolina, CostoHabitacion, CostoComida, Sumatoria).
+
+mostrarinferencia_idioma_ketchi_lejos_alto_vehiculos_hsimple(Var_lenguaje, NombreHotel,NombreDepartamento, DireccionHotel,  CostoGasolina, CostoHabitacion, CostoComida, Sumatoria):-
+    write('-----------------------------------------'),
+    nl, 
+    format('Segun el Idioma ~a, estas pueden ser sus opciones
+            \n Hotel: ~a
+            \n Departamento: ~a
+            \n Direccion: ~a
+            \n Gasolina: ~a
+            \n Habitacion: ~a
+            \n Alimentacion: ~a
+            \n Total de Presupuesto: ~a', [Var_lenguaje, NombreHotel,NombreDepartamento, DireccionHotel,  CostoGasolina, CostoHabitacion, CostoComida,Sumatoria]
+            ),
+    nl, 
+    fail.
+
+
+analisis_idioma_ketchi_lejos_alto_vehiculon_hsimple(Var_Idioma, Var_Clima,  Var_CantNoches, Var_CantidadComida,Var_CantPersonas):-
+    departamento(Id_depa, NombreDepartamento, CantidadHoras,Var_lenguaje,Clima_dep,Pasaje),
+    hotel(_, NombreHotel, DireccionHotel, _, HSimple, _, PComida, Id_depa, DistanciaHotel),
+
+    CostoPasaje is (Pasaje * Var_CantPersonas),
+    CostoComida is  (((PComida*Var_CantidadComida)* Var_CantPersonas) * Var_CantNoches),
+    CostoHabitacion is (HSimple * Var_CantPersonas),
+    Sumatoria is ( CostoHabitacion + CostoComida + CostoPasaje),
+
+    Var_lenguaje == Var_Idioma,
+    100 < DistanciaHotel,
+    Var_Clima == Clima_dep,
+    Sumatoria > 5000,
+
+    mostrarinferencia_idioma_ketchi_lejos_alto_vehiculon_hsimple(Var_Idioma, NombreHotel,NombreDepartamento, DireccionHotel,  CostoPasaje, CantidadHoras, CostoHabitacion, CostoComida, Sumatoria).
+
+mostrarinferencia_idioma_ketchi_lejos_alto_vehiculon_hsimple(Var_Idioma, NombreHotel,NombreDepartamento, DireccionHotel,  CostoPasaje, CantidadHoras, CostoHabitacion, CostoComida, Sumatoria):-
+    write('-----------------------------------------'),
+    nl, 
+    format('Segun el Idioma ~a, estas pueden ser sus opciones
+            \n Hotel: ~a
+            \n Departamento: ~a
+            \n Direccion: ~a
+            \n Pasaje: ~a
+            \n Cantidad de Horas: ~a
+            \n Habitacion: ~a
+            \n Alimentacion: ~a
+            \n Total de Presupuesto: ~a', [Var_Idioma ,NombreHotel,NombreDepartamento, DireccionHotel,  CostoPasaje, CantidadHoras, CostoHabitacion, CostoComida, Sumatoria]
+            ),
+    nl, 
+    fail.
+
+%---------------------------ketchi-alto-alto-doble-----------------
+analisis_idioma_ketchi_lejos_alto_vehiculos_hdoble(Var_Idioma, Var_Clima,  Var_CantNoches, Var_CantidadComida,Var_CantPersonas):-
+    departamento(Id_depa, NombreDepartamento, _,Var_lenguaje,Clima_dep,_),
+    hotel(_, NombreHotel, DireccionHotel, _, _, Hdoble, PComida, Id_depa, DistanciaHotel),
+
+    CostoGasolina is ((DistanciaHotel * 5.60)*2),
+    CostoComida is  (((PComida*Var_CantidadComida)* Var_CantPersonas) * Var_CantNoches),
+    CostoHabitacion is (Hdoble * round(Var_CantPersonas /2)) ,
+
+    Sumatoria is (CostoGasolina + CostoHabitacion + CostoComida),
+
+    Var_lenguaje == Var_Idioma,
+    100 < DistanciaHotel,
+    Var_Clima == Clima_dep,
+    Sumatoria > 5000,
+
+  
+
+    mostrarinferencia_idioma_ketchi_lejos_alto_vehiculos_hdoble(Var_Idioma, NombreHotel,NombreDepartamento, DireccionHotel,  CostoGasolina, CostoHabitacion, CostoComida, Sumatoria).
+
+mostrarinferencia_idioma_ketchi_lejos_alto_vehiculos_hdoble(Var_Idioma, NombreHotel,NombreDepartamento, DireccionHotel,  CostoGasolina, CostoHabitacion, CostoComida, Sumatoria):-
+    write('-----------------------------------------'),
+    nl, 
+    format('Segun el Idioma ~a, estas pueden ser sus opciones
+            \n Hotel: ~a
+            \n Departamento: ~a
+            \n Direccion: ~a
+            \n Gasolina: ~a
+            \n Habitacion: ~a
+            \n Alimentacion: ~a
+            \n Total de Presupuesto: ~a', [Var_Idioma, NombreHotel,NombreDepartamento, DireccionHotel,  CostoGasolina, CostoHabitacion, CostoComida,Sumatoria]
+            ),
+    nl, 
+    fail.
+
+analisis_idioma_ketchi_lejos_alto_vehiculon_hdoble(Var_Idioma, Var_Clima,  Var_CantNoches, Var_CantidadComida,Var_CantPersonas):-
+    departamento(Id_depa, NombreDepartamento, CantidadHoras,Var_lenguaje,Clima_dep,Pasaje),
+    hotel(_, NombreHotel, DireccionHotel, _, _, Hdoble, PComida, Id_depa, DistanciaHotel),
+
+    CostoPasaje is (Pasaje * Var_CantPersonas),
+    CostoComida is  (((PComida*Var_CantidadComida)* Var_CantPersonas) * Var_CantNoches),
+    CostoHabitacion is (Hdoble * round(Var_CantPersonas/2)),
+    Sumatoria is ( CostoHabitacion + CostoComida + CostoPasaje),
+
+    Var_lenguaje == Var_Idioma,
+    100 < DistanciaHotel,
+    Var_Clima == Clima_dep,
+    Sumatoria > 5000,
+    
+    mostrarinferencia_idioma_ketchi_lejos_alto_vehiculon_hdoble(Var_Idioma, NombreHotel,NombreDepartamento, DireccionHotel,  CostoPasaje, CantidadHoras, CostoHabitacion, CostoComida, Sumatoria).
+
+mostrarinferencia_idioma_ketchi_lejos_alto_vehiculon_hdoble(Var_Idioma, NombreHotel,NombreDepartamento, DireccionHotel,  CostoPasaje, CantidadHoras, CostoHabitacion, CostoComida, Sumatoria):-
+    write('-----------------------------------------'),
+    nl, 
+    format('Segun el Idioma ~a, estas pueden ser sus opciones
+            \n Hotel: ~a
+            \n Departamento: ~a
+            \n Direccion: ~a
+            \n Pasaje: ~a
+            \n Cantidad de Horas: ~a
+            \n Habitacion: ~a
+            \n Alimentacion: ~a
+            \n Total de Presupuesto: ~a', [Var_Idioma ,NombreHotel,NombreDepartamento, DireccionHotel,  CostoPasaje, CantidadHoras, CostoHabitacion, CostoComida, Sumatoria]
+            ),
+    nl, 
+    fail.
+
+%-------------------------------------------------------Katchikel--------------------------------------
+%-------------------------------------------------------Katchikel--------------------------------------
+%-------------------------------------------------------Katchikel--------------------------------------
+analisis_katchikel(Var_Idioma):- write('Conteste las siguientes preguntas sobre presupuesto'),
+    nl,
+    write('Cual es su presupuesto? \n1. Bajo (Q. 0 - 5000) \n2. Alto (>Q.5000)'),
+    nl, 
+    read(Var_Presupuesto),
+    nl,
+    analsis_idioma_katchikel_presupuesto(Var_Idioma, Var_Presupuesto),
+    nl.
+
+analsis_idioma_katchikel_presupuesto(Var_Idioma, Var_Presupuesto):-
+    (
+        Var_Presupuesto == 1 -> analisis_idioma_katchikel_bajo(Var_Idioma, Var_Presupuesto);
+        Var_Presupuesto == 2 -> analisis_idioma_katchikel_alto(Var_Idioma, Var_Presupuesto)
+    ). 
+
+analisis_idioma_katchikel_bajo(Var_Idioma, Var_Presupuesto):-
+    write('Como desea la distancia del punto de partida \n1. Cerca (0 - 100km)  \n2. Lejos (> 100Km)'),
+    nl,
+    read(Var_Distancia),
+    nl, 
+    analsis_idioma_katchikel_presupuesto_distancia(Var_Idioma, Var_Presupuesto,Var_Distancia),
+    nl.
+    
+analsis_idioma_katchikel_presupuesto_distancia(Var_Idioma, Var_Presupuesto,Var_Distancia):-
+    (
+    Var_Distancia == 1 -> analisis_idioma_katchikel_bajo_cerca(Var_Idioma);
+    Var_Distancia == 2 -> analisis_idioma_katchikel_bajo_lejos(Var_Idioma)
+    ).
+
+
+analisis_idioma_katchikel_bajo_cerca(Var_Idioma):-
+    write('Tipo de habitacion: \n1. Simple \n2. Doble'),
+    nl, 
+    read(Var_TipoHabitacion),
+    nl,
+    write('Cantidad de Noches a quedarse'),
+    nl,
+    read(Var_CantNoches),
+    nl, 
+    write('Vehiculo s/n'),
+    nl,
+    read(Var_Vehiculo),
+    nl, 
+    write('Cantidad de Tiempos de Comida de 0 - 3'),
+    nl, 
+    read(Var_CantidadComida),
+    nl, 
+    write('Numero de Personas'),
+    nl, 
+    read(Var_CantPersonas),
+    nl,
+    write('Clima \n1. Calor \n2. Frio \n3. Tropical \n4. Templado'),
+    nl, 
+    read(Var_Clima),
+    nl,
+    analsis_idioma_katchikel_cerca_bajo_generales(Var_Idioma, Var_TipoHabitacion, Var_CantNoches, Var_CantNoches, Var_Vehiculo,Var_CantidadComida, Var_CantPersonas,Var_Clima),
+    nl.
+
+analsis_idioma_katchikel_cerca_bajo_generales(Var_Idioma, Var_TipoHabitacion, Var_CantNoches, Var_CantNoches, Var_Vehiculo,Var_CantidadComida, Var_CantPersonas,Var_Clima):-
+    (
+     %- Habitaciones - Simples 
+    (Var_TipoHabitacion == 1 , Var_Vehiculo == 's')-> analisis_idioma_katchikel_cerca_bajo_vehiculos_hsimple(Var_Idioma, Var_Clima, Var_CantNoches, Var_CantidadComida,Var_CantPersonas);
+    (Var_TipoHabitacion == 1 , Var_Vehiculo == 'n')-> analisis_idioma_katchikel_cerca_bajo_vehiculon_hsimple(Var_Idioma, Var_Clima,  Var_CantNoches, Var_CantidadComida,Var_CantPersonas);
+    %- Habitacion - dobles 
+    (Var_TipoHabitacion == 2  , Var_Vehiculo == 's') ->  analisis_idioma_katchikel_bajo_cerca_vehiculos_hdoble(Var_Idioma, Var_Clima,  Var_CantNoches, Var_CantidadComida,Var_CantPersonas);
+    (Var_TipoHabitacion == 2  , Var_Vehiculo == 'n') ->  analisis_idioma_katchikel_bajo_cerca_vehiculon_hdoble(Var_Idioma, Var_Clima,  Var_CantNoches, Var_CantidadComida,Var_CantPersonas)
+    ).
+
+%---------------------------katchikel-cerca-bajo-simple-----------------
+%---------------------------katchikel-cerca-bajo-simple-----------------
+analisis_idioma_katchikel_cerca_bajo_vehiculos_hsimple(Var_Idioma, Var_Clima, Var_CantNoches, Var_CantidadComida,Var_CantPersonas):-
+   departamento(Id_depa, NombreDepartamento, _,Var_lenguaje,Clima_dep,_),
+    hotel(_, NombreHotel, DireccionHotel, _, HSimple, _, PComida, Id_depa, DistanciaHotel),
+
+    CostoGasolina is ((DistanciaHotel * 5.60)*2),
+    CostoComida is  (((PComida*Var_CantidadComida)* Var_CantPersonas) * Var_CantNoches),
+    CostoHabitacion is (HSimple * Var_CantPersonas) ,
+
+    Sumatoria is (CostoGasolina + CostoHabitacion + CostoComida),
+
+    Var_lenguaje == Var_Idioma,
+    100 >= DistanciaHotel,
+    Var_Clima == Clima_dep,
+    Sumatoria =< 5000,
+
+    mostrarinferencia_idioma_katchikel_cerca_bajo_vehiculos_hsimple(Var_lenguaje, NombreHotel,NombreDepartamento, DireccionHotel,  CostoGasolina, CostoHabitacion, CostoComida, Sumatoria).
+
+mostrarinferencia_idioma_katchikel_cerca_bajo_vehiculos_hsimple(Var_lenguaje, NombreHotel,NombreDepartamento, DireccionHotel,  CostoGasolina, CostoHabitacion, CostoComida, Sumatoria):-
+    write('-----------------------------------------'),
+    nl, 
+    format('Segun el Idioma ~a, estas pueden ser sus opciones
+            \n Hotel: ~a
+            \n Departamento: ~a
+            \n Direccion: ~a
+            \n Gasolina: ~a
+            \n Habitacion: ~a
+            \n Alimentacion: ~a
+            \n Total de Presupuesto: ~a', [Var_lenguaje, NombreHotel,NombreDepartamento, DireccionHotel,  CostoGasolina, CostoHabitacion, CostoComida,Sumatoria]
+            ),
+    nl, 
+    fail.
+
+
+analisis_idioma_katchikel_cerca_bajo_vehiculon_hsimple(Var_Idioma, Var_Clima,  Var_CantNoches, Var_CantidadComida,Var_CantPersonas):-
+    departamento(Id_depa, NombreDepartamento, CantidadHoras,Var_lenguaje,Clima_dep,Pasaje),
+    hotel(_, NombreHotel, DireccionHotel, _, HSimple, _, PComida, Id_depa, DistanciaHotel),
+
+    CostoPasaje is (Pasaje * Var_CantPersonas),
+    CostoComida is  (((PComida*Var_CantidadComida)* Var_CantPersonas) * Var_CantNoches),
+    CostoHabitacion is (HSimple * Var_CantPersonas),
+    Sumatoria is ( CostoHabitacion + CostoComida + CostoPasaje),
+
+    Var_lenguaje == Var_Idioma,
+    100 >= DistanciaHotel,
+    Var_Clima == Clima_dep,
+    Sumatoria =< 5000,
+
+    mostrarinferencia_idioma_katchikel_cerca_bajo_vehiculon_hsimple(Var_Idioma, NombreHotel,NombreDepartamento, DireccionHotel,  CostoPasaje, CantidadHoras, CostoHabitacion, CostoComida, Sumatoria).
+
+mostrarinferencia_idioma_katchikel_cerca_bajo_vehiculon_hsimple(Var_Idioma, NombreHotel,NombreDepartamento, DireccionHotel,  CostoPasaje, CantidadHoras, CostoHabitacion, CostoComida, Sumatoria):-
+    write('-----------------------------------------'),
+    nl, 
+    format('Segun el Idioma ~a, estas pueden ser sus opciones
+            \n Hotel: ~a
+            \n Departamento: ~a
+            \n Direccion: ~a
+            \n Pasaje: ~a
+            \n Cantidad de Horas: ~a
+            \n Habitacion: ~a
+            \n Alimentacion: ~a
+            \n Total de Presupuesto: ~a', [Var_Idioma ,NombreHotel,NombreDepartamento, DireccionHotel,  CostoPasaje, CantidadHoras, CostoHabitacion, CostoComida, Sumatoria]
+            ),
+    nl, 
+    fail.
+
+%---------------------------katchikel-cerca-bajo-doble-----------------
+analisis_idioma_katchikel_bajo_cerca_vehiculos_hdoble(Var_Idioma, Var_Clima,  Var_CantNoches, Var_CantidadComida,Var_CantPersonas):-
+    departamento(Id_depa, NombreDepartamento, _,Var_lenguaje,Clima_dep,_),
+    hotel(_, NombreHotel, DireccionHotel, _, _, Hdoble, PComida, Id_depa, DistanciaHotel),
+
+    CostoGasolina is ((DistanciaHotel * 5.60)*2),
+    CostoComida is  (((PComida*Var_CantidadComida)* Var_CantPersonas) * Var_CantNoches),
+    CostoHabitacion is (Hdoble * round(Var_CantPersonas /2)) ,
+
+    Sumatoria is (CostoGasolina + CostoHabitacion + CostoComida),
+
+    Var_lenguaje == Var_Idioma,
+    100 >= DistanciaHotel,
+    Var_Clima == Clima_dep,
+    Sumatoria =< 5000,
+
+  
+
+    mostrarinferencia_idioma_katchikel_cerca_bajo_vehiculos_hdoble(Var_Idioma, NombreHotel,NombreDepartamento, DireccionHotel,  CostoGasolina, CostoHabitacion, CostoComida, Sumatoria).
+
+mostrarinferencia_idioma_katchikel_cerca_bajo_vehiculos_hdoble(Var_Idioma, NombreHotel,NombreDepartamento, DireccionHotel,  CostoGasolina, CostoHabitacion, CostoComida, Sumatoria):-
+    write('-----------------------------------------'),
+    nl, 
+    format('Segun el Idioma ~a, estas pueden ser sus opciones
+            \n Hotel: ~a
+            \n Departamento: ~a
+            \n Direccion: ~a
+            \n Gasolina: ~a
+            \n Habitacion: ~a
+            \n Alimentacion: ~a
+            \n Total de Presupuesto: ~a', [Var_Idioma, NombreHotel,NombreDepartamento, DireccionHotel,  CostoGasolina, CostoHabitacion, CostoComida,Sumatoria]
+            ),
+    nl, 
+    fail.
+
+analisis_idioma_katchikel_bajo_cerca_vehiculon_hdoble(Var_Idioma, Var_Clima,  Var_CantNoches, Var_CantidadComida,Var_CantPersonas):-
+    departamento(Id_depa, NombreDepartamento, CantidadHoras,Var_lenguaje,Clima_dep,Pasaje),
+    hotel(_, NombreHotel, DireccionHotel, _, _, Hdoble, PComida, Id_depa, DistanciaHotel),
+
+    CostoPasaje is (Pasaje * Var_CantPersonas),
+    CostoComida is  (((PComida*Var_CantidadComida)* Var_CantPersonas) * Var_CantNoches),
+    CostoHabitacion is (Hdoble * round(Var_CantPersonas/2)),
+    Sumatoria is ( CostoHabitacion + CostoComida + CostoPasaje),
+
+    Var_lenguaje == Var_Idioma,
+    100 >= DistanciaHotel,
+    Var_Clima == Clima_dep,
+    Sumatoria =< 5000,
+    
+    mostrarinferencia_idioma_katchikel_cerca_bajo_vehiculon_hdoble(Var_Idioma, NombreHotel,NombreDepartamento, DireccionHotel,  CostoPasaje, CantidadHoras, CostoHabitacion, CostoComida, Sumatoria).
+
+mostrarinferencia_idioma_katchikel_cerca_bajo_vehiculon_hdoble(Var_Idioma, NombreHotel,NombreDepartamento, DireccionHotel,  CostoPasaje, CantidadHoras, CostoHabitacion, CostoComida, Sumatoria):-
+    write('-----------------------------------------'),
+    nl, 
+    format('Segun el Idioma ~a, estas pueden ser sus opciones
+            \n Hotel: ~a
+            \n Departamento: ~a
+            \n Direccion: ~a
+            \n Pasaje: ~a
+            \n Cantidad de Horas: ~a
+            \n Habitacion: ~a
+            \n Alimentacion: ~a
+            \n Total de Presupuesto: ~a', [Var_Idioma ,NombreHotel,NombreDepartamento, DireccionHotel,  CostoPasaje, CantidadHoras, CostoHabitacion, CostoComida, Sumatoria]
+            ),
+    nl, 
+    fail.
+
+
+
+%------------------------katchikel-lejos-bajo-------------------
+%------------------------katchikel-lejos-bajo-------------------
+analisis_idioma_katchikel_bajo_lejos(Var_Idioma):-
+    write('Tipo de habitacion: \n1. Simple \n2. Doble'),
+    nl, 
+    read(Var_TipoHabitacion),
+    nl,
+    write('Cantidad de Noches a quedarse'),
+    nl,
+    read(Var_CantNoches),
+    nl, 
+    write('Vehiculo s/n'),
+    nl,
+    read(Var_Vehiculo),
+    nl, 
+    write('Cantidad de Tiempos de Comida de 0 - 3'),
+    nl, 
+    read(Var_CantidadComida),
+    nl, 
+    write('Numero de Personas'),
+    nl, 
+    read(Var_CantPersonas),
+    nl,
+    write('Clima \n1. Calor \n2. Frio \n3. Tropical \n4. Templado'),
+    nl, 
+    read(Var_Clima),
+    nl,
+    analsis_idioma_katchikel_lejos_bajo_generales(Var_Idioma, Var_TipoHabitacion, Var_CantNoches, Var_CantNoches, Var_Vehiculo,Var_CantidadComida, Var_CantPersonas,Var_Clima),
+    nl.
+
+analsis_idioma_katchikel_lejos_bajo_generales(Var_Idioma, Var_TipoHabitacion, Var_CantNoches, Var_CantNoches, Var_Vehiculo,Var_CantidadComida, Var_CantPersonas,Var_Clima):-
+    (
+     %- Habitaciones - Simples 
+    (Var_TipoHabitacion == 1 , Var_Vehiculo == 's')-> analisis_idioma_katchikel_lejos_bajo_vehiculos_hsimple(Var_Idioma, Var_Clima, Var_CantNoches, Var_CantidadComida,Var_CantPersonas);
+    (Var_TipoHabitacion == 1 , Var_Vehiculo == 'n')-> analisis_idioma_katchikel_lejos_bajo_vehiculon_hsimple(Var_Idioma, Var_Clima,  Var_CantNoches, Var_CantidadComida,Var_CantPersonas);
+    %- Habitacion - dobles 
+    (Var_TipoHabitacion == 2  , Var_Vehiculo == 's') ->  analisis_idioma_katchikel_lejos_cerca_vehiculos_hdoble(Var_Idioma, Var_Clima,  Var_CantNoches, Var_CantidadComida,Var_CantPersonas);
+    (Var_TipoHabitacion == 2  , Var_Vehiculo == 'n') ->  analisis_idioma_katchikel_lejos_cerca_vehiculon_hdoble(Var_Idioma, Var_Clima,  Var_CantNoches, Var_CantidadComida,Var_CantPersonas)
+    ).
+
+%---------------------------katchikel-cerca-lejos-simple-----------------
+analisis_idioma_katchikel_lejos_bajo_vehiculos_hsimple(Var_Idioma, Var_Clima, Var_CantNoches, Var_CantidadComida,Var_CantPersonas):-
+   departamento(Id_depa, NombreDepartamento, _,Var_lenguaje,Clima_dep,_),
+    hotel(_, NombreHotel, DireccionHotel, _, HSimple, _, PComida, Id_depa, DistanciaHotel),
+
+    CostoGasolina is ((DistanciaHotel * 5.60)*2),
+    CostoComida is  (((PComida*Var_CantidadComida)* Var_CantPersonas) * Var_CantNoches),
+    CostoHabitacion is (HSimple * Var_CantPersonas) ,
+
+    Sumatoria is (CostoGasolina + CostoHabitacion + CostoComida),
+
+    Var_lenguaje == Var_Idioma,
+    100 < DistanciaHotel,
+    Var_Clima == Clima_dep,
+    Sumatoria =< 5000,
+
+    mostrarinferencia_idioma_katchikel_lejos_bajo_vehiculos_hsimple(Var_lenguaje, NombreHotel,NombreDepartamento, DireccionHotel,  CostoGasolina, CostoHabitacion, CostoComida, Sumatoria).
+
+mostrarinferencia_idioma_katchikel_lejos_bajo_vehiculos_hsimple(Var_lenguaje, NombreHotel,NombreDepartamento, DireccionHotel,  CostoGasolina, CostoHabitacion, CostoComida, Sumatoria):-
+    write('-----------------------------------------'),
+    nl, 
+    format('Segun el Idioma ~a, estas pueden ser sus opciones
+            \n Hotel: ~a
+            \n Departamento: ~a
+            \n Direccion: ~a
+            \n Gasolina: ~a
+            \n Habitacion: ~a
+            \n Alimentacion: ~a
+            \n Total de Presupuesto: ~a', [Var_lenguaje, NombreHotel,NombreDepartamento, DireccionHotel,  CostoGasolina, CostoHabitacion, CostoComida,Sumatoria]
+            ),
+    nl, 
+    fail.
+
+
+analisis_idioma_katchikel_lejos_bajo_vehiculon_hsimple(Var_Idioma, Var_Clima,  Var_CantNoches, Var_CantidadComida,Var_CantPersonas):-
+    departamento(Id_depa, NombreDepartamento, CantidadHoras,Var_lenguaje,Clima_dep,Pasaje),
+    hotel(_, NombreHotel, DireccionHotel, _, HSimple, _, PComida, Id_depa, DistanciaHotel),
+
+    CostoPasaje is (Pasaje * Var_CantPersonas),
+    CostoComida is  (((PComida*Var_CantidadComida)* Var_CantPersonas) * Var_CantNoches),
+    CostoHabitacion is (HSimple * Var_CantPersonas),
+    Sumatoria is ( CostoHabitacion + CostoComida + CostoPasaje),
+
+    Var_lenguaje == Var_Idioma,
+    100 < DistanciaHotel,
+    Var_Clima == Clima_dep,
+    Sumatoria =< 5000,
+
+    mostrarinferencia_idioma_katchikel_lejos_bajo_vehiculon_hsimple(Var_Idioma, NombreHotel,NombreDepartamento, DireccionHotel,  CostoPasaje, CantidadHoras, CostoHabitacion, CostoComida, Sumatoria).
+
+mostrarinferencia_idioma_katchikel_lejos_bajo_vehiculon_hsimple(Var_Idioma, NombreHotel,NombreDepartamento, DireccionHotel,  CostoPasaje, CantidadHoras, CostoHabitacion, CostoComida, Sumatoria):-
+    write('-----------------------------------------'),
+    nl, 
+    format('Segun el Idioma ~a, estas pueden ser sus opciones
+            \n Hotel: ~a
+            \n Departamento: ~a
+            \n Direccion: ~a
+            \n Pasaje: ~a
+            \n Cantidad de Horas: ~a
+            \n Habitacion: ~a
+            \n Alimentacion: ~a
+            \n Total de Presupuesto: ~a', [Var_Idioma ,NombreHotel,NombreDepartamento, DireccionHotel,  CostoPasaje, CantidadHoras, CostoHabitacion, CostoComida, Sumatoria]
+            ),
+    nl, 
+    fail.
+
+%---------------------------katchikel-cerca-bajo-doble-----------------
+analisis_idioma_katchikel_lejos_cerca_vehiculos_hdoble(Var_Idioma, Var_Clima,  Var_CantNoches, Var_CantidadComida,Var_CantPersonas):-
+    departamento(Id_depa, NombreDepartamento, _,Var_lenguaje,Clima_dep,_),
+    hotel(_, NombreHotel, DireccionHotel, _, _, Hdoble, PComida, Id_depa, DistanciaHotel),
+
+    CostoGasolina is ((DistanciaHotel * 5.60)*2),
+    CostoComida is  (((PComida*Var_CantidadComida)* Var_CantPersonas) * Var_CantNoches),
+    CostoHabitacion is (Hdoble * round(Var_CantPersonas /2)) ,
+
+    Sumatoria is (CostoGasolina + CostoHabitacion + CostoComida),
+
+    Var_lenguaje == Var_Idioma,
+    100 < DistanciaHotel,
+    Var_Clima == Clima_dep,
+    Sumatoria =< 5000,
+
+  
+
+    mostrarinferencia_idioma_katchikel_lejos_bajo_vehiculos_hdoble(Var_Idioma, NombreHotel,NombreDepartamento, DireccionHotel,  CostoGasolina, CostoHabitacion, CostoComida, Sumatoria).
+
+mostrarinferencia_idioma_katchikel_lejos_bajo_vehiculos_hdoble(Var_Idioma, NombreHotel,NombreDepartamento, DireccionHotel,  CostoGasolina, CostoHabitacion, CostoComida, Sumatoria):-
+    write('-----------------------------------------'),
+    nl, 
+    format('Segun el Idioma ~a, estas pueden ser sus opciones
+            \n Hotel: ~a
+            \n Departamento: ~a
+            \n Direccion: ~a
+            \n Gasolina: ~a
+            \n Habitacion: ~a
+            \n Alimentacion: ~a
+            \n Total de Presupuesto: ~a', [Var_Idioma, NombreHotel,NombreDepartamento, DireccionHotel,  CostoGasolina, CostoHabitacion, CostoComida,Sumatoria]
+            ),
+    nl, 
+    fail.
+
+analisis_idioma_katchikel_lejos_cerca_vehiculon_hdoble(Var_Idioma, Var_Clima,  Var_CantNoches, Var_CantidadComida,Var_CantPersonas):-
+    departamento(Id_depa, NombreDepartamento, CantidadHoras,Var_lenguaje,Clima_dep,Pasaje),
+    hotel(_, NombreHotel, DireccionHotel, _, _, Hdoble, PComida, Id_depa, DistanciaHotel),
+
+    CostoPasaje is (Pasaje * Var_CantPersonas),
+    CostoComida is  (((PComida*Var_CantidadComida)* Var_CantPersonas) * Var_CantNoches),
+    CostoHabitacion is (Hdoble * round(Var_CantPersonas/2)),
+    Sumatoria is ( CostoHabitacion + CostoComida + CostoPasaje),
+
+    Var_lenguaje == Var_Idioma,
+    100 < DistanciaHotel,
+    Var_Clima == Clima_dep,
+    Sumatoria =< 5000,
+    
+    mostrarinferencia_idioma_katchikel_lejos_bajo_vehiculon_hdoble(Var_Idioma, NombreHotel,NombreDepartamento, DireccionHotel,  CostoPasaje, CantidadHoras, CostoHabitacion, CostoComida, Sumatoria).
+
+mostrarinferencia_idioma_katchikel_lejos_bajo_vehiculon_hdoble(Var_Idioma, NombreHotel,NombreDepartamento, DireccionHotel,  CostoPasaje, CantidadHoras, CostoHabitacion, CostoComida, Sumatoria):-
+    write('-----------------------------------------'),
+    nl, 
+    format('Segun el Idioma ~a, estas pueden ser sus opciones
+            \n Hotel: ~a
+            \n Departamento: ~a
+            \n Direccion: ~a
+            \n Pasaje: ~a
+            \n Cantidad de Horas: ~a
+            \n Habitacion: ~a
+            \n Alimentacion: ~a
+            \n Total de Presupuesto: ~a', [Var_Idioma ,NombreHotel,NombreDepartamento, DireccionHotel,  CostoPasaje, CantidadHoras, CostoHabitacion, CostoComida, Sumatoria]
+            ),
+    nl, 
+    fail.
+
+%-------------------------katchikel-Alto--------------
+%-------------------------katchikel-Alto--------------
+analisis_idioma_katchikel_alto(Var_Idioma, Var_Presupuesto):-   write('Como desea la distancia del punto de partida \n1. Cerca (0 - 100km)  \n2. Lejos (> 100Km)'),
+    nl,
+    read(Var_Distancia),
+    nl, 
+    analsis_idioma_katchikel_presupuesto_distancia_alto(Var_Idioma, Var_Presupuesto,Var_Distancia),
+    nl.
+    analsis_idioma_katchikel_presupuesto_distancia_alto(Var_Idioma, Var_Presupuesto,Var_Distancia):-
+    (
+    Var_Distancia == 1 -> analisis_idioma_katchikel_alto_cerca(Var_Idioma);
+    Var_Distancia == 2 -> analisis_idioma_katchikel_alto_lejos(Var_Idioma)
+    ).
+
+
+analisis_idioma_katchikel_alto_cerca(Var_Idioma):-
+    write('Tipo de habitacion: \n1. Simple \n2. Doble'),
+    nl, 
+    read(Var_TipoHabitacion),
+    nl,
+    write('Cantidad de Noches a quedarse'),
+    nl,
+    read(Var_CantNoches),
+    nl, 
+    write('Vehiculo s/n'),
+    nl,
+    read(Var_Vehiculo),
+    nl, 
+    write('Cantidad de Tiempos de Comida de 0 - 3'),
+    nl, 
+    read(Var_CantidadComida),
+    nl, 
+    write('Numero de Personas'),
+    nl, 
+    read(Var_CantPersonas),
+    nl,
+    write('Clima \n1. Calor \n2. Frio \n3. Tropical \n4. Templado'),
+    nl, 
+    read(Var_Clima),
+    nl,
+    analsis_idioma_katchikel_cerca_alto_generales(Var_Idioma, Var_TipoHabitacion, Var_CantNoches, Var_CantNoches, Var_Vehiculo,Var_CantidadComida, Var_CantPersonas,Var_Clima),
+    nl.
+
+analsis_idioma_katchikel_cerca_alto_generales(Var_Idioma, Var_TipoHabitacion, Var_CantNoches, Var_CantNoches, Var_Vehiculo,Var_CantidadComida, Var_CantPersonas,Var_Clima):-
+    (
+     %- Habitaciones - Simples 
+    (Var_TipoHabitacion == 1 , Var_Vehiculo == 's')-> analisis_idioma_katchikel_cerca_alto_vehiculos_hsimple(Var_Idioma, Var_Clima, Var_CantNoches, Var_CantidadComida,Var_CantPersonas);
+    (Var_TipoHabitacion == 1 , Var_Vehiculo == 'n')-> analisis_idioma_katchikel_cerca_alto_vehiculon_hsimple(Var_Idioma, Var_Clima,  Var_CantNoches, Var_CantidadComida,Var_CantPersonas);
+    %- Habitacion - dobles 
+    (Var_TipoHabitacion == 2  , Var_Vehiculo == 's') ->  analisis_idioma_katchikel_alto_cerca_vehiculos_hdoble(Var_Idioma, Var_Clima,  Var_CantNoches, Var_CantidadComida,Var_CantPersonas);
+    (Var_TipoHabitacion == 2  , Var_Vehiculo == 'n') ->  analisis_idioma_katchikel_alto_cerca_vehiculon_hdoble(Var_Idioma, Var_Clima,  Var_CantNoches, Var_CantidadComida,Var_CantPersonas)
+    ).
+
+%---------------------------katchikel-cerca-alto-simple-----------------
+%---------------------------katchikel-cerca-alto-simple-----------------
+analisis_idioma_katchikel_cerca_alto_vehiculos_hsimple(Var_Idioma, Var_Clima, Var_CantNoches, Var_CantidadComida,Var_CantPersonas):-
+   departamento(Id_depa, NombreDepartamento, _,Var_lenguaje,Clima_dep,_),
+    hotel(_, NombreHotel, DireccionHotel, _, HSimple, _, PComida, Id_depa, DistanciaHotel),
+
+    CostoGasolina is ((DistanciaHotel * 5.60)*2),
+    CostoComida is  (((PComida*Var_CantidadComida)* Var_CantPersonas) * Var_CantNoches),
+    CostoHabitacion is (HSimple * Var_CantPersonas) ,
+
+    Sumatoria is (CostoGasolina + CostoHabitacion + CostoComida),
+
+    Var_lenguaje == Var_Idioma,
+    100 >= DistanciaHotel,
+    Var_Clima == Clima_dep,
+    Sumatoria > 5000,
+
+    mostrarinferencia_idioma_katchikel_cerca_alto_vehiculos_hsimple(Var_lenguaje, NombreHotel,NombreDepartamento, DireccionHotel,  CostoGasolina, CostoHabitacion, CostoComida, Sumatoria).
+
+mostrarinferencia_idioma_katchikel_cerca_alto_vehiculos_hsimple(Var_lenguaje, NombreHotel,NombreDepartamento, DireccionHotel,  CostoGasolina, CostoHabitacion, CostoComida, Sumatoria):-
+    write('-----------------------------------------'),
+    nl, 
+    format('Segun el Idioma ~a, estas pueden ser sus opciones
+            \n Hotel: ~a
+            \n Departamento: ~a
+            \n Direccion: ~a
+            \n Gasolina: ~a
+            \n Habitacion: ~a
+            \n Alimentacion: ~a
+            \n Total de Presupuesto: ~a', [Var_lenguaje, NombreHotel,NombreDepartamento, DireccionHotel,  CostoGasolina, CostoHabitacion, CostoComida,Sumatoria]
+            ),
+    nl, 
+    fail.
+
+
+analisis_idioma_katchikel_cerca_alto_vehiculon_hsimple(Var_Idioma, Var_Clima,  Var_CantNoches, Var_CantidadComida,Var_CantPersonas):-
+    departamento(Id_depa, NombreDepartamento, CantidadHoras,Var_lenguaje,Clima_dep,Pasaje),
+    hotel(_, NombreHotel, DireccionHotel, _, HSimple, _, PComida, Id_depa, DistanciaHotel),
+
+    CostoPasaje is (Pasaje * Var_CantPersonas),
+    CostoComida is  (((PComida*Var_CantidadComida)* Var_CantPersonas) * Var_CantNoches),
+    CostoHabitacion is (HSimple * Var_CantPersonas),
+    Sumatoria is ( CostoHabitacion + CostoComida + CostoPasaje),
+
+    Var_lenguaje == Var_Idioma,
+    100 >= DistanciaHotel,
+    Var_Clima == Clima_dep,
+    Sumatoria > 5000,
+
+    mostrarinferencia_idioma_katchikel_cerca_alto_vehiculon_hsimple(Var_Idioma, NombreHotel,NombreDepartamento, DireccionHotel,  CostoPasaje, CantidadHoras, CostoHabitacion, CostoComida, Sumatoria).
+
+mostrarinferencia_idioma_katchikel_cerca_alto_vehiculon_hsimple(Var_Idioma, NombreHotel,NombreDepartamento, DireccionHotel,  CostoPasaje, CantidadHoras, CostoHabitacion, CostoComida, Sumatoria):-
+    write('-----------------------------------------'),
+    nl, 
+    format('Segun el Idioma ~a, estas pueden ser sus opciones
+            \n Hotel: ~a
+            \n Departamento: ~a
+            \n Direccion: ~a
+            \n Pasaje: ~a
+            \n Cantidad de Horas: ~a
+            \n Habitacion: ~a
+            \n Alimentacion: ~a
+            \n Total de Presupuesto: ~a', [Var_Idioma ,NombreHotel,NombreDepartamento, DireccionHotel,  CostoPasaje, CantidadHoras, CostoHabitacion, CostoComida, Sumatoria]
+            ),
+    nl, 
+    fail.
+
+%---------------------------katchikel-lejos-alto-doble-----------------
+analisis_idioma_katchikel_alto_cerca_vehiculos_hdoble(Var_Idioma, Var_Clima,  Var_CantNoches, Var_CantidadComida,Var_CantPersonas):-
+    departamento(Id_depa, NombreDepartamento, _,Var_lenguaje,Clima_dep,_),
+    hotel(_, NombreHotel, DireccionHotel, _, _, Hdoble, PComida, Id_depa, DistanciaHotel),
+
+    CostoGasolina is ((DistanciaHotel * 5.60)*2),
+    CostoComida is  (((PComida*Var_CantidadComida)* Var_CantPersonas) * Var_CantNoches),
+    CostoHabitacion is (Hdoble * round(Var_CantPersonas /2)) ,
+
+    Sumatoria is (CostoGasolina + CostoHabitacion + CostoComida),
+
+    Var_lenguaje == Var_Idioma,
+    100 >= DistanciaHotel,
+    Var_Clima == Clima_dep,
+    Sumatoria > 5000,
+
+  
+
+    mostrarinferencia_idioma_katchikel_cerca_alto_vehiculos_hdoble(Var_Idioma, NombreHotel,NombreDepartamento, DireccionHotel,  CostoGasolina, CostoHabitacion, CostoComida, Sumatoria).
+
+mostrarinferencia_idioma_katchikel_cerca_alto_vehiculos_hdoble(Var_Idioma, NombreHotel,NombreDepartamento, DireccionHotel,  CostoGasolina, CostoHabitacion, CostoComida, Sumatoria):-
+    write('-----------------------------------------'),
+    nl, 
+    format('Segun el Idioma ~a, estas pueden ser sus opciones
+            \n Hotel: ~a
+            \n Departamento: ~a
+            \n Direccion: ~a
+            \n Gasolina: ~a
+            \n Habitacion: ~a
+            \n Alimentacion: ~a
+            \n Total de Presupuesto: ~a', [Var_Idioma, NombreHotel,NombreDepartamento, DireccionHotel,  CostoGasolina, CostoHabitacion, CostoComida,Sumatoria]
+            ),
+    nl, 
+    fail.
+
+analisis_idioma_katchikel_alto_cerca_vehiculon_hdoble(Var_Idioma, Var_Clima,  Var_CantNoches, Var_CantidadComida,Var_CantPersonas):-
+    departamento(Id_depa, NombreDepartamento, CantidadHoras,Var_lenguaje,Clima_dep,Pasaje),
+    hotel(_, NombreHotel, DireccionHotel, _, _, Hdoble, PComida, Id_depa, DistanciaHotel),
+
+    CostoPasaje is (Pasaje * Var_CantPersonas),
+    CostoComida is  (((PComida*Var_CantidadComida)* Var_CantPersonas) * Var_CantNoches),
+    CostoHabitacion is (Hdoble * round(Var_CantPersonas/2)),
+    Sumatoria is ( CostoHabitacion + CostoComida + CostoPasaje),
+
+    Var_lenguaje == Var_Idioma,
+    100 >= DistanciaHotel,
+    Var_Clima == Clima_dep,
+    Sumatoria > 5000,
+    
+    mostrarinferencia_idioma_katchikel_cerca_alto_vehiculon_hdoble(Var_Idioma, NombreHotel,NombreDepartamento, DireccionHotel,  CostoPasaje, CantidadHoras, CostoHabitacion, CostoComida, Sumatoria).
+
+mostrarinferencia_idioma_katchikel_cerca_alto_vehiculon_hdoble(Var_Idioma, NombreHotel,NombreDepartamento, DireccionHotel,  CostoPasaje, CantidadHoras, CostoHabitacion, CostoComida, Sumatoria):-
+    write('-----------------------------------------'),
+    nl, 
+    format('Segun el Idioma ~a, estas pueden ser sus opciones
+            \n Hotel: ~a
+            \n Departamento: ~a
+            \n Direccion: ~a
+            \n Pasaje: ~a
+            \n Cantidad de Horas: ~a
+            \n Habitacion: ~a
+            \n Alimentacion: ~a
+            \n Total de Presupuesto: ~a', [Var_Idioma ,NombreHotel,NombreDepartamento, DireccionHotel,  CostoPasaje, CantidadHoras, CostoHabitacion, CostoComida, Sumatoria]
+            ),
+    nl, 
+    fail.
+
+
+%------------------------katchikel-lejos-alto-------------------
+%------------------------katchikel-lejos-alto-------------------
+analisis_idioma_katchikel_alto_lejos(Var_Idioma):-
+    write('Tipo de habitacion: \n1. Simple \n2. Doble'),
+    nl, 
+    read(Var_TipoHabitacion),
+    nl,
+    write('Cantidad de Noches a quedarse'),
+    nl,
+    read(Var_CantNoches),
+    nl, 
+    write('Vehiculo s/n'),
+    nl,
+    read(Var_Vehiculo),
+    nl, 
+    write('Cantidad de Tiempos de Comida de 0 - 3'),
+    nl, 
+    read(Var_CantidadComida),
+    nl, 
+    write('Numero de Personas'),
+    nl, 
+    read(Var_CantPersonas),
+    nl,
+    write('Clima \n1. Calor \n2. Frio \n3. Tropical \n4. Templado'),
+    nl, 
+    read(Var_Clima),
+    nl,
+    analsis_idioma_katchikel_lejos_alto_generales(Var_Idioma, Var_TipoHabitacion, Var_CantNoches, Var_CantNoches, Var_Vehiculo,Var_CantidadComida, Var_CantPersonas,Var_Clima),
+    nl.
+
+analsis_idioma_katchikel_lejos_alto_generales(Var_Idioma, Var_TipoHabitacion, Var_CantNoches, Var_CantNoches, Var_Vehiculo,Var_CantidadComida, Var_CantPersonas,Var_Clima):-
+    (
+     %- Habitaciones - Simples 
+    (Var_TipoHabitacion == 1 , Var_Vehiculo == 's')-> analisis_idioma_katchikel_lejos_alto_vehiculos_hsimple(Var_Idioma, Var_Clima, Var_CantNoches, Var_CantidadComida,Var_CantPersonas);
+    (Var_TipoHabitacion == 1 , Var_Vehiculo == 'n')-> analisis_idioma_katchikel_lejos_alto_vehiculon_hsimple(Var_Idioma, Var_Clima,  Var_CantNoches, Var_CantidadComida,Var_CantPersonas);
+    %- Habitacion - dobles 
+    (Var_TipoHabitacion == 2  , Var_Vehiculo == 's') ->  analisis_idioma_katchikel_lejos_alto_vehiculos_hdoble(Var_Idioma, Var_Clima,  Var_CantNoches, Var_CantidadComida,Var_CantPersonas);
+    (Var_TipoHabitacion == 2  , Var_Vehiculo == 'n') ->  analisis_idioma_katchikel_lejos_alto_vehiculon_hdoble(Var_Idioma, Var_Clima,  Var_CantNoches, Var_CantidadComida,Var_CantPersonas)
+    ).
+
+%---------------------------katchikel-alto-lejos-simple-----------------
+analisis_idioma_katchikel_lejos_alto_vehiculos_hsimple(Var_Idioma, Var_Clima, Var_CantNoches, Var_CantidadComida,Var_CantPersonas):-
+   departamento(Id_depa, NombreDepartamento, _,Var_lenguaje,Clima_dep,_),
+    hotel(_, NombreHotel, DireccionHotel, _, HSimple, _, PComida, Id_depa, DistanciaHotel),
+
+    CostoGasolina is ((DistanciaHotel * 5.60)*2),
+    CostoComida is  (((PComida*Var_CantidadComida)* Var_CantPersonas) * Var_CantNoches),
+    CostoHabitacion is (HSimple * Var_CantPersonas) ,
+
+    Sumatoria is (CostoGasolina + CostoHabitacion + CostoComida),
+
+    Var_lenguaje == Var_Idioma,
+    100 < DistanciaHotel,
+    Var_Clima == Clima_dep,
+    Sumatoria > 5000,
+
+    mostrarinferencia_idioma_katchikel_lejos_alto_vehiculos_hsimple(Var_lenguaje, NombreHotel,NombreDepartamento, DireccionHotel,  CostoGasolina, CostoHabitacion, CostoComida, Sumatoria).
+
+mostrarinferencia_idioma_katchikel_lejos_alto_vehiculos_hsimple(Var_lenguaje, NombreHotel,NombreDepartamento, DireccionHotel,  CostoGasolina, CostoHabitacion, CostoComida, Sumatoria):-
+    write('-----------------------------------------'),
+    nl, 
+    format('Segun el Idioma ~a, estas pueden ser sus opciones
+            \n Hotel: ~a
+            \n Departamento: ~a
+            \n Direccion: ~a
+            \n Gasolina: ~a
+            \n Habitacion: ~a
+            \n Alimentacion: ~a
+            \n Total de Presupuesto: ~a', [Var_lenguaje, NombreHotel,NombreDepartamento, DireccionHotel,  CostoGasolina, CostoHabitacion, CostoComida,Sumatoria]
+            ),
+    nl, 
+    fail.
+
+
+analisis_idioma_katchikel_lejos_alto_vehiculon_hsimple(Var_Idioma, Var_Clima,  Var_CantNoches, Var_CantidadComida,Var_CantPersonas):-
+    departamento(Id_depa, NombreDepartamento, CantidadHoras,Var_lenguaje,Clima_dep,Pasaje),
+    hotel(_, NombreHotel, DireccionHotel, _, HSimple, _, PComida, Id_depa, DistanciaHotel),
+
+    CostoPasaje is (Pasaje * Var_CantPersonas),
+    CostoComida is  (((PComida*Var_CantidadComida)* Var_CantPersonas) * Var_CantNoches),
+    CostoHabitacion is (HSimple * Var_CantPersonas),
+    Sumatoria is ( CostoHabitacion + CostoComida + CostoPasaje),
+
+    Var_lenguaje == Var_Idioma,
+    100 < DistanciaHotel,
+    Var_Clima == Clima_dep,
+    Sumatoria > 5000,
+
+    mostrarinferencia_idioma_katchikel_lejos_alto_vehiculon_hsimple(Var_Idioma, NombreHotel,NombreDepartamento, DireccionHotel,  CostoPasaje, CantidadHoras, CostoHabitacion, CostoComida, Sumatoria).
+
+mostrarinferencia_idioma_katchikel_lejos_alto_vehiculon_hsimple(Var_Idioma, NombreHotel,NombreDepartamento, DireccionHotel,  CostoPasaje, CantidadHoras, CostoHabitacion, CostoComida, Sumatoria):-
+    write('-----------------------------------------'),
+    nl, 
+    format('Segun el Idioma ~a, estas pueden ser sus opciones
+            \n Hotel: ~a
+            \n Departamento: ~a
+            \n Direccion: ~a
+            \n Pasaje: ~a
+            \n Cantidad de Horas: ~a
+            \n Habitacion: ~a
+            \n Alimentacion: ~a
+            \n Total de Presupuesto: ~a', [Var_Idioma ,NombreHotel,NombreDepartamento, DireccionHotel,  CostoPasaje, CantidadHoras, CostoHabitacion, CostoComida, Sumatoria]
+            ),
+    nl, 
+    fail.
+
+%---------------------------katchikel-alto-alto-doble-----------------
+analisis_idioma_katchikel_lejos_alto_vehiculos_hdoble(Var_Idioma, Var_Clima,  Var_CantNoches, Var_CantidadComida,Var_CantPersonas):-
+    departamento(Id_depa, NombreDepartamento, _,Var_lenguaje,Clima_dep,_),
+    hotel(_, NombreHotel, DireccionHotel, _, _, Hdoble, PComida, Id_depa, DistanciaHotel),
+
+    CostoGasolina is ((DistanciaHotel * 5.60)*2),
+    CostoComida is  (((PComida*Var_CantidadComida)* Var_CantPersonas) * Var_CantNoches),
+    CostoHabitacion is (Hdoble * round(Var_CantPersonas /2)) ,
+
+    Sumatoria is (CostoGasolina + CostoHabitacion + CostoComida),
+
+    Var_lenguaje == Var_Idioma,
+    100 < DistanciaHotel,
+    Var_Clima == Clima_dep,
+    Sumatoria > 5000,
+
+  
+
+    mostrarinferencia_idioma_katchikel_lejos_alto_vehiculos_hdoble(Var_Idioma, NombreHotel,NombreDepartamento, DireccionHotel,  CostoGasolina, CostoHabitacion, CostoComida, Sumatoria).
+
+mostrarinferencia_idioma_katchikel_lejos_alto_vehiculos_hdoble(Var_Idioma, NombreHotel,NombreDepartamento, DireccionHotel,  CostoGasolina, CostoHabitacion, CostoComida, Sumatoria):-
+    write('-----------------------------------------'),
+    nl, 
+    format('Segun el Idioma ~a, estas pueden ser sus opciones
+            \n Hotel: ~a
+            \n Departamento: ~a
+            \n Direccion: ~a
+            \n Gasolina: ~a
+            \n Habitacion: ~a
+            \n Alimentacion: ~a
+            \n Total de Presupuesto: ~a', [Var_Idioma, NombreHotel,NombreDepartamento, DireccionHotel,  CostoGasolina, CostoHabitacion, CostoComida,Sumatoria]
+            ),
+    nl, 
+    fail.
+
+analisis_idioma_katchikel_lejos_alto_vehiculon_hdoble(Var_Idioma, Var_Clima,  Var_CantNoches, Var_CantidadComida,Var_CantPersonas):-
+    departamento(Id_depa, NombreDepartamento, CantidadHoras,Var_lenguaje,Clima_dep,Pasaje),
+    hotel(_, NombreHotel, DireccionHotel, _, _, Hdoble, PComida, Id_depa, DistanciaHotel),
+
+    CostoPasaje is (Pasaje * Var_CantPersonas),
+    CostoComida is  (((PComida*Var_CantidadComida)* Var_CantPersonas) * Var_CantNoches),
+    CostoHabitacion is (Hdoble * round(Var_CantPersonas/2)),
+    Sumatoria is ( CostoHabitacion + CostoComida + CostoPasaje),
+
+    Var_lenguaje == Var_Idioma,
+    100 < DistanciaHotel,
+    Var_Clima == Clima_dep,
+    Sumatoria > 5000,
+    
+    mostrarinferencia_idioma_katchikel_lejos_alto_vehiculon_hdoble(Var_Idioma, NombreHotel,NombreDepartamento, DireccionHotel,  CostoPasaje, CantidadHoras, CostoHabitacion, CostoComida, Sumatoria).
+
+mostrarinferencia_idioma_katchikel_lejos_alto_vehiculon_hdoble(Var_Idioma, NombreHotel,NombreDepartamento, DireccionHotel,  CostoPasaje, CantidadHoras, CostoHabitacion, CostoComida, Sumatoria):-
+    write('-----------------------------------------'),
+    nl, 
+    format('Segun el Idioma ~a, estas pueden ser sus opciones
+            \n Hotel: ~a
+            \n Departamento: ~a
+            \n Direccion: ~a
+            \n Pasaje: ~a
+            \n Cantidad de Horas: ~a
+            \n Habitacion: ~a
+            \n Alimentacion: ~a
+            \n Total de Presupuesto: ~a', [Var_Idioma ,NombreHotel,NombreDepartamento, DireccionHotel,  CostoPasaje, CantidadHoras, CostoHabitacion, CostoComida, Sumatoria]
+            ),
+    nl, 
+    fail.
+
+%-------------------------------------------------------ESTRELLAS---------------------------------------------
+%-------------------------------------------------------ESTRELLAS---------------------------------------------
+%-------------------------------------------------------ESTRELLAS---------------------------------------------
+preguntasestrellas():-
+    write('Conteste las siguientes preguntas sobre la calidad del hotel que desea'),
+    nl,
+    write('Cual es su calidad? \n1. Bajo (Q. 1 - 3 estrellas) \n2. Alto (> 3)'),
+    nl, 
+    read(Var_Estrellas),
+    nl,
+    analsis_estrellas(Var_Estrellas),
+    nl.
+
+analsis_estrellas(Var_Estrellas):-
+    (
+        Var_Estrellas == 1 -> estrellas_baja();
+        Var_Estrellas == 2 -> estrellas_alto()
+    ).
+%------------------------------------Estrellas Baja----------------
+estrellas_baja():-
+    write('Como desea la distancia del punto de partida \n1. Cerca (0 - 100km)  \n2. Lejos (> 100Km)'),
+    nl,
+    read(Var_Distancia),
+    nl, 
+    analsis_estrellas_bajas(Var_Distancia),
+    nl.
+
+
+analsis_estrellas_bajas(Var_Distancia):-(
+    Var_Distancia == 1 -> analisis_estrellas_bajas_cerca();
+    Var_Distancia == 2 -> analisis_estrellas_bajas_lejos()
+    ).
+
+%------------------Baja - Cerca
+analisis_estrellas_bajas_cerca():-
+    write('Tipo de habitacion: \n1. Simple \n2. Doble'),
+    nl, 
+    read(Var_TipoHabitacion),
+    nl,
+    write('Cantidad de Noches a quedarse'),
+    nl,
+    read(Var_CantNoches),
+    nl, 
+    write('Vehiculo s/n'),
+    nl,
+    read(Var_Vehiculo),
+    nl, 
+    write('Cantidad de Tiempos de Comida de 0 - 3'),
+    nl, 
+    read(Var_CantidadComida),
+    nl, 
+    write('Numero de Personas'),
+    nl, 
+    read(Var_CantPersonas),
+    nl,
+    write('Clima \n1. Calor \n2. Frio \n3. Tropical \n4. Templado'),
+    nl, 
+    read(Var_Clima),
+    nl,
+    analisis_estrellas_bajas_cerca_generales(Var_TipoHabitacion, Var_CantNoches,Var_Vehiculo, Var_CantidadComida,Var_CantPersonas, Var_Clima),
+    nl.
+
+analisis_estrellas_bajas_cerca_generales(Var_TipoHabitacion, Var_CantNoches,Var_Vehiculo, Var_CantidadComida,Var_CantPersonas, Var_Clima):-
+    (
+     %- Habitaciones - Simples 
+    (Var_TipoHabitacion == 1 , Var_Vehiculo == 's')-> analisis_estrellas_bajas_cerca_bajo_vehiculos_hsimple( Var_CantNoches, Var_CantidadComida,Var_CantPersonas, Var_Clima);
+    (Var_TipoHabitacion == 1 , Var_Vehiculo == 'n')-> analisis_estrellas_bajas_cerca_bajo_vehiculon_hsimple( Var_CantNoches, Var_CantidadComida,Var_CantPersonas, Var_Clima);
+    %- Habitacion - dobles 
+    (Var_TipoHabitacion == 2 , Var_Vehiculo == 's')-> analisis_estrellas_bajas_cerca_bajo_vehiculos_hdoble(Var_CantNoches, Var_CantidadComida,Var_CantPersonas, Var_Clima);
+    (Var_TipoHabitacion == 2 , Var_Vehiculo == 'n')-> analisis_estrellas_bajas_cerca_bajo_vehiculon_hdoble( Var_CantNoches, Var_CantidadComida,Var_CantPersonas, Var_Clima)
+    ).
+
+%---------------------Bajo - Cerca - Simple
+analisis_estrellas_bajas_cerca_bajo_vehiculos_hsimple( Var_CantNoches, Var_CantidadComida,Var_CantPersonas, Var_Clima):-
+    departamento(Id_depa, NombreDepartamento, _,_,Clima_dep,_),
+    hotel(_, NombreHotel, DireccionHotel, Var_Estrellas, HSimple, _, PComida, Id_depa, DistanciaHotel),
+
+    CostoGasolina is ((DistanciaHotel * 5.60)*2),
+    CostoComida is  (((PComida*Var_CantidadComida)* Var_CantPersonas) * Var_CantNoches),
+    CostoHabitacion is (HSimple * Var_CantPersonas) ,
+
+    Sumatoria is (CostoGasolina + CostoHabitacion + CostoComida),
+    3 >= Var_Estrellas,
+    100 >= DistanciaHotel,
+    Var_Clima == Clima_dep,
+    Sumatoria =< 5000,
+
+    mostrarinferencia_estrellas_bajas_cerca_bajo_vehiculos_hsimple(Var_Estrellas,  NombreHotel,NombreDepartamento, DireccionHotel,  CostoGasolina, CostoHabitacion, CostoComida, Sumatoria).
+
+mostrarinferencia_estrellas_bajas_cerca_bajo_vehiculos_hsimple(Var_Estrellas, NombreHotel,NombreDepartamento, DireccionHotel,  CostoGasolina, CostoHabitacion, CostoComida, Sumatoria):-
+    write('-----------------------------------------'),
+    nl, 
+    format('Segun nivel bajo de estrellas , estas pueden ser sus opciones
+            \n Hotel: ~a
+            \n Estrellas: ~a
+            \n Departamento: ~a
+            \n Direccion: ~a
+            \n Gasolina: ~a
+            \n Habitacion: ~a
+            \n Alimentacion: ~a
+            \n Total de Presupuesto: ~a', [NombreHotel,Var_Estrellas, NombreDepartamento, DireccionHotel,  CostoGasolina, CostoHabitacion, CostoComida,Sumatoria]
+            ),
+    nl, 
+    fail.
+
+analisis_estrellas_bajas_cerca_bajo_vehiculon_hsimple(Var_CantNoches, Var_CantidadComida,Var_CantPersonas, Var_Clima):-
+
+    departamento(Id_depa, NombreDepartamento, CantidadHoras,_,Clima_dep,Pasaje),
+    hotel(_, NombreHotel, DireccionHotel, Var_Estrellas, HSimple, _, PComida, Id_depa, DistanciaHotel),
+
+    CostoPasaje is (Pasaje * Var_CantPersonas),
+    CostoComida is  (((PComida*Var_CantidadComida)* Var_CantPersonas) * Var_CantNoches),
+    CostoHabitacion is (HSimple * Var_CantPersonas),
+    Sumatoria is ( CostoHabitacion + CostoComida + CostoPasaje),
+
+    3 >= Var_Estrellas,
+    100 < DistanciaHotel,
+    Var_Clima == Clima_dep,
+    Sumatoria > 5000,
+
+    mostrarinferencia_estrellas_bajas_cerca_bajo_vehiculon_hsimple(NombreHotel, Var_Estrellas, NombreDepartamento, DireccionHotel,  CostoPasaje, CantidadHoras, CostoHabitacion, CostoComida, Sumatoria).
+
+mostrarinferencia_estrellas_bajas_cerca_bajo_vehiculon_hsimple(NombreHotel, Var_Estrellas, NombreDepartamento, DireccionHotel,  CostoPasaje, CantidadHoras, CostoHabitacion, CostoComida, Sumatoria):-
+    write('-----------------------------------------'),
+    nl, 
+    format('Segun nivel bajo de estrellas , estas pueden ser sus opciones
+            \n Hotel: ~a
+            \n Cantidad de Estrellas: ~a
+            \n Departamento: ~a
+            \n Direccion: ~a
+            \n Pasaje: ~a
+            \n Cantidad de Horas: ~a
+            \n Habitacion: ~a
+            \n Alimentacion: ~a
+            \n Total de Presupuesto: ~a', [NombreHotel, Var_Estrellas, NombreDepartamento, DireccionHotel,  CostoPasaje, CantidadHoras, CostoHabitacion, CostoComida, Sumatoria]
+            ),
+    nl, 
+    fail.
+
+%---------------------Bajo - Cerca - doble
+%---------------------Bajo - Cerca - doble
+analisis_estrellas_bajas_cerca_bajo_vehiculos_hdoble( Var_CantNoches, Var_CantidadComida,Var_CantPersonas, Var_Clima):-
+    departamento(Id_depa, NombreDepartamento, _,_,Clima_dep,_),
+    hotel(_, NombreHotel, DireccionHotel, Var_Estrellas, _, Hdoble, PComida, Id_depa, DistanciaHotel),
+
+    CostoGasolina is ((DistanciaHotel * 5.60)*2),
+    CostoComida is  (((PComida*Var_CantidadComida)* Var_CantPersonas) * Var_CantNoches),
+    CostoHabitacion is (Hdoble * round(Var_CantPersonas/2)),
+
+    Sumatoria is (CostoGasolina + CostoHabitacion + CostoComida),
+    3 >= Var_Estrellas,
+    100 >= DistanciaHotel,
+    Var_Clima == Clima_dep,
+    Sumatoria =< 5000,
+
+    mostrarinferencia_estrellas_bajas_cerca_bajo_vehiculos_hdoble(Var_Estrellas,  NombreHotel,NombreDepartamento, DireccionHotel,  CostoGasolina, CostoHabitacion, CostoComida, Sumatoria).
+
+mostrarinferencia_estrellas_bajas_cerca_bajo_vehiculos_hdoble(Var_Estrellas, NombreHotel,NombreDepartamento, DireccionHotel,  CostoGasolina, CostoHabitacion, CostoComida, Sumatoria):-
+    write('-----------------------------------------'),
+    nl, 
+    format('Segun nivel bajo de estrellas , estas pueden ser sus opciones
+            \n Hotel: ~a
+            \n Estrellas: ~a
+            \n Departamento: ~a
+            \n Direccion: ~a
+            \n Gasolina: ~a
+            \n Habitacion: ~a
+            \n Alimentacion: ~a
+            \n Total de Presupuesto: ~a', [NombreHotel,Var_Estrellas, NombreDepartamento, DireccionHotel,  CostoGasolina, CostoHabitacion, CostoComida,Sumatoria]
+            ),
+    nl, 
+    fail.
+
+analisis_estrellas_bajas_cerca_bajo_vehiculon_hdoble(Var_CantNoches, Var_CantidadComida,Var_CantPersonas, Var_Clima):-
+
+    departamento(Id_depa, NombreDepartamento, CantidadHoras,_,Clima_dep,Pasaje),
+    hotel(_, NombreHotel, DireccionHotel, Var_Estrellas, _, Hdoble, PComida, Id_depa, DistanciaHotel),
+
+    CostoPasaje is (Pasaje * Var_CantPersonas),
+    CostoComida is  (((PComida*Var_CantidadComida)* Var_CantPersonas) * Var_CantNoches),
+    CostoHabitacion is (Hdoble * round(Var_CantPersonas/2)),
+    Sumatoria is ( CostoHabitacion + CostoComida + CostoPasaje),
+
+    3 >= Var_Estrellas,
+    100 < DistanciaHotel,
+    Var_Clima == Clima_dep,
+    Sumatoria > 5000,
+
+    mostrarinferencia_estrellas_bajas_cerca_bajo_vehiculon_hdoble(NombreHotel, Var_Estrellas, NombreDepartamento, DireccionHotel,  CostoPasaje, CantidadHoras, CostoHabitacion, CostoComida, Sumatoria).
+
+mostrarinferencia_estrellas_bajas_cerca_bajo_vehiculon_hdoble(NombreHotel, Var_Estrellas, NombreDepartamento, DireccionHotel,  CostoPasaje, CantidadHoras, CostoHabitacion, CostoComida, Sumatoria):-
+    write('-----------------------------------------'),
+    nl, 
+    format('Segun nivel bajo de estrellas , estas pueden ser sus opciones
+            \n Hotel: ~a
+            \n Cantidad de Estrellas: ~a
+            \n Departamento: ~a
+            \n Direccion: ~a
+            \n Pasaje: ~a
+            \n Cantidad de Horas: ~a
+            \n Habitacion: ~a
+            \n Alimentacion: ~a
+            \n Total de Presupuesto: ~a', [NombreHotel, Var_Estrellas, NombreDepartamento, DireccionHotel,  CostoPasaje, CantidadHoras, CostoHabitacion, CostoComida, Sumatoria]
+            ),
+    nl, 
+    fail.
+
+
+
+%---------------Bajo - lejos
+%---------------Bajo - lejos
+%---------------Bajo - lejos
+
+analisis_estrellas_bajas_lejos():-
+    write('Tipo de habitacion: \n1. Simple \n2. Doble'),
+    nl, 
+    read(Var_TipoHabitacion),
+    nl,
+    write('Cantidad de Noches a quedarse'),
+    nl,
+    read(Var_CantNoches),
+    nl, 
+    write('Vehiculo s/n'),
+    nl,
+    read(Var_Vehiculo),
+    nl, 
+    write('Cantidad de Tiempos de Comida de 0 - 3'),
+    nl, 
+    read(Var_CantidadComida),
+    nl, 
+    write('Numero de Personas'),
+    nl, 
+    read(Var_CantPersonas),
+    nl,
+    write('Clima \n1. Calor \n2. Frio \n3. Tropical \n4. Templado'),
+    nl, 
+    read(Var_Clima),
+    nl,
+    analisis_estrellas_bajas_lejos_generales(Var_TipoHabitacion, Var_CantNoches,Var_Vehiculo, Var_CantidadComida,Var_CantPersonas, Var_Clima),
+    nl.
+
+analisis_estrellas_bajas_lejos_generales(Var_TipoHabitacion, Var_CantNoches,Var_Vehiculo, Var_CantidadComida,Var_CantPersonas, Var_Clima):-
+    (
+     %- Habitaciones - Simples 
+    (Var_TipoHabitacion == 1 , Var_Vehiculo == 's')-> analisis_estrellas_bajas_lejos_bajo_vehiculos_hsimple( Var_CantNoches, Var_CantidadComida,Var_CantPersonas, Var_Clima);
+    (Var_TipoHabitacion == 1 , Var_Vehiculo == 'n')-> analisis_estrellas_bajas_lejos_bajo_vehiculon_hsimple( Var_CantNoches, Var_CantidadComida,Var_CantPersonas, Var_Clima);
+    %- Habitacion - dobles 
+    (Var_TipoHabitacion == 2 , Var_Vehiculo == 's')-> analisis_estrellas_bajas_lejos_bajo_vehiculos_hdoble(Var_CantNoches, Var_CantidadComida,Var_CantPersonas, Var_Clima);
+    (Var_TipoHabitacion == 2 , Var_Vehiculo == 'n')-> analisis_estrellas_bajas_lejos_bajo_vehiculon_hdoble( Var_CantNoches, Var_CantidadComida,Var_CantPersonas, Var_Clima)
+    ).
+
+%---------------------Bajo - lejos - Simple
+analisis_estrellas_bajas_lejos_bajo_vehiculos_hsimple( Var_CantNoches, Var_CantidadComida,Var_CantPersonas, Var_Clima):-
+    departamento(Id_depa, NombreDepartamento, _,_,Clima_dep,_),
+    hotel(_, NombreHotel, DireccionHotel, Var_Estrellas, HSimple, _, PComida, Id_depa, DistanciaHotel),
+
+    CostoGasolina is ((DistanciaHotel * 5.60)*2),
+    CostoComida is  (((PComida*Var_CantidadComida)* Var_CantPersonas) * Var_CantNoches),
+    CostoHabitacion is (HSimple * Var_CantPersonas) ,
+
+    Sumatoria is (CostoGasolina + CostoHabitacion + CostoComida),
+    3 >= Var_Estrellas,
+    100 =< DistanciaHotel,
+    Var_Clima == Clima_dep,
+    Sumatoria =< 5000,
+
+    mostrarinferencia_estrellas_bajas_lejos_bajo_vehiculos_hsimple(Var_Estrellas,  NombreHotel,NombreDepartamento, DireccionHotel,  CostoGasolina, CostoHabitacion, CostoComida, Sumatoria).
+
+mostrarinferencia_estrellas_bajas_lejos_bajo_vehiculos_hsimple(Var_Estrellas, NombreHotel,NombreDepartamento, DireccionHotel,  CostoGasolina, CostoHabitacion, CostoComida, Sumatoria):-
+    write('-----------------------------------------'),
+    nl, 
+    format('Segun nivel bajo de estrellas , estas pueden ser sus opciones
+            \n Hotel: ~a
+            \n Estrellas: ~a
+            \n Departamento: ~a
+            \n Direccion: ~a
+            \n Gasolina: ~a
+            \n Habitacion: ~a
+            \n Alimentacion: ~a
+            \n Total de Presupuesto: ~a', [NombreHotel,Var_Estrellas, NombreDepartamento, DireccionHotel,  CostoGasolina, CostoHabitacion, CostoComida,Sumatoria]
+            ),
+    nl, 
+    fail.
+
+analisis_estrellas_bajas_lejos_bajo_vehiculon_hsimple(Var_CantNoches, Var_CantidadComida,Var_CantPersonas, Var_Clima):-
+
+    departamento(Id_depa, NombreDepartamento, CantidadHoras,_,Clima_dep,Pasaje),
+    hotel(_, NombreHotel, DireccionHotel, Var_Estrellas, HSimple, _, PComida, Id_depa, DistanciaHotel),
+
+    CostoPasaje is (Pasaje * Var_CantPersonas),
+    CostoComida is  (((PComida*Var_CantidadComida)* Var_CantPersonas) * Var_CantNoches),
+    CostoHabitacion is (HSimple * Var_CantPersonas),
+    Sumatoria is ( CostoHabitacion + CostoComida + CostoPasaje),
+
+    3 >= Var_Estrellas,
+    100 =< DistanciaHotel,
+    Var_Clima == Clima_dep,
+    Sumatoria > 5000,
+
+    mostrarinferencia_estrellas_bajas_lejos_bajo_vehiculon_hsimple(NombreHotel, Var_Estrellas, NombreDepartamento, DireccionHotel,  CostoPasaje, CantidadHoras, CostoHabitacion, CostoComida, Sumatoria).
+
+mostrarinferencia_estrellas_bajas_lejos_bajo_vehiculon_hsimple(NombreHotel, Var_Estrellas, NombreDepartamento, DireccionHotel,  CostoPasaje, CantidadHoras, CostoHabitacion, CostoComida, Sumatoria):-
+    write('-----------------------------------------'),
+    nl, 
+    format('Segun nivel bajo de estrellas , estas pueden ser sus opciones
+            \n Hotel: ~a
+            \n Cantidad de Estrellas: ~a
+            \n Departamento: ~a
+            \n Direccion: ~a
+            \n Pasaje: ~a
+            \n Cantidad de Horas: ~a
+            \n Habitacion: ~a
+            \n Alimentacion: ~a
+            \n Total de Presupuesto: ~a', [NombreHotel, Var_Estrellas, NombreDepartamento, DireccionHotel,  CostoPasaje, CantidadHoras, CostoHabitacion, CostoComida, Sumatoria]
+            ),
+    nl, 
+    fail.
+
+%---------------------Bajo - lejos - doble
+%---------------------Bajo - lejos - doble
+analisis_estrellas_bajas_lejos_bajo_vehiculos_hdoble( Var_CantNoches, Var_CantidadComida,Var_CantPersonas, Var_Clima):-
+    departamento(Id_depa, NombreDepartamento, _,_,Clima_dep,_),
+    hotel(_, NombreHotel, DireccionHotel, Var_Estrellas, _, Hdoble, PComida, Id_depa, DistanciaHotel),
+
+    CostoGasolina is ((DistanciaHotel * 5.60)*2),
+    CostoComida is  (((PComida*Var_CantidadComida)* Var_CantPersonas) * Var_CantNoches),
+    CostoHabitacion is (Hdoble * round(Var_CantPersonas/2)),
+
+    Sumatoria is (CostoGasolina + CostoHabitacion + CostoComida),
+    3 >= Var_Estrellas,
+    100 =< DistanciaHotel,
+    Var_Clima == Clima_dep,
+    Sumatoria =< 5000,
+
+    mostrarinferencia_estrellas_bajas_lejos_bajo_vehiculos_hdoble(Var_Estrellas,  NombreHotel,NombreDepartamento, DireccionHotel,  CostoGasolina, CostoHabitacion, CostoComida, Sumatoria).
+
+mostrarinferencia_estrellas_bajas_lejos_bajo_vehiculos_hdoble(Var_Estrellas, NombreHotel,NombreDepartamento, DireccionHotel,  CostoGasolina, CostoHabitacion, CostoComida, Sumatoria):-
+    write('-----------------------------------------'),
+    nl, 
+    format('Segun nivel bajo de estrellas , estas pueden ser sus opciones
+            \n Hotel: ~a
+            \n Estrellas: ~a
+            \n Departamento: ~a
+            \n Direccion: ~a
+            \n Gasolina: ~a
+            \n Habitacion: ~a
+            \n Alimentacion: ~a
+            \n Total de Presupuesto: ~a', [NombreHotel,Var_Estrellas, NombreDepartamento, DireccionHotel,  CostoGasolina, CostoHabitacion, CostoComida,Sumatoria]
+            ),
+    nl, 
+    fail.
+
+analisis_estrellas_bajas_lejos_bajo_vehiculon_hdoble(Var_CantNoches, Var_CantidadComida,Var_CantPersonas, Var_Clima):-
+
+    departamento(Id_depa, NombreDepartamento, CantidadHoras,_,Clima_dep,Pasaje),
+    hotel(_, NombreHotel, DireccionHotel, Var_Estrellas, _, Hdoble, PComida, Id_depa, DistanciaHotel),
+
+    CostoPasaje is (Pasaje * Var_CantPersonas),
+    CostoComida is  (((PComida*Var_CantidadComida)* Var_CantPersonas) * Var_CantNoches),
+    CostoHabitacion is (Hdoble * round(Var_CantPersonas/2)),
+    Sumatoria is ( CostoHabitacion + CostoComida + CostoPasaje),
+
+    3 >= Var_Estrellas,
+    100 =< DistanciaHotel,
+    Var_Clima == Clima_dep,
+    Sumatoria > 5000,
+
+    mostrarinferencia_estrellas_bajas_lejos_bajo_vehiculon_hdoble(NombreHotel, Var_Estrellas, NombreDepartamento, DireccionHotel,  CostoPasaje, CantidadHoras, CostoHabitacion, CostoComida, Sumatoria).
+
+mostrarinferencia_estrellas_bajas_lejos_bajo_vehiculon_hdoble(NombreHotel, Var_Estrellas, NombreDepartamento, DireccionHotel,  CostoPasaje, CantidadHoras, CostoHabitacion, CostoComida, Sumatoria):-
+    write('-----------------------------------------'),
+    nl, 
+    format('Segun nivel bajo de estrellas , estas pueden ser sus opciones
+            \n Hotel: ~a
+            \n Cantidad de Estrellas: ~a
+            \n Departamento: ~a
+            \n Direccion: ~a
+            \n Pasaje: ~a
+            \n Cantidad de Horas: ~a
+            \n Habitacion: ~a
+            \n Alimentacion: ~a
+            \n Total de Presupuesto: ~a', [NombreHotel, Var_Estrellas, NombreDepartamento, DireccionHotel,  CostoPasaje, CantidadHoras, CostoHabitacion, CostoComida, Sumatoria]
+            ),
+    nl, 
+    fail.
+
+
+%------------------------------------------------------------------Esterellas - Alto 
+%------------------------------------------------------------------Esterellas - Alto 
+%------------------------------------------------------------------Esterellas - Alto 
+
+estrellas_alto():-
+    write('Como desea la distancia del punto de partida \n1. Cerca (0 - 100km)  \n2. Lejos (> 100Km)'),
+    nl,
+    read(Var_Distancia),
+    nl, 
+    analsis_estrellas_altas(Var_Distancia),
+    nl.
+
+
+analsis_estrellas_altas(Var_Distancia):-(
+    Var_Distancia == 1 -> analisis_estrellas_altas_cerca();
+    Var_Distancia == 2 -> analisis_estrellas_altas_lejos()
+    ).
+
+%------------------Baja - Cerca
+analisis_estrellas_altas_cerca():-
+    write('Tipo de habitacion: \n1. Simple \n2. Doble'),
+    nl, 
+    read(Var_TipoHabitacion),
+    nl,
+    write('Cantidad de Noches a quedarse'),
+    nl,
+    read(Var_CantNoches),
+    nl, 
+    write('Vehiculo s/n'),
+    nl,
+    read(Var_Vehiculo),
+    nl, 
+    write('Cantidad de Tiempos de Comida de 0 - 3'),
+    nl, 
+    read(Var_CantidadComida),
+    nl, 
+    write('Numero de Personas'),
+    nl, 
+    read(Var_CantPersonas),
+    nl,
+    write('Clima \n1. Calor \n2. Frio \n3. Tropical \n4. Templado'),
+    nl, 
+    read(Var_Clima),
+    nl,
+    analisis_estrellas_altas_cerca_generales(Var_TipoHabitacion, Var_CantNoches,Var_Vehiculo, Var_CantidadComida,Var_CantPersonas, Var_Clima),
+    nl.
+
+analisis_estrellas_altas_cerca_generales(Var_TipoHabitacion, Var_CantNoches,Var_Vehiculo, Var_CantidadComida,Var_CantPersonas, Var_Clima):-
+    (
+     %- Habitaciones - Simples 
+    (Var_TipoHabitacion == 1 , Var_Vehiculo == 's')-> analisis_estrellas_altas_cerca_bajo_vehiculos_hsimple( Var_CantNoches, Var_CantidadComida,Var_CantPersonas, Var_Clima);
+    (Var_TipoHabitacion == 1 , Var_Vehiculo == 'n')-> analisis_estrellas_altas_cerca_bajo_vehiculon_hsimple( Var_CantNoches, Var_CantidadComida,Var_CantPersonas, Var_Clima);
+    %- Habitacion - dobles 
+    (Var_TipoHabitacion == 2 , Var_Vehiculo == 's')-> analisis_estrellas_altas_cerca_bajo_vehiculos_hdoble(Var_CantNoches, Var_CantidadComida,Var_CantPersonas, Var_Clima);
+    (Var_TipoHabitacion == 2 , Var_Vehiculo == 'n')-> analisis_estrellas_altas_cerca_bajo_vehiculon_hdoble( Var_CantNoches, Var_CantidadComida,Var_CantPersonas, Var_Clima)
+    ).
+
+%---------------------Bajo - Cerca - Simple
+analisis_estrellas_altas_cerca_bajo_vehiculos_hsimple( Var_CantNoches, Var_CantidadComida,Var_CantPersonas, Var_Clima):-
+    departamento(Id_depa, NombreDepartamento, _,_,Clima_dep,_),
+    hotel(_, NombreHotel, DireccionHotel, Var_Estrellas, HSimple, _, PComida, Id_depa, DistanciaHotel),
+
+    CostoGasolina is ((DistanciaHotel * 5.60)*2),
+    CostoComida is  (((PComida*Var_CantidadComida)* Var_CantPersonas) * Var_CantNoches),
+    CostoHabitacion is (HSimple * Var_CantPersonas) ,
+
+    Sumatoria is (CostoGasolina + CostoHabitacion + CostoComida),
+    3 < Var_Estrellas,
+    100 >= DistanciaHotel,
+    Var_Clima == Clima_dep,
+    Sumatoria =< 5000,
+
+    mostrarinferencia_estrellas_altas_cerca_bajo_vehiculos_hsimple(Var_Estrellas,  NombreHotel,NombreDepartamento, DireccionHotel,  CostoGasolina, CostoHabitacion, CostoComida, Sumatoria).
+
+mostrarinferencia_estrellas_altas_cerca_bajo_vehiculos_hsimple(Var_Estrellas, NombreHotel,NombreDepartamento, DireccionHotel,  CostoGasolina, CostoHabitacion, CostoComida, Sumatoria):-
+    write('-----------------------------------------'),
+    nl, 
+    format('Segun nivel alto de estrellas , estas pueden ser sus opciones
+            \n Hotel: ~a
+            \n Estrellas: ~a
+            \n Departamento: ~a
+            \n Direccion: ~a
+            \n Gasolina: ~a
+            \n Habitacion: ~a
+            \n Alimentacion: ~a
+            \n Total de Presupuesto: ~a', [NombreHotel,Var_Estrellas, NombreDepartamento, DireccionHotel,  CostoGasolina, CostoHabitacion, CostoComida,Sumatoria]
+            ),
+    nl, 
+    fail.
+
+analisis_estrellas_altas_cerca_bajo_vehiculon_hsimple(Var_CantNoches, Var_CantidadComida,Var_CantPersonas, Var_Clima):-
+
+    departamento(Id_depa, NombreDepartamento, CantidadHoras,_,Clima_dep,Pasaje),
+    hotel(_, NombreHotel, DireccionHotel, Var_Estrellas, HSimple, _, PComida, Id_depa, DistanciaHotel),
+
+    CostoPasaje is (Pasaje * Var_CantPersonas),
+    CostoComida is  (((PComida*Var_CantidadComida)* Var_CantPersonas) * Var_CantNoches),
+    CostoHabitacion is (HSimple * Var_CantPersonas),
+    Sumatoria is ( CostoHabitacion + CostoComida + CostoPasaje),
+
+    3 < Var_Estrellas,
+    100 < DistanciaHotel,
+    Var_Clima == Clima_dep,
+    Sumatoria > 5000,
+
+    mostrarinferencia_estrellas_altas_cerca_bajo_vehiculon_hsimple(NombreHotel, Var_Estrellas, NombreDepartamento, DireccionHotel,  CostoPasaje, CantidadHoras, CostoHabitacion, CostoComida, Sumatoria).
+
+mostrarinferencia_estrellas_altas_cerca_bajo_vehiculon_hsimple(NombreHotel, Var_Estrellas, NombreDepartamento, DireccionHotel,  CostoPasaje, CantidadHoras, CostoHabitacion, CostoComida, Sumatoria):-
+    write('-----------------------------------------'),
+    nl, 
+    format('Segun nivel alto de estrellas , estas pueden ser sus opciones
+            \n Hotel: ~a
+            \n Cantidad de Estrellas: ~a
+            \n Departamento: ~a
+            \n Direccion: ~a
+            \n Pasaje: ~a
+            \n Cantidad de Horas: ~a
+            \n Habitacion: ~a
+            \n Alimentacion: ~a
+            \n Total de Presupuesto: ~a', [NombreHotel, Var_Estrellas, NombreDepartamento, DireccionHotel,  CostoPasaje, CantidadHoras, CostoHabitacion, CostoComida, Sumatoria]
+            ),
+    nl, 
+    fail.
+
+%---------------------Bajo - Cerca - doble
+%---------------------Bajo - Cerca - doble
+analisis_estrellas_altas_cerca_bajo_vehiculos_hdoble( Var_CantNoches, Var_CantidadComida,Var_CantPersonas, Var_Clima):-
+    departamento(Id_depa, NombreDepartamento, _,_,Clima_dep,_),
+    hotel(_, NombreHotel, DireccionHotel, Var_Estrellas, _, Hdoble, PComida, Id_depa, DistanciaHotel),
+
+    CostoGasolina is ((DistanciaHotel * 5.60)*2),
+    CostoComida is  (((PComida*Var_CantidadComida)* Var_CantPersonas) * Var_CantNoches),
+    CostoHabitacion is (Hdoble * round(Var_CantPersonas/2)),
+
+    Sumatoria is (CostoGasolina + CostoHabitacion + CostoComida),
+    3 < Var_Estrellas,
+    100 >= DistanciaHotel,
+    Var_Clima == Clima_dep,
+    Sumatoria =< 5000,
+
+    mostrarinferencia_estrellas_altas_cerca_bajo_vehiculos_hdoble(Var_Estrellas,  NombreHotel,NombreDepartamento, DireccionHotel,  CostoGasolina, CostoHabitacion, CostoComida, Sumatoria).
+
+mostrarinferencia_estrellas_altas_cerca_bajo_vehiculos_hdoble(Var_Estrellas, NombreHotel,NombreDepartamento, DireccionHotel,  CostoGasolina, CostoHabitacion, CostoComida, Sumatoria):-
+    write('-----------------------------------------'),
+    nl, 
+    format('Segun nivel alto de estrellas , estas pueden ser sus opciones
+            \n Hotel: ~a
+            \n Estrellas: ~a
+            \n Departamento: ~a
+            \n Direccion: ~a
+            \n Gasolina: ~a
+            \n Habitacion: ~a
+            \n Alimentacion: ~a
+            \n Total de Presupuesto: ~a', [NombreHotel,Var_Estrellas, NombreDepartamento, DireccionHotel,  CostoGasolina, CostoHabitacion, CostoComida,Sumatoria]
+            ),
+    nl, 
+    fail.
+
+analisis_estrellas_altas_cerca_bajo_vehiculon_hdoble(Var_CantNoches, Var_CantidadComida,Var_CantPersonas, Var_Clima):-
+
+    departamento(Id_depa, NombreDepartamento, CantidadHoras,_,Clima_dep,Pasaje),
+    hotel(_, NombreHotel, DireccionHotel, Var_Estrellas, _, Hdoble, PComida, Id_depa, DistanciaHotel),
+
+    CostoPasaje is (Pasaje * Var_CantPersonas),
+    CostoComida is  (((PComida*Var_CantidadComida)* Var_CantPersonas) * Var_CantNoches),
+    CostoHabitacion is (Hdoble * round(Var_CantPersonas/2)),
+    Sumatoria is ( CostoHabitacion + CostoComida + CostoPasaje),
+
+    3 < Var_Estrellas,
+    100 < DistanciaHotel,
+    Var_Clima == Clima_dep,
+    Sumatoria > 5000,
+
+    mostrarinferencia_estrellas_altas_cerca_bajo_vehiculon_hdoble(NombreHotel, Var_Estrellas, NombreDepartamento, DireccionHotel,  CostoPasaje, CantidadHoras, CostoHabitacion, CostoComida, Sumatoria).
+
+mostrarinferencia_estrellas_altas_cerca_bajo_vehiculon_hdoble(NombreHotel, Var_Estrellas, NombreDepartamento, DireccionHotel,  CostoPasaje, CantidadHoras, CostoHabitacion, CostoComida, Sumatoria):-
+    write('-----------------------------------------'),
+    nl, 
+    format('Segun nivel bajo de estrellas , estas pueden ser sus opciones
+            \n Hotel: ~a
+            \n Cantidad de Estrellas: ~a
+            \n Departamento: ~a
+            \n Direccion: ~a
+            \n Pasaje: ~a
+            \n Cantidad de Horas: ~a
+            \n Habitacion: ~a
+            \n Alimentacion: ~a
+            \n Total de Presupuesto: ~a', [NombreHotel, Var_Estrellas, NombreDepartamento, DireccionHotel,  CostoPasaje, CantidadHoras, CostoHabitacion, CostoComida, Sumatoria]
+            ),
+    nl, 
+    fail.
+
+
+
+%---------------Bajo - lejos
+%---------------Bajo - lejos
+%---------------Bajo - lejos
+
+analisis_estrellas_altas_lejos():-
+    write('Tipo de habitacion: \n1. Simple \n2. Doble'),
+    nl, 
+    read(Var_TipoHabitacion),
+    nl,
+    write('Cantidad de Noches a quedarse'),
+    nl,
+    read(Var_CantNoches),
+    nl, 
+    write('Vehiculo s/n'),
+    nl,
+    read(Var_Vehiculo),
+    nl, 
+    write('Cantidad de Tiempos de Comida de 0 - 3'),
+    nl, 
+    read(Var_CantidadComida),
+    nl, 
+    write('Numero de Personas'),
+    nl, 
+    read(Var_CantPersonas),
+    nl,
+    write('Clima \n1. Calor \n2. Frio \n3. Tropical \n4. Templado'),
+    nl, 
+    read(Var_Clima),
+    nl,
+    analisis_estrellas_altas_lejos_generales(Var_TipoHabitacion, Var_CantNoches,Var_Vehiculo, Var_CantidadComida,Var_CantPersonas, Var_Clima),
+    nl.
+
+analisis_estrellas_altas_lejos_generales(Var_TipoHabitacion, Var_CantNoches,Var_Vehiculo, Var_CantidadComida,Var_CantPersonas, Var_Clima):-
+    (
+     %- Habitaciones - Simples 
+    (Var_TipoHabitacion == 1 , Var_Vehiculo == 's')-> analisis_estrellas_altas_lejos_bajo_vehiculos_hsimple( Var_CantNoches, Var_CantidadComida,Var_CantPersonas, Var_Clima);
+    (Var_TipoHabitacion == 1 , Var_Vehiculo == 'n')-> analisis_estrellas_altas_lejos_bajo_vehiculon_hsimple( Var_CantNoches, Var_CantidadComida,Var_CantPersonas, Var_Clima);
+    %- Habitacion - dobles 
+    (Var_TipoHabitacion == 2 , Var_Vehiculo == 's')-> analisis_estrellas_altas_lejos_bajo_vehiculos_hdoble(Var_CantNoches, Var_CantidadComida,Var_CantPersonas, Var_Clima);
+    (Var_TipoHabitacion == 2 , Var_Vehiculo == 'n')-> analisis_estrellas_altas_lejos_bajo_vehiculon_hdoble( Var_CantNoches, Var_CantidadComida,Var_CantPersonas, Var_Clima)
+    ).
+
+%---------------------Bajo - lejos - Simple
+analisis_estrellas_altas_lejos_bajo_vehiculos_hsimple( Var_CantNoches, Var_CantidadComida,Var_CantPersonas, Var_Clima):-
+    departamento(Id_depa, NombreDepartamento, _,_,Clima_dep,_),
+    hotel(_, NombreHotel, DireccionHotel, Var_Estrellas, HSimple, _, PComida, Id_depa, DistanciaHotel),
+
+    CostoGasolina is ((DistanciaHotel * 5.60)*2),
+    CostoComida is  (((PComida*Var_CantidadComida)* Var_CantPersonas) * Var_CantNoches),
+    CostoHabitacion is (HSimple * Var_CantPersonas) ,
+
+    Sumatoria is (CostoGasolina + CostoHabitacion + CostoComida),
+    3 < Var_Estrellas,
+    100 =< DistanciaHotel,
+    Var_Clima == Clima_dep,
+    Sumatoria =< 5000,
+
+    mostrarinferencia_estrellas_altas_lejos_bajo_vehiculos_hsimple(Var_Estrellas,  NombreHotel,NombreDepartamento, DireccionHotel,  CostoGasolina, CostoHabitacion, CostoComida, Sumatoria).
+
+mostrarinferencia_estrellas_altas_lejos_bajo_vehiculos_hsimple(Var_Estrellas, NombreHotel,NombreDepartamento, DireccionHotel,  CostoGasolina, CostoHabitacion, CostoComida, Sumatoria):-
+    write('-----------------------------------------'),
+    nl, 
+    format('Segun nivel alto de estrellas , estas pueden ser sus opciones
+            \n Hotel: ~a
+            \n Estrellas: ~a
+            \n Departamento: ~a
+            \n Direccion: ~a
+            \n Gasolina: ~a
+            \n Habitacion: ~a
+            \n Alimentacion: ~a
+            \n Total de Presupuesto: ~a', [NombreHotel,Var_Estrellas, NombreDepartamento, DireccionHotel,  CostoGasolina, CostoHabitacion, CostoComida,Sumatoria]
+            ),
+    nl, 
+    fail.
+
+analisis_estrellas_altas_lejos_bajo_vehiculon_hsimple(Var_CantNoches, Var_CantidadComida,Var_CantPersonas, Var_Clima):-
+
+    departamento(Id_depa, NombreDepartamento, CantidadHoras,_,Clima_dep,Pasaje),
+    hotel(_, NombreHotel, DireccionHotel, Var_Estrellas, HSimple, _, PComida, Id_depa, DistanciaHotel),
+
+    CostoPasaje is (Pasaje * Var_CantPersonas),
+    CostoComida is  (((PComida*Var_CantidadComida)* Var_CantPersonas) * Var_CantNoches),
+    CostoHabitacion is (HSimple * Var_CantPersonas),
+    Sumatoria is ( CostoHabitacion + CostoComida + CostoPasaje),
+
+    3 < Var_Estrellas,
+    100 =< DistanciaHotel,
+    Var_Clima == Clima_dep,
+    Sumatoria > 5000,
+
+    mostrarinferencia_estrellas_altas_lejos_bajo_vehiculon_hsimple(NombreHotel, Var_Estrellas, NombreDepartamento, DireccionHotel,  CostoPasaje, CantidadHoras, CostoHabitacion, CostoComida, Sumatoria).
+
+mostrarinferencia_estrellas_altas_lejos_bajo_vehiculon_hsimple(NombreHotel, Var_Estrellas, NombreDepartamento, DireccionHotel,  CostoPasaje, CantidadHoras, CostoHabitacion, CostoComida, Sumatoria):-
+    write('-----------------------------------------'),
+    nl, 
+    format('Segun nivel alto de estrellas , estas pueden ser sus opciones
+            \n Hotel: ~a
+            \n Cantidad de Estrellas: ~a
+            \n Departamento: ~a
+            \n Direccion: ~a
+            \n Pasaje: ~a
+            \n Cantidad de Horas: ~a
+            \n Habitacion: ~a
+            \n Alimentacion: ~a
+            \n Total de Presupuesto: ~a', [NombreHotel, Var_Estrellas, NombreDepartamento, DireccionHotel,  CostoPasaje, CantidadHoras, CostoHabitacion, CostoComida, Sumatoria]
+            ),
+    nl, 
+    fail.
+
+%---------------------Bajo - lejos - doble
+%---------------------Bajo - lejos - doble
+analisis_estrellas_altas_lejos_bajo_vehiculos_hdoble( Var_CantNoches, Var_CantidadComida,Var_CantPersonas, Var_Clima):-
+    departamento(Id_depa, NombreDepartamento, _,_,Clima_dep,_),
+    hotel(_, NombreHotel, DireccionHotel, Var_Estrellas, _, Hdoble, PComida, Id_depa, DistanciaHotel),
+
+    CostoGasolina is ((DistanciaHotel * 5.60)*2),
+    CostoComida is  (((PComida*Var_CantidadComida)* Var_CantPersonas) * Var_CantNoches),
+    CostoHabitacion is (Hdoble * round(Var_CantPersonas/2)),
+
+    Sumatoria is (CostoGasolina + CostoHabitacion + CostoComida),
+    3 < Var_Estrellas,
+    100 =< DistanciaHotel,
+    Var_Clima == Clima_dep,
+    Sumatoria =< 5000,
+
+    mostrarinferencia_estrellas_altas_lejos_bajo_vehiculos_hdoble(Var_Estrellas,  NombreHotel,NombreDepartamento, DireccionHotel,  CostoGasolina, CostoHabitacion, CostoComida, Sumatoria).
+
+mostrarinferencia_estrellas_altas_lejos_bajo_vehiculos_hdoble(Var_Estrellas, NombreHotel,NombreDepartamento, DireccionHotel,  CostoGasolina, CostoHabitacion, CostoComida, Sumatoria):-
+    write('-----------------------------------------'),
+    nl, 
+    format('Segun nivel alto de estrellas , estas pueden ser sus opciones
+            \n Hotel: ~a
+            \n Estrellas: ~a
+            \n Departamento: ~a
+            \n Direccion: ~a
+            \n Gasolina: ~a
+            \n Habitacion: ~a
+            \n Alimentacion: ~a
+            \n Total de Presupuesto: ~a', [NombreHotel,Var_Estrellas, NombreDepartamento, DireccionHotel,  CostoGasolina, CostoHabitacion, CostoComida,Sumatoria]
+            ),
+    nl, 
+    fail.
+
+analisis_estrellas_altas_lejos_bajo_vehiculon_hdoble(Var_CantNoches, Var_CantidadComida,Var_CantPersonas, Var_Clima):-
+
+    departamento(Id_depa, NombreDepartamento, CantidadHoras,_,Clima_dep,Pasaje),
+    hotel(_, NombreHotel, DireccionHotel, Var_Estrellas, _, Hdoble, PComida, Id_depa, DistanciaHotel),
+
+    CostoPasaje is (Pasaje * Var_CantPersonas),
+    CostoComida is  (((PComida*Var_CantidadComida)* Var_CantPersonas) * Var_CantNoches),
+    CostoHabitacion is (Hdoble * round(Var_CantPersonas/2)),
+    Sumatoria is ( CostoHabitacion + CostoComida + CostoPasaje),
+
+    3 < Var_Estrellas,
+    100 =< DistanciaHotel,
+    Var_Clima == Clima_dep,
+    Sumatoria > 5000,
+
+    mostrarinferencia_estrellas_altas_lejos_bajo_vehiculon_hdoble(NombreHotel, Var_Estrellas, NombreDepartamento, DireccionHotel,  CostoPasaje, CantidadHoras, CostoHabitacion, CostoComida, Sumatoria).
+
+mostrarinferencia_estrellas_altas_lejos_bajo_vehiculon_hdoble(NombreHotel, Var_Estrellas, NombreDepartamento, DireccionHotel,  CostoPasaje, CantidadHoras, CostoHabitacion, CostoComida, Sumatoria):-
+    write('-----------------------------------------'),
+    nl, 
+    format('Segun nivel alto de estrellas , estas pueden ser sus opciones
+            \n Hotel: ~a
+            \n Cantidad de Estrellas: ~a
+            \n Departamento: ~a
+            \n Direccion: ~a
+            \n Pasaje: ~a
+            \n Cantidad de Horas: ~a
+            \n Habitacion: ~a
+            \n Alimentacion: ~a
+            \n Total de Presupuesto: ~a', [NombreHotel, Var_Estrellas, NombreDepartamento, DireccionHotel,  CostoPasaje, CantidadHoras, CostoHabitacion, CostoComida, Sumatoria]
+            ),
+    nl, 
+    fail.
+
