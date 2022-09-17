@@ -545,3 +545,56 @@ mostrarinferencia_clima_frio_alto_lejos_vehiculon_hdoble(Var_Clima, NombreHotel,
     CostoComida is  (((PComida*Var_CantidadComida)* Var_CantPersonas) * Var_CantNoches),
     CostoHabitacion is (Hdoble * round(Var_CantPersonas/2)),
     Sumatoria is ( CostoHabitacion + CostoComida + CostoPasaje),
+
+
+    -----
+        hotel(idHotel, NombreHotele, _, _, _, _, _, _, _),
+    write('si'),
+   
+    %-motrarconsulta1(NombreHotele, NombreCliente, ApellidoCliente, Nacionalidad, Var_Opinion).
+    motrarconsulta1(NombreHotele).
+
+
+motrarconsulta1(NombreHotele):-
+    write('-----------------------------------------'),
+    nl, 
+    format('El listado del de clientes con opinion mayor o igual  5
+            \n Hotel: ~a
+            \n Nombre Cliente: ~a
+            \n Apellido Cliente: ~a
+            \n Nacionalidad: ~a
+            \n #Opinion: ~a', [NombreHotele, NombreCliente, ApellidoCliente, Nacionalidad, Var_Opinion]
+            ),
+    nl, 
+    fail.
+
+    4
+    8
+    13
+    16
+    18
+
+
+
+    4
+    8
+    10
+    14
+    23
+    31
+
+    ---------
+        cliente(IdCliente,_,_,VarPais,_,_,_),
+    departamento(Id_depa, _, _,VarIdioma,_,_),
+    hotel(IdHotel,NombreHotel,_,_,_,_,_,_,_),
+    registro(_, IdCliente, IdHotel, _, _, _),
+
+    VarIdioma == 'ingles',
+    VarPais =/= 'Guatemala',
+
+    nl, 
+    format('El listado del de clientes extranjeros hospedados en departamentos de habla ingles
+            \n Pais: ~a - Nombre Hotel: ~a ', [VarPais, NombreHotel]
+            ),
+    nl, 
+    fail.

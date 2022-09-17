@@ -471,7 +471,8 @@ seleccion(Var_Opcion):-(
     Var_Opcion == 1 -> preguntaspresupuesto();
     Var_Opcion == 2 -> preguntasclima();
     Var_Opcion == 3 -> preguntasidioma();
-    Var_Opcion == 4 -> preguntasestrellas()
+    Var_Opcion == 4 -> preguntasestrellas();
+    Var_Opcion == 5 -> reportes()
     ).
 
 
@@ -486,28 +487,29 @@ preguntaspresupuesto():- write('Conteste las siguientes preguntas sobre presupue
 
 
 analispresupuesto(Var_Presupuesto):-  (
-        Var_Presupuesto == 1 -> presupuestobajo(Var_Presupuesto);
-        Var_Presupuesto == 2 -> presupuestointermedio(Var_Presupuesto);
-        Var_Presupuesto == 3 -> presupuestoalto(Var_Presupuesto)
+        Var_Presupuesto == 1 -> presupuestobajo();
+        Var_Presupuesto == 2 -> presupuestointermedio();
+        Var_Presupuesto == 3 -> presupuestoalto()
     ). 
 
 
 
 %------------------------------------------------------------------------------ Presupuesto Bajo ---------------------------------------------
-presupuestobajo(Var_Presupuesto):- write('Como desea la distancia del punto de partida \n1. Cerca (0 - 100km)  \n2. Lejos (> 100Km)'),
+presupuestobajo():- write('Como desea la distancia del punto de partida \n1. Cerca (0 - 100km)  \n2. Lejos (> 100Km)'),
     nl,
     read(Var_Distancia),
     nl, 
-    analisisprespuestobajodistancia(Var_Presupuesto, Var_Distancia),
+    analisisprespuestobajodistancia(Var_Distancia),
     nl.
 
 
-analisisprespuestobajodistancia(Var_Presupuesto, Var_Distancia):- (
-    Var_Distancia == 1 -> analisisprespuestobajodistanciacerca(Var_Presupuesto,Var_Distancia);
-    Var_Distancia == 2 -> analisisprespuestobajodistancialejos(Var_Presupuesto,Var_Distancia)
+
+analisisprespuestobajodistancia(Var_Distancia):- (
+    Var_Distancia == 1 -> analisisprespuestobajodistanciacerca();
+    Var_Distancia == 2 -> analisisprespuestobajodistancialejos()
     ).
 %--------------------------> Cerca
-analisisprespuestobajodistanciacerca(Var_Presupuesto,Var_Distancia):-  write('Tipo de habitacion: \n1. Simple \n2. Doble'),
+analisisprespuestobajodistanciacerca():-  write('Tipo de habitacion: \n1. Simple \n2. Doble'),
     nl, 
     read(Var_TipoHabitacion),
     nl,
@@ -531,19 +533,19 @@ analisisprespuestobajodistanciacerca(Var_Presupuesto,Var_Distancia):-  write('Ti
     nl, 
     read(Var_Clima),
     nl,
-    analisisprespuestobajodistanciacercahabitacionvehiculo(Var_Presupuesto, Var_Distancia, Var_TipoHabitacion, Var_CantNoches, Var_Clima, Var_CantidadComida,Var_CantPersonas, Var_Vehiculo),
+    analisisprespuestobajodistanciacercahabitacionvehiculo(Var_TipoHabitacion, Var_CantNoches, Var_Clima, Var_CantidadComida,Var_CantPersonas, Var_Vehiculo),
     nl.
 
-analisisprespuestobajodistanciacercahabitacionvehiculo(Var_Presupuesto, Var_Distancia, Var_TipoHabitacion, Var_CantNoches, Var_Clima, Var_CantidadComida,Var_CantPersonas, Var_Vehiculo):-(
+analisisprespuestobajodistanciacercahabitacionvehiculo( Var_TipoHabitacion, Var_CantNoches, Var_Clima, Var_CantidadComida,Var_CantPersonas, Var_Vehiculo):-(
     %- Habitaciones - Simples 
-    (Var_TipoHabitacion == 1 , Var_Vehiculo == 's')->analisis_bajo_cerca_vehiculos_hsimple(Var_Presupuesto, Var_Clima, Var_Distancia, Var_CantNoches, Var_CantidadComida,Var_CantPersonas);
-    (Var_TipoHabitacion == 1 , Var_Vehiculo == 'n')->analisis_bajo_cerca_vehiculon_hsimple(Var_Presupuesto, Var_Clima, Var_Distancia, Var_CantNoches, Var_CantidadComida,Var_CantPersonas);
+    (Var_TipoHabitacion == 1 , Var_Vehiculo == 's')->analisis_bajo_cerca_vehiculos_hsimple(Var_Clima, Var_CantNoches, Var_CantidadComida,Var_CantPersonas);
+    (Var_TipoHabitacion == 1 , Var_Vehiculo == 'n')->analisis_bajo_cerca_vehiculon_hsimple(Var_Clima, Var_CantNoches, Var_CantidadComida,Var_CantPersonas);
     %- Habitacion - dobles 
-    (Var_TipoHabitacion == 2  , Var_Vehiculo == 's') ->  analisis_bajo_cerca_vehiculos_hdoble(Var_Presupuesto, Var_Clima, Var_Distancia, Var_CantNoches, Var_CantidadComida,Var_CantPersonas);
-    (Var_TipoHabitacion == 2  , Var_Vehiculo == 'n') ->  analisis_bajo_cerca_vehiculon_hdoble(Var_Presupuesto, Var_Clima, Var_Distancia, Var_CantNoches, Var_CantidadComida,Var_CantPersonas)
+    (Var_TipoHabitacion == 2  , Var_Vehiculo == 's') ->  analisis_bajo_cerca_vehiculos_hdoble(Var_Clima,  Var_CantNoches, Var_CantidadComida,Var_CantPersonas);
+    (Var_TipoHabitacion == 2  , Var_Vehiculo == 'n') ->  analisis_bajo_cerca_vehiculon_hdoble( Var_Clima,  Var_CantNoches, Var_CantidadComida,Var_CantPersonas)
     ).
 
-analisis_bajo_cerca_vehiculos_hsimple(Var_Presupuesto, Var_Clima, Var_Distancia, Var_CantNoches, Var_CantidadComida,Var_CantPersonas):-
+analisis_bajo_cerca_vehiculos_hsimple(Var_Clima, Var_CantNoches, Var_CantidadComida,Var_CantPersonas):-
     departamento(Id_depa, NombreDepartamento, _,_,Clima_dep,_),
     hotel(_, NombreHotel, DireccionHotel, _, HSimple, _, PComida, Id_depa, DistanciaHotel),
 
@@ -577,11 +579,11 @@ mostrarinferencia(NombreHotel,NombreDepartamento, DireccionHotel,  CostoGasolina
     nl, 
     fail.
 
-analisis_bajo_cerca_vehiculon_hsimple(Var_Presupuesto, Var_Clima, Var_Distancia, Var_CantNoches, Var_CantidadComida,Var_CantPersonas):-
+analisis_bajo_cerca_vehiculon_hsimple(Var_Clima, Var_CantNoches, Var_CantidadComida,Var_CantPersonas):-
     departamento(Id_depa, NombreDepartamento, CantidadHoras,_,Clima_dep,Pasaje),
     hotel(_, NombreHotel, DireccionHotel, _, HSimple, _, PComida, Id_depa, DistanciaHotel),
 
-    CostoPasaje is (Pasaje * Var_CantPersonas),
+    CostoPasaje is (Pasaje * Var_CantPersonas * 2),
     CostoComida is  (((PComida*Var_CantidadComida)* Var_CantPersonas) * Var_CantNoches),
     CostoHabitacion is (HSimple * Var_CantPersonas),
     Sumatoria is ( CostoHabitacion + CostoComida + CostoPasaje),
@@ -610,7 +612,7 @@ mostrarinferenciapasaje(NombreHotel,NombreDepartamento, DireccionHotel,  CostoPa
     nl, 
     fail.
 
-analisis_bajo_cerca_vehiculos_hdoble(Var_Presupuesto, Var_Clima, Var_Distancia, Var_CantNoches, Var_CantidadComida,Var_CantPersonas):-
+analisis_bajo_cerca_vehiculos_hdoble( Var_Clima, Var_CantNoches, Var_CantidadComida,Var_CantPersonas):-
     departamento(Id_depa, NombreDepartamento, _,_,Clima_dep,_),
     hotel(_, NombreHotel, DireccionHotel, _, _, Hdoble, PComida, Id_depa, DistanciaHotel),
 
@@ -641,11 +643,11 @@ mostrarinferencia_vehiculos_doble(NombreHotel,NombreDepartamento, DireccionHotel
     nl, 
     fail.
 
-analisis_bajo_cerca_vehiculon_hdoble(Var_Presupuesto, Var_Clima, Var_Distancia, Var_CantNoches, Var_CantidadComida,Var_CantPersonas):-
+analisis_bajo_cerca_vehiculon_hdoble(Var_Clima, Var_CantNoches, Var_CantidadComida,Var_CantPersonas):-
     departamento(Id_depa, NombreDepartamento, CantidadHoras,_,Clima_dep,Pasaje),
     hotel(_, NombreHotel, DireccionHotel, _, _, Hdoble, PComida, Id_depa, DistanciaHotel),
 
-    CostoPasaje is (Pasaje * Var_CantPersonas),
+    CostoPasaje is (Pasaje * Var_CantPersonas * 2),
     CostoComida is  (((PComida*Var_CantidadComida)* Var_CantPersonas) * Var_CantNoches),
     CostoHabitacion is (Hdoble * round(Var_CantPersonas/2)),
     Sumatoria is ( CostoHabitacion + CostoComida + CostoPasaje),
@@ -675,7 +677,7 @@ mostrarinferenciavehiculon_hdoble(NombreHotel,NombreDepartamento, DireccionHotel
     fail.
 
 %------------------------------> Lejos
-analisisprespuestobajodistancialejos(Var_Presupuesto,Var_Distancia):-
+analisisprespuestobajodistancialejos():-
     write('Tipo de habitacion: \n1. Simple \n2. Doble'),
     nl, 
     read(Var_TipoHabitacion),
@@ -700,19 +702,19 @@ analisisprespuestobajodistancialejos(Var_Presupuesto,Var_Distancia):-
     nl, 
     read(Var_Clima),
     nl,
-    analisisprespuestobajodistancialejoshabitacionvehiculo(Var_Presupuesto, Var_Distancia, Var_TipoHabitacion, Var_CantNoches, Var_Clima, Var_CantidadComida,Var_CantPersonas, Var_Vehiculo),
+    analisisprespuestobajodistancialejoshabitacionvehiculo( Var_TipoHabitacion, Var_CantNoches, Var_Clima, Var_CantidadComida,Var_CantPersonas, Var_Vehiculo),
     nl.
 
-analisisprespuestobajodistancialejoshabitacionvehiculo(Var_Presupuesto, Var_Distancia, Var_TipoHabitacion, Var_CantNoches, Var_Clima, Var_CantidadComida,Var_CantPersonas, Var_Vehiculo):-(
+analisisprespuestobajodistancialejoshabitacionvehiculo( Var_TipoHabitacion, Var_CantNoches, Var_Clima, Var_CantidadComida,Var_CantPersonas, Var_Vehiculo):-(
     %- Habitaciones - Simples 
-    (Var_TipoHabitacion == 1 , Var_Vehiculo == 's')->analisis_bajo_lejos_vehiculos_hsimple(Var_Presupuesto, Var_Clima, Var_Distancia, Var_CantNoches, Var_CantidadComida,Var_CantPersonas);
-    (Var_TipoHabitacion == 1 , Var_Vehiculo == 'n')->analisis_bajo_lejos_vehiculon_hsimple(Var_Presupuesto, Var_Clima, Var_Distancia, Var_CantNoches, Var_CantidadComida,Var_CantPersonas);
+    (Var_TipoHabitacion == 1 , Var_Vehiculo == 's')->analisis_bajo_lejos_vehiculos_hsimple(Var_Clima, Var_CantNoches, Var_CantidadComida,Var_CantPersonas);
+    (Var_TipoHabitacion == 1 , Var_Vehiculo == 'n')->analisis_bajo_lejos_vehiculon_hsimple(Var_Clima, Var_CantNoches, Var_CantidadComida,Var_CantPersonas);
     %- Habitacion - dobles 
-    (Var_TipoHabitacion == 2  , Var_Vehiculo == 's') ->  analisis_lejos_cerca_vehiculos_hdoble(Var_Presupuesto, Var_Clima, Var_Distancia, Var_CantNoches, Var_CantidadComida,Var_CantPersonas);
-    (Var_TipoHabitacion == 2  , Var_Vehiculo == 'n') ->  analisis_lejos_cerca_vehiculon_hdoble(Var_Presupuesto, Var_Clima, Var_Distancia, Var_CantNoches, Var_CantidadComida,Var_CantPersonas)
+    (Var_TipoHabitacion == 2  , Var_Vehiculo == 's') ->  analisis_lejos_cerca_vehiculos_hdoble( Var_Clima, Var_CantNoches, Var_CantidadComida,Var_CantPersonas);
+    (Var_TipoHabitacion == 2  , Var_Vehiculo == 'n') ->  analisis_lejos_cerca_vehiculon_hdoble(Var_Clima, Var_CantNoches, Var_CantidadComida,Var_CantPersonas)
     ).
 
-analisis_bajo_lejos_vehiculos_hsimple(Var_Presupuesto, Var_Clima, Var_Distancia, Var_CantNoches, Var_CantidadComida,Var_CantPersonas):-
+analisis_bajo_lejos_vehiculos_hsimple( Var_Clima,  Var_CantNoches, Var_CantidadComida,Var_CantPersonas):-
     departamento(Id_depa, NombreDepartamento, _,_,Clima_dep,_),
     hotel(_, NombreHotel, DireccionHotel, _, HSimple, _, PComida, Id_depa, DistanciaHotel),
 
@@ -746,11 +748,11 @@ mostrarinferencialejos(NombreHotel,NombreDepartamento, DireccionHotel,  CostoGas
     nl, 
     fail.
 
-analisis_bajo_lejos_vehiculon_hsimple(Var_Presupuesto, Var_Clima, Var_Distancia, Var_CantNoches, Var_CantidadComida,Var_CantPersonas):-
+analisis_bajo_lejos_vehiculon_hsimple( Var_Clima,  Var_CantNoches, Var_CantidadComida,Var_CantPersonas):-
     departamento(Id_depa, NombreDepartamento, CantidadHoras,_,Clima_dep,Pasaje),
     hotel(_, NombreHotel, DireccionHotel, _, HSimple, _, PComida, Id_depa, DistanciaHotel),
 
-    CostoPasaje is (Pasaje * Var_CantPersonas),
+    CostoPasaje is (Pasaje * Var_CantPersonas * 2),
     CostoComida is  (((PComida*Var_CantidadComida)* Var_CantPersonas) * Var_CantNoches),
     CostoHabitacion is (HSimple * Var_CantPersonas),
     Sumatoria is ( CostoHabitacion + CostoComida + CostoPasaje),
@@ -779,7 +781,7 @@ mostrarinferenciapasajelejos(NombreHotel,NombreDepartamento, DireccionHotel,  Co
     nl, 
     fail.
 
-analisis_lejos_cerca_vehiculos_hdoble(Var_Presupuesto, Var_Clima, Var_Distancia, Var_CantNoches, Var_CantidadComida,Var_CantPersonas):-
+analisis_lejos_cerca_vehiculos_hdoble( Var_Clima, Var_CantNoches, Var_CantidadComida,Var_CantPersonas):-
     departamento(Id_depa, NombreDepartamento, _,_,Clima_dep,_),
     hotel(_, NombreHotel, DireccionHotel, _, _, Hdoble, PComida, Id_depa, DistanciaHotel),
 
@@ -810,11 +812,11 @@ mostrarinferencialejos_vehiculos_doble(NombreHotel,NombreDepartamento, Direccion
     nl, 
     fail.
 
-analisis_lejos_cerca_vehiculon_hdoble(Var_Presupuesto, Var_Clima, Var_Distancia, Var_CantNoches, Var_CantidadComida,Var_CantPersonas):-
+analisis_lejos_cerca_vehiculon_hdoble( Var_Clima,  Var_CantNoches, Var_CantidadComida,Var_CantPersonas):-
     departamento(Id_depa, NombreDepartamento, CantidadHoras,_,Clima_dep,Pasaje),
     hotel(_, NombreHotel, DireccionHotel, _, _, Hdoble, PComida, Id_depa, DistanciaHotel),
 
-    CostoPasaje is (Pasaje * Var_CantPersonas),
+    CostoPasaje is (Pasaje * Var_CantPersonas * 2),
     CostoComida is  (((PComida*Var_CantidadComida)* Var_CantPersonas) * Var_CantNoches),
     CostoHabitacion is (Hdoble * round(Var_CantPersonas/2)),
     Sumatoria is ( CostoHabitacion + CostoComida + CostoPasaje),
@@ -844,21 +846,25 @@ mostrarinferencialejosvehiculon_hdoble(NombreHotel,NombreDepartamento, Direccion
     fail.
 
 
+
 %--------------------------------------------------------------------Presupuesto Intermedio-----------------------------------------------------
-presupuestointermedio(Var_Presupuesto):- write('Como desea la distancia del punto de partida \n1. Cerca (0 - 100km)  \n2. Lejos (> 100Km)'),
+%--------------------------------------------------------------------Presupuesto Intermedio-----------------------------------------------------
+%--------------------------------------------------------------------Presupuesto Intermedio-----------------------------------------------------
+
+presupuestointermedio():- write('Como desea la distancia del punto de partida \n1. Cerca (0 - 100km)  \n2. Lejos (> 100Km)'),
     nl,
     read(Var_Distancia),
     nl, 
-    analisisprespuestointermediodistancia(Var_Presupuesto, Var_Distancia),
+    analisisprespuestointermediodistancia(Var_Distancia),
     nl.
 
-analisisprespuestointermediodistancia(Var_Presupuesto, Var_Distancia):-(
-    Var_Distancia == 1 -> analisisprespuestointermediodistanciacerca(Var_Presupuesto,Var_Distancia);
-    Var_Distancia == 2 -> analisisprespuestointermediodistancialejos(Var_Presupuesto,Var_Distancia)
+analisisprespuestointermediodistancia( Var_Distancia):-(
+    Var_Distancia == 1 -> analisisprespuestointermediodistanciacerca();
+    Var_Distancia == 2 -> analisisprespuestointermediodistancialejos()
     ).
 
 %--------------distancia cerca --------------
-analisisprespuestointermediodistanciacerca(Var_Presupuesto,Var_Distancia):- write('Tipo de habitacion: \n1. Simple \n2. Doble'),
+analisisprespuestointermediodistanciacerca():- write('Tipo de habitacion: \n1. Simple \n2. Doble'),
     nl, 
     read(Var_TipoHabitacion),
     nl,
@@ -882,19 +888,19 @@ analisisprespuestointermediodistanciacerca(Var_Presupuesto,Var_Distancia):- writ
     nl, 
     read(Var_Clima),
     nl,
-    analisisprespuestointermediodistanciacercahabitacionvehiculo(Var_Presupuesto, Var_Distancia, Var_TipoHabitacion, Var_CantNoches, Var_Clima, Var_CantidadComida,Var_CantPersonas, Var_Vehiculo),
+    analisisprespuestointermediodistanciacercahabitacionvehiculo(Var_TipoHabitacion, Var_CantNoches, Var_Clima, Var_CantidadComida,Var_CantPersonas, Var_Vehiculo),
     nl.
 
-analisisprespuestointermediodistanciacercahabitacionvehiculo(Var_Presupuesto, Var_Distancia, Var_TipoHabitacion, Var_CantNoches, Var_Clima, Var_CantidadComida,Var_CantPersonas, Var_Vehiculo):-(
+analisisprespuestointermediodistanciacercahabitacionvehiculo( Var_TipoHabitacion, Var_CantNoches, Var_Clima, Var_CantidadComida,Var_CantPersonas, Var_Vehiculo):-(
     %- Habitaciones - Simples 
-    (Var_TipoHabitacion == 1 , Var_Vehiculo == 's')->analisis_intermedio_cerca_vehiculos_hsimple(Var_Presupuesto, Var_Clima, Var_Distancia, Var_CantNoches, Var_CantidadComida,Var_CantPersonas);
-    (Var_TipoHabitacion == 1 , Var_Vehiculo == 'n')->analisis_intermediocerca_vehiculon_hsimple(Var_Presupuesto, Var_Clima, Var_Distancia, Var_CantNoches, Var_CantidadComida,Var_CantPersonas);
+    (Var_TipoHabitacion == 1 , Var_Vehiculo == 's')->analisis_intermedio_cerca_vehiculos_hsimple(Var_Clima,Var_CantNoches, Var_CantidadComida,Var_CantPersonas);
+    (Var_TipoHabitacion == 1 , Var_Vehiculo == 'n')->analisis_intermediocerca_vehiculon_hsimple(Var_Clima,Var_CantNoches, Var_CantidadComida,Var_CantPersonas);
     %- Habitacion - dobles 
-    (Var_TipoHabitacion == 2  , Var_Vehiculo == 's')->analisis_intermedio_cerca_vehiculos_hdoble(Var_Presupuesto, Var_Clima, Var_Distancia, Var_CantNoches, Var_CantidadComida,Var_CantPersonas);
-    (Var_TipoHabitacion == 2  , Var_Vehiculo == 'n')->analisis_intermedio_cerca_vehiculon_hdoble(Var_Presupuesto, Var_Clima, Var_Distancia, Var_CantNoches, Var_CantidadComida,Var_CantPersonas)
+    (Var_TipoHabitacion == 2 , Var_Vehiculo == 's')->analisis_intermedio_cerca_vehiculos_hdoble(Var_Clima,Var_CantNoches, Var_CantidadComida,Var_CantPersonas);
+    (Var_TipoHabitacion == 2 , Var_Vehiculo == 'n')->analisis_intermedio_cerca_vehiculon_hdoble(Var_Clima,Var_CantNoches, Var_CantidadComida,Var_CantPersonas)
     ).
 
-analisis_intermedio_cerca_vehiculos_hsimple(Var_Presupuesto, Var_Clima, Var_Distancia, Var_CantNoches, Var_CantidadComida,Var_CantPersonas):-
+analisis_intermedio_cerca_vehiculos_hsimple( Var_Clima,  Var_CantNoches, Var_CantidadComida,Var_CantPersonas):-
     departamento(Id_depa, NombreDepartamento, _,_,Clima_dep,_),
     hotel(_, NombreHotel, DireccionHotel, _, HSimple, _, PComida, Id_depa, DistanciaHotel),
 
@@ -928,11 +934,11 @@ mostrarinferenciaintermdio(NombreHotel,NombreDepartamento, DireccionHotel,  Cost
     fail.
 
 
-analisis_intermediocerca_vehiculon_hsimple(Var_Presupuesto, Var_Clima, Var_Distancia, Var_CantNoches, Var_CantidadComida,Var_CantPersonas):-
+analisis_intermediocerca_vehiculon_hsimple( Var_Clima, Var_CantNoches, Var_CantidadComida,Var_CantPersonas):-
     departamento(Id_depa, NombreDepartamento, CantidadHoras,_,Clima_dep,Pasaje),
     hotel(_, NombreHotel, DireccionHotel, _, HSimple, _, PComida, Id_depa, DistanciaHotel),
 
-    CostoPasaje is (Pasaje * Var_CantPersonas),
+    CostoPasaje is (Pasaje * Var_CantPersonas * 2),
     CostoComida is  (((PComida*Var_CantidadComida)* Var_CantPersonas) * Var_CantNoches),
     CostoHabitacion is (HSimple * Var_CantPersonas),
     Sumatoria is ( CostoHabitacion + CostoComida + CostoPasaje),
@@ -962,7 +968,7 @@ mostrarinferenciapasajeintermedio(NombreHotel,NombreDepartamento, DireccionHotel
     nl, 
     fail.
 
-analisis_intermedio_cerca_vehiculos_hdoble(Var_Presupuesto, Var_Clima, Var_Distancia, Var_CantNoches, Var_CantidadComida,Var_CantPersonas):-
+analisis_intermedio_cerca_vehiculos_hdoble( Var_Clima, Var_CantNoches, Var_CantidadComida,Var_CantPersonas):-
     departamento(Id_depa, NombreDepartamento, _,_,Clima_dep,_),
     hotel(_, NombreHotel, DireccionHotel, _, _, Hdoble, PComida, Id_depa, DistanciaHotel),
 
@@ -994,11 +1000,11 @@ mostrarinferenciaintermedio_vehiculos_doble(NombreHotel,NombreDepartamento, Dire
     nl, 
     fail.
 
-analisis_intermedio_cerca_vehiculon_hdoble(Var_Presupuesto, Var_Clima, Var_Distancia, Var_CantNoches, Var_CantidadComida,Var_CantPersonas):-
+analisis_intermedio_cerca_vehiculon_hdoble( Var_Clima, Var_CantNoches, Var_CantidadComida,Var_CantPersonas):-
     departamento(Id_depa, NombreDepartamento, CantidadHoras,_,Clima_dep,Pasaje),
     hotel(_, NombreHotel, DireccionHotel, _, _, Hdoble, PComida, Id_depa, DistanciaHotel),
 
-    CostoPasaje is (Pasaje * Var_CantPersonas),
+    CostoPasaje is (Pasaje * Var_CantPersonas * 2),
     CostoComida is  (((PComida*Var_CantidadComida)* Var_CantPersonas) * Var_CantNoches),
     CostoHabitacion is (Hdoble * round(Var_CantPersonas/2)),
     Sumatoria is ( CostoHabitacion + CostoComida + CostoPasaje),
@@ -1030,7 +1036,7 @@ mostrarinferenciaintermedio_vehiculon_hdoble(NombreHotel,NombreDepartamento, Dir
 
 
 %--------------distancia larga -----------------
-analisisprespuestointermediodistancialejos(Var_Presupuesto,Var_Distancia):- write('Tipo de habitacion: \n1. Simple \n2. Doble'),
+analisisprespuestointermediodistancialejos():- write('Tipo de habitacion: \n1. Simple \n2. Doble'),
     nl, 
     read(Var_TipoHabitacion),
     nl,
@@ -1054,19 +1060,19 @@ analisisprespuestointermediodistancialejos(Var_Presupuesto,Var_Distancia):- writ
     nl, 
     read(Var_Clima),
     nl,
-    analisisprespuestointermediodistancialejoshabitacionvehiculo(Var_Presupuesto, Var_Distancia, Var_TipoHabitacion, Var_CantNoches, Var_Clima, Var_CantidadComida,Var_CantPersonas, Var_Vehiculo),
+    analisisprespuestointermediodistancialejoshabitacionvehiculo(Var_TipoHabitacion, Var_CantNoches, Var_Clima, Var_CantidadComida,Var_CantPersonas, Var_Vehiculo),
     nl.
 
-analisisprespuestointermediodistancialejoshabitacionvehiculo(Var_Presupuesto, Var_Distancia, Var_TipoHabitacion, Var_CantNoches, Var_Clima, Var_CantidadComida,Var_CantPersonas, Var_Vehiculo):-(
+analisisprespuestointermediodistancialejoshabitacionvehiculo(Var_TipoHabitacion, Var_CantNoches, Var_Clima, Var_CantidadComida,Var_CantPersonas, Var_Vehiculo):-(
     %- Habitaciones - Simples 
-    (Var_TipoHabitacion == 1 , Var_Vehiculo == 's')->analisis_intermedio_lejos_vehiculos_hsimple(Var_Presupuesto, Var_Clima, Var_Distancia, Var_CantNoches, Var_CantidadComida,Var_CantPersonas);
-    (Var_TipoHabitacion == 1 , Var_Vehiculo == 'n')->analisis_intermediolejos_vehiculon_hsimple(Var_Presupuesto, Var_Clima, Var_Distancia, Var_CantNoches, Var_CantidadComida,Var_CantPersonas);
+    (Var_TipoHabitacion == 1 , Var_Vehiculo == 's')->analisis_intermedio_lejos_vehiculos_hsimple(Var_Clima,  Var_CantNoches, Var_CantidadComida,Var_CantPersonas);
+    (Var_TipoHabitacion == 1 , Var_Vehiculo == 'n')->analisis_intermediolejos_vehiculon_hsimple( Var_Clima,  Var_CantNoches, Var_CantidadComida,Var_CantPersonas);
     %- Habitacion - dobles 
-    (Var_TipoHabitacion == 2  , Var_Vehiculo == 's')->analisis_intermedio_lejos_vehiculos_hdoble(Var_Presupuesto, Var_Clima, Var_Distancia, Var_CantNoches, Var_CantidadComida,Var_CantPersonas);
-    (Var_TipoHabitacion == 2  , Var_Vehiculo == 'n')->analisis_intermedio_lejos_vehiculon_hdoble(Var_Presupuesto, Var_Clima, Var_Distancia, Var_CantNoches, Var_CantidadComida,Var_CantPersonas)
+    (Var_TipoHabitacion == 2  , Var_Vehiculo == 's')->analisis_intermedio_lejos_vehiculos_hdoble( Var_Clima, Var_CantNoches, Var_CantidadComida,Var_CantPersonas);
+    (Var_TipoHabitacion == 2  , Var_Vehiculo == 'n')->analisis_intermedio_lejos_vehiculon_hdoble( Var_Clima, Var_CantNoches, Var_CantidadComida,Var_CantPersonas)
     ).
 
-analisis_intermedio_lejos_vehiculos_hsimple(Var_Presupuesto, Var_Clima, Var_Distancia, Var_CantNoches, Var_CantidadComida,Var_CantPersonas):-
+analisis_intermedio_lejos_vehiculos_hsimple( Var_Clima, Var_CantNoches, Var_CantidadComida,Var_CantPersonas):-
     departamento(Id_depa, NombreDepartamento, _,_,Clima_dep,_),
     hotel(_, NombreHotel, DireccionHotel, _, HSimple, _, PComida, Id_depa, DistanciaHotel),
 
@@ -1100,11 +1106,11 @@ mostrarinferenciaintermdiolejos(NombreHotel,NombreDepartamento, DireccionHotel, 
     fail.
 
 
-analisis_intermediolejos_vehiculon_hsimple(Var_Presupuesto, Var_Clima, Var_Distancia, Var_CantNoches, Var_CantidadComida,Var_CantPersonas):-
+analisis_intermediolejos_vehiculon_hsimple( Var_Clima, Var_CantNoches, Var_CantidadComida,Var_CantPersonas):-
     departamento(Id_depa, NombreDepartamento, CantidadHoras,_,Clima_dep,Pasaje),
     hotel(_, NombreHotel, DireccionHotel, _, HSimple, _, PComida, Id_depa, DistanciaHotel),
 
-    CostoPasaje is (Pasaje * Var_CantPersonas),
+    CostoPasaje is (Pasaje * Var_CantPersonas * 2),
     CostoComida is  (((PComida*Var_CantidadComida)* Var_CantPersonas) * Var_CantNoches),
     CostoHabitacion is (HSimple * Var_CantPersonas),
     Sumatoria is ( CostoHabitacion + CostoComida + CostoPasaje),
@@ -1134,7 +1140,7 @@ mostrarinferenciapasajeintermediolejos(NombreHotel,NombreDepartamento, Direccion
     nl, 
     fail.
 
-analisis_intermedio_lejos_vehiculos_hdoble(Var_Presupuesto, Var_Clima, Var_Distancia, Var_CantNoches, Var_CantidadComida,Var_CantPersonas):-
+analisis_intermedio_lejos_vehiculos_hdoble( Var_Clima, Var_CantNoches, Var_CantidadComida,Var_CantPersonas):-
     departamento(Id_depa, NombreDepartamento, _,_,Clima_dep,_),
     hotel(_, NombreHotel, DireccionHotel, _, _, Hdoble, PComida, Id_depa, DistanciaHotel),
 
@@ -1166,11 +1172,11 @@ mostrarinferenciaintermediolejos_vehiculos_doble(NombreHotel,NombreDepartamento,
     nl, 
     fail.
 
-analisis_intermedio_lejos_vehiculon_hdoble(Var_Presupuesto, Var_Clima, Var_Distancia, Var_CantNoches, Var_CantidadComida,Var_CantPersonas):-
+analisis_intermedio_lejos_vehiculon_hdoble( Var_Clima, Var_CantNoches, Var_CantidadComida,Var_CantPersonas):-
     departamento(Id_depa, NombreDepartamento, CantidadHoras,_,Clima_dep,Pasaje),
     hotel(_, NombreHotel, DireccionHotel, _, _, Hdoble, PComida, Id_depa, DistanciaHotel),
 
-    CostoPasaje is (Pasaje * Var_CantPersonas),
+    CostoPasaje is (Pasaje * Var_CantPersonas * 2),
     CostoComida is  (((PComida*Var_CantidadComida)* Var_CantPersonas) * Var_CantNoches),
     CostoHabitacion is (Hdoble * round(Var_CantPersonas/2)),
     Sumatoria is ( CostoHabitacion + CostoComida + CostoPasaje),
@@ -1203,20 +1209,20 @@ mostrarinferenciaintermediolejos_vehiculon_hdoble(NombreHotel,NombreDepartamento
 
 %--------------------------------------------------------------------Presupuesto Alto-----------------------------------------------------
 
-presupuestoalto(Var_Presupuesto):- write('Como desea la distancia del punto de partida \n1. Cerca (0 - 100km)  \n2. Lejos (> 100Km)'),
+presupuestoalto():- write('Como desea la distancia del punto de partida \n1. Cerca (0 - 100km)  \n2. Lejos (> 100Km)'),
     nl,
     read(Var_Distancia),
     nl, 
-    analisisprespuestoaltodistancia(Var_Presupuesto, Var_Distancia),
+    analisisprespuestoaltodistancia(Var_Distancia),
     nl.
 
-analisisprespuestoaltodistancia(Var_Presupuesto, Var_Distancia):-(
-    Var_Distancia == 1 -> analisisprespuestoaltodistanciacerca(Var_Presupuesto,Var_Distancia);
-    Var_Distancia == 2 -> analisisprespuestoaltodistancialejos(Var_Presupuesto,Var_Distancia)
+analisisprespuestoaltodistancia(Var_Distancia):-(
+    Var_Distancia == 1 -> analisisprespuestoaltodistanciacerca();
+    Var_Distancia == 2 -> analisisprespuestoaltodistancialejos()
     ).
 
 %--------------distancia cerca --------------
-analisisprespuestoaltodistanciacerca(Var_Presupuesto,Var_Distancia):- write('Tipo de habitacion: \n1. Simple \n2. Doble'),
+analisisprespuestoaltodistanciacerca():- write('Tipo de habitacion: \n1. Simple \n2. Doble'),
     nl, 
     read(Var_TipoHabitacion),
     nl,
@@ -1240,19 +1246,19 @@ analisisprespuestoaltodistanciacerca(Var_Presupuesto,Var_Distancia):- write('Tip
     nl, 
     read(Var_Clima),
     nl,
-    analisisprespuestoaltodistanciacercahabitacionvehiculo(Var_Presupuesto, Var_Distancia, Var_TipoHabitacion, Var_CantNoches, Var_Clima, Var_CantidadComida,Var_CantPersonas, Var_Vehiculo),
+    analisisprespuestoaltodistanciacercahabitacionvehiculo( Var_TipoHabitacion, Var_CantNoches, Var_Clima, Var_CantidadComida,Var_CantPersonas, Var_Vehiculo),
     nl.
 
-analisisprespuestoaltodistanciacercahabitacionvehiculo(Var_Presupuesto, Var_Distancia, Var_TipoHabitacion, Var_CantNoches, Var_Clima, Var_CantidadComida,Var_CantPersonas, Var_Vehiculo):-(
+analisisprespuestoaltodistanciacercahabitacionvehiculo(Var_TipoHabitacion, Var_CantNoches, Var_Clima, Var_CantidadComida,Var_CantPersonas, Var_Vehiculo):-(
     %- Habitaciones - Simples 
-    (Var_TipoHabitacion == 1 , Var_Vehiculo == 's')->analisis_alto_cerca_vehiculos_hsimple(Var_Presupuesto, Var_Clima, Var_Distancia, Var_CantNoches, Var_CantidadComida,Var_CantPersonas);
-    (Var_TipoHabitacion == 1 , Var_Vehiculo == 'n')->analisis_alto_cerca_vehiculon_hsimple(Var_Presupuesto, Var_Clima, Var_Distancia, Var_CantNoches, Var_CantidadComida,Var_CantPersonas);
+    (Var_TipoHabitacion == 1 , Var_Vehiculo == 's')->analisis_alto_cerca_vehiculos_hsimple( Var_Clima, Var_CantNoches, Var_CantidadComida,Var_CantPersonas);
+    (Var_TipoHabitacion == 1 , Var_Vehiculo == 'n')->analisis_alto_cerca_vehiculon_hsimple( Var_Clima, Var_CantNoches, Var_CantidadComida,Var_CantPersonas);
     %- Habitacion - dobles 
-    (Var_TipoHabitacion == 2  , Var_Vehiculo == 's')->analisis_alto_cerca_vehiculos_hdoble(Var_Presupuesto, Var_Clima, Var_Distancia, Var_CantNoches, Var_CantidadComida,Var_CantPersonas);
-    (Var_TipoHabitacion == 2  , Var_Vehiculo == 'n')->analisis_alto_cerca_vehiculon_hdoble(Var_Presupuesto, Var_Clima, Var_Distancia, Var_CantNoches, Var_CantidadComida,Var_CantPersonas)
+    (Var_TipoHabitacion == 2  , Var_Vehiculo == 's')->analisis_alto_cerca_vehiculos_hdoble( Var_Clima, Var_CantNoches, Var_CantidadComida,Var_CantPersonas);
+    (Var_TipoHabitacion == 2  , Var_Vehiculo == 'n')->analisis_alto_cerca_vehiculon_hdoble( Var_Clima, Var_CantNoches, Var_CantidadComida,Var_CantPersonas)
     ).
 
-analisis_alto_cerca_vehiculos_hsimple(Var_Presupuesto, Var_Clima, Var_Distancia, Var_CantNoches, Var_CantidadComida,Var_CantPersonas):-
+analisis_alto_cerca_vehiculos_hsimple( Var_Clima, Var_CantNoches, Var_CantidadComida,Var_CantPersonas):-
     departamento(Id_depa, NombreDepartamento, _,_,Clima_dep,_),
     hotel(_, NombreHotel, DireccionHotel, _, HSimple, _, PComida, Id_depa, DistanciaHotel),
 
@@ -1285,11 +1291,11 @@ mostrarinferenciaalto(NombreHotel,NombreDepartamento, DireccionHotel,  CostoGaso
     fail.
 
 
-analisis_alto_cerca_vehiculon_hsimple(Var_Presupuesto, Var_Clima, Var_Distancia, Var_CantNoches, Var_CantidadComida,Var_CantPersonas):-
+analisis_alto_cerca_vehiculon_hsimple( Var_Clima, Var_CantNoches, Var_CantidadComida,Var_CantPersonas):-
     departamento(Id_depa, NombreDepartamento, CantidadHoras,_,Clima_dep,Pasaje),
     hotel(_, NombreHotel, DireccionHotel, _, HSimple, _, PComida, Id_depa, DistanciaHotel),
 
-    CostoPasaje is (Pasaje * Var_CantPersonas),
+    CostoPasaje is (Pasaje * Var_CantPersonas * 2),
     CostoComida is  (((PComida*Var_CantidadComida)* Var_CantPersonas) * Var_CantNoches),
     CostoHabitacion is (HSimple * Var_CantPersonas),
     Sumatoria is ( CostoHabitacion + CostoComida + CostoPasaje),
@@ -1318,7 +1324,7 @@ mostrarinferenciapasajealto(NombreHotel,NombreDepartamento, DireccionHotel,  Cos
     nl, 
     fail.
 
-analisis_alto_cerca_vehiculos_hdoble(Var_Presupuesto, Var_Clima, Var_Distancia, Var_CantNoches, Var_CantidadComida,Var_CantPersonas):-
+analisis_alto_cerca_vehiculos_hdoble( Var_Clima, Var_CantNoches, Var_CantidadComida,Var_CantPersonas):-
     departamento(Id_depa, NombreDepartamento, _,_,Clima_dep,_),
     hotel(_, NombreHotel, DireccionHotel, _, _, Hdoble, PComida, Id_depa, DistanciaHotel),
 
@@ -1349,11 +1355,11 @@ mostrarinferenciaalto_vehiculos_doble(NombreHotel,NombreDepartamento, DireccionH
     nl, 
     fail.
 
-analisis_alto_cerca_vehiculon_hdoble(Var_Presupuesto, Var_Clima, Var_Distancia, Var_CantNoches, Var_CantidadComida,Var_CantPersonas):-
+analisis_alto_cerca_vehiculon_hdoble( Var_Clima, Var_CantNoches, Var_CantidadComida,Var_CantPersonas):-
     departamento(Id_depa, NombreDepartamento, CantidadHoras,_,Clima_dep,Pasaje),
     hotel(_, NombreHotel, DireccionHotel, _, _, Hdoble, PComida, Id_depa, DistanciaHotel),
 
-    CostoPasaje is (Pasaje * Var_CantPersonas),
+    CostoPasaje is (Pasaje * Var_CantPersonas * 2),
     CostoComida is  (((PComida*Var_CantidadComida)* Var_CantPersonas) * Var_CantNoches),
     CostoHabitacion is (Hdoble * round(Var_CantPersonas/2)),
     Sumatoria is ( CostoHabitacion + CostoComida + CostoPasaje),
@@ -1384,7 +1390,7 @@ mostrarinferenciaalto_vehiculon_hdoble(NombreHotel,NombreDepartamento, Direccion
 
 
 %--------------distancia larga -----------------
-analisisprespuestoaltodistancialejos(Var_Presupuesto,Var_Distancia):- write('Tipo de habitacion: \n1. Simple \n2. Doble'),
+analisisprespuestoaltodistancialejos():- write('Tipo de habitacion: \n1. Simple \n2. Doble'),
     nl, 
     read(Var_TipoHabitacion),
     nl,
@@ -1408,19 +1414,19 @@ analisisprespuestoaltodistancialejos(Var_Presupuesto,Var_Distancia):- write('Tip
     nl, 
     read(Var_Clima),
     nl,
-    analisisprespuestoaltodistancialejoshabitacionvehiculo(Var_Presupuesto, Var_Distancia, Var_TipoHabitacion, Var_CantNoches, Var_Clima, Var_CantidadComida,Var_CantPersonas, Var_Vehiculo),
+    analisisprespuestoaltodistancialejoshabitacionvehiculo(Var_TipoHabitacion, Var_CantNoches, Var_Clima, Var_CantidadComida,Var_CantPersonas, Var_Vehiculo),
     nl.
 
-analisisprespuestoaltodistancialejoshabitacionvehiculo(Var_Presupuesto, Var_Distancia, Var_TipoHabitacion, Var_CantNoches, Var_Clima, Var_CantidadComida,Var_CantPersonas, Var_Vehiculo):-(
+analisisprespuestoaltodistancialejoshabitacionvehiculo( Var_TipoHabitacion, Var_CantNoches, Var_Clima, Var_CantidadComida,Var_CantPersonas, Var_Vehiculo):-(
     %- Habitaciones - Simples 
-    (Var_TipoHabitacion == 1 , Var_Vehiculo == 's')->analisis_alto_lejos_vehiculos_hsimple(Var_Presupuesto, Var_Clima, Var_Distancia, Var_CantNoches, Var_CantidadComida,Var_CantPersonas);
-    (Var_TipoHabitacion == 1 , Var_Vehiculo == 'n')->analisis_alto_lejos_vehiculon_hsimple(Var_Presupuesto, Var_Clima, Var_Distancia, Var_CantNoches, Var_CantidadComida,Var_CantPersonas);
+    (Var_TipoHabitacion == 1 , Var_Vehiculo == 's')->analisis_alto_lejos_vehiculos_hsimple( Var_Clima, Var_CantNoches, Var_CantidadComida,Var_CantPersonas);
+    (Var_TipoHabitacion == 1 , Var_Vehiculo == 'n')->analisis_alto_lejos_vehiculon_hsimple( Var_Clima, Var_CantNoches, Var_CantidadComida,Var_CantPersonas);
     %- Habitacion - dobles 
-    (Var_TipoHabitacion == 2  , Var_Vehiculo == 's')->analisis_alto_lejos_vehiculos_hdoble(Var_Presupuesto, Var_Clima, Var_Distancia, Var_CantNoches, Var_CantidadComida,Var_CantPersonas);
-    (Var_TipoHabitacion == 2  , Var_Vehiculo == 'n')->analisis_alto_lejos_vehiculon_hdoble(Var_Presupuesto, Var_Clima, Var_Distancia, Var_CantNoches, Var_CantidadComida,Var_CantPersonas)
+    (Var_TipoHabitacion == 2  , Var_Vehiculo == 's')->analisis_alto_lejos_vehiculos_hdoble( Var_Clima, Var_CantNoches, Var_CantidadComida,Var_CantPersonas);
+    (Var_TipoHabitacion == 2  , Var_Vehiculo == 'n')->analisis_alto_lejos_vehiculon_hdoble( Var_Clima, Var_CantNoches, Var_CantidadComida,Var_CantPersonas)
     ).
 
-analisis_alto_lejos_vehiculos_hsimple(Var_Presupuesto, Var_Clima, Var_Distancia, Var_CantNoches, Var_CantidadComida,Var_CantPersonas):-
+analisis_alto_lejos_vehiculos_hsimple( Var_Clima, Var_CantNoches, Var_CantidadComida,Var_CantPersonas):-
     departamento(Id_depa, NombreDepartamento, _,_,Clima_dep,_),
     hotel(_, NombreHotel, DireccionHotel, _, HSimple, _, PComida, Id_depa, DistanciaHotel),
 
@@ -1453,11 +1459,11 @@ mostrarinferenciaaltolejos(NombreHotel,NombreDepartamento, DireccionHotel,  Cost
     fail.
 
 
-analisis_alto_lejos_vehiculon_hsimple(Var_Presupuesto, Var_Clima, Var_Distancia, Var_CantNoches, Var_CantidadComida,Var_CantPersonas):-
+analisis_alto_lejos_vehiculon_hsimple( Var_Clima, Var_CantNoches, Var_CantidadComida,Var_CantPersonas):-
     departamento(Id_depa, NombreDepartamento, CantidadHoras,_,Clima_dep,Pasaje),
     hotel(_, NombreHotel, DireccionHotel, _, HSimple, _, PComida, Id_depa, DistanciaHotel),
 
-    CostoPasaje is (Pasaje * Var_CantPersonas),
+    CostoPasaje is (Pasaje * Var_CantPersonas * 2),
     CostoComida is  (((PComida*Var_CantidadComida)* Var_CantPersonas) * Var_CantNoches),
     CostoHabitacion is (HSimple * Var_CantPersonas),
     Sumatoria is ( CostoHabitacion + CostoComida + CostoPasaje),
@@ -1486,7 +1492,7 @@ mostrarinferenciapasajealtolejos(NombreHotel,NombreDepartamento, DireccionHotel,
     nl, 
     fail.
 
-analisis_alto_lejos_vehiculos_hdoble(Var_Presupuesto, Var_Clima, Var_Distancia, Var_CantNoches, Var_CantidadComida,Var_CantPersonas):-
+analisis_alto_lejos_vehiculos_hdoble( Var_Clima, Var_CantNoches, Var_CantidadComida,Var_CantPersonas):-
     departamento(Id_depa, NombreDepartamento, _,_,Clima_dep,_),
     hotel(_, NombreHotel, DireccionHotel, _, _, Hdoble, PComida, Id_depa, DistanciaHotel),
 
@@ -1517,11 +1523,11 @@ mostrarinferenciaaltolejos_vehiculos_doble(NombreHotel,NombreDepartamento, Direc
     nl, 
     fail.
 
-analisis_alto_lejos_vehiculon_hdoble(Var_Presupuesto, Var_Clima, Var_Distancia, Var_CantNoches, Var_CantidadComida,Var_CantPersonas):-
+analisis_alto_lejos_vehiculon_hdoble( Var_Clima, Var_CantNoches, Var_CantidadComida,Var_CantPersonas):-
     departamento(Id_depa, NombreDepartamento, CantidadHoras,_,Clima_dep,Pasaje),
     hotel(_, NombreHotel, DireccionHotel, _, _, Hdoble, PComida, Id_depa, DistanciaHotel),
 
-    CostoPasaje is (Pasaje * Var_CantPersonas),
+    CostoPasaje is (Pasaje * Var_CantPersonas * 2),
     CostoComida is  (((PComida*Var_CantidadComida)* Var_CantPersonas) * Var_CantNoches),
     CostoHabitacion is (Hdoble * round(Var_CantPersonas/2)),
     Sumatoria is ( CostoHabitacion + CostoComida + CostoPasaje),
@@ -1556,7 +1562,7 @@ mostrarinferenciaaltolejos_vehiculon_hdoble(NombreHotel,NombreDepartamento, Dire
 %----------------------------------------------------Clima---------------------------------------------------------------------
 preguntasclima():- write('Conteste las siguientes preguntas sobre la preferencia de Idioma'),
     nl,
-    write('Cual es su presupuesto? \n1. Calor \n2. Frio  \n3. Templado \n4. Tropical'),
+    write('Cual es su clima preferido ? \n1. Calor \n2. Frio  \n3. Templado \n4. Tropical'),
     nl, 
     read(Var_Clima),
     nl,
@@ -1587,26 +1593,26 @@ analisisclimacalor(Var_Clima):-write('Conteste las siguientes preguntas sobre pr
 
 
 analsis_clima_calor_presupuesto(Var_Clima, Var_Presupuesto):-(
-        Var_Presupuesto == 1 -> analisis_clima_calor_bajo(Var_Clima, Var_Presupuesto);
-        Var_Presupuesto == 2 -> analisis_clima_calor_alto(Var_Clima, Var_Presupuesto)
+        Var_Presupuesto == 1 -> analisis_clima_calor_bajo(Var_Clima);
+        Var_Presupuesto == 2 -> analisis_clima_calor_alto(Var_Clima)
     ). 
 
-analisis_clima_calor_bajo(Var_Clima, Var_Presupuesto):-
+analisis_clima_calor_bajo(Var_Clima):-
     write('Como desea la distancia del punto de partida \n1. Cerca (0 - 100km)  \n2. Lejos (> 100Km)'),
     nl,
     read(Var_Distancia),
     nl, 
-    analsis_clima_calor_presupuesto_distancia(Var_Clima, Var_Presupuesto,Var_Distancia),
+    analsis_clima_calor_presupuesto_distancia(Var_Clima,Var_Distancia),
     nl.
 
-analsis_clima_calor_presupuesto_distancia(Var_Clima, Var_Presupuesto,Var_Distancia):-
+analsis_clima_calor_presupuesto_distancia(Var_Clima,Var_Distancia):-
     (
-    Var_Distancia == 1 -> analisis_clima_calor_bajo_cerca(Var_Clima, Var_Presupuesto,Var_Distancia);
-    Var_Distancia == 2 -> analisis_clima_calor_bajo_lejos(Var_Clima, Var_Presupuesto,Var_Distancia)
+    Var_Distancia == 1 -> analisis_clima_calor_bajo_cerca(Var_Clima);
+    Var_Distancia == 2 -> analisis_clima_calor_bajo_lejos(Var_Clima)
     ).
 
 %---------------Calor - Bajo -Cerca
-analisis_clima_calor_bajo_cerca(Var_Clima, Var_Presupuesto,Var_Distancia):-  write('Tipo de habitacion: \n1. Simple \n2. Doble'),
+analisis_clima_calor_bajo_cerca(Var_Clima):-  write('Tipo de habitacion: \n1. Simple \n2. Doble'),
     nl, 
     read(Var_TipoHabitacion),
     nl,
@@ -1626,21 +1632,21 @@ analisis_clima_calor_bajo_cerca(Var_Clima, Var_Presupuesto,Var_Distancia):-  wri
     nl, 
     read(Var_CantPersonas),
     nl,
-    analsis_clima_calor_cerca_generales(Var_Clima, Var_Presupuesto,Var_Distancia,  Var_TipoHabitacion, Var_CantNoches, Var_CantidadComida,Var_CantPersonas, Var_Vehiculo),
+    analsis_clima_calor_cerca_generales(Var_Clima,  Var_TipoHabitacion, Var_CantNoches, Var_CantidadComida,Var_CantPersonas, Var_Vehiculo),
     nl.
 
-analsis_clima_calor_cerca_generales(Var_Clima, Var_Presupuesto,Var_Distancia,  Var_TipoHabitacion, Var_CantNoches, Var_CantidadComida,Var_CantPersonas, Var_Vehiculo):-
+analsis_clima_calor_cerca_generales(Var_Clima,  Var_TipoHabitacion, Var_CantNoches, Var_CantidadComida,Var_CantPersonas, Var_Vehiculo):-
     (
      %- Habitaciones - Simples 
-    (Var_TipoHabitacion == 1 , Var_Vehiculo == 's')->analisis_clima_calor_cerca_vehiculos_hsimple(Var_Clima, Var_Presupuesto, Var_CantNoches, Var_CantidadComida,Var_CantPersonas);
-    (Var_TipoHabitacion == 1 , Var_Vehiculo == 'n')->analisis_clima_calor_cerca_vehiculon_hsimple(Var_Clima, Var_Presupuesto,  Var_CantNoches, Var_CantidadComida,Var_CantPersonas);
+    (Var_TipoHabitacion == 1 , Var_Vehiculo == 's')->analisis_clima_calor_cerca_vehiculos_hsimple(Var_Clima, Var_CantNoches, Var_CantidadComida,Var_CantPersonas);
+    (Var_TipoHabitacion == 1 , Var_Vehiculo == 'n')->analisis_clima_calor_cerca_vehiculon_hsimple(Var_Clima,  Var_CantNoches, Var_CantidadComida,Var_CantPersonas);
     %- Habitacion - dobles 
-    (Var_TipoHabitacion == 2  , Var_Vehiculo == 's') ->  analisis_clima_calor_cerca_vehiculos_hdoble(Var_Clima, Var_Presupuesto, Var_CantNoches, Var_CantidadComida,Var_CantPersonas);
-    (Var_TipoHabitacion == 2  , Var_Vehiculo == 'n') ->  analisis_clima_calor_cerca_vehiculon_hdoble(Var_Clima, Var_Presupuesto, Var_CantNoches, Var_CantidadComida,Var_CantPersonas)
+    (Var_TipoHabitacion == 2  , Var_Vehiculo == 's') ->  analisis_clima_calor_cerca_vehiculos_hdoble(Var_Clima, Var_CantNoches, Var_CantidadComida,Var_CantPersonas);
+    (Var_TipoHabitacion == 2  , Var_Vehiculo == 'n') ->  analisis_clima_calor_cerca_vehiculon_hdoble(Var_Clima, Var_CantNoches, Var_CantidadComida,Var_CantPersonas)
     ).
 
 %----------------------Calor-Bajo-Cerca-Simple
-analisis_clima_calor_cerca_vehiculos_hsimple(Var_Clima, Var_Presupuesto, Var_CantNoches, Var_CantidadComida,Var_CantPersonas):-
+analisis_clima_calor_cerca_vehiculos_hsimple(Var_Clima, Var_CantNoches, Var_CantidadComida,Var_CantPersonas):-
     departamento(Id_depa, NombreDepartamento, _,_,Clima_dep,_),
     hotel(_, NombreHotel, DireccionHotel, _, HSimple, _, PComida, Id_depa, DistanciaHotel),
 
@@ -1672,11 +1678,11 @@ mostrarinferencia_clima_calor_cerca_vehiculos_hsimple(NombreHotel,NombreDepartam
     fail.
 
 
-analisis_clima_calor_cerca_vehiculon_hsimple(Var_Clima, Var_Presupuesto, Var_CantNoches, Var_CantidadComida,Var_CantPersonas):-
+analisis_clima_calor_cerca_vehiculon_hsimple(Var_Clima, Var_CantNoches, Var_CantidadComida,Var_CantPersonas):-
     departamento(Id_depa, NombreDepartamento, CantidadHoras,_,Clima_dep,Pasaje),
     hotel(_, NombreHotel, DireccionHotel, _, HSimple, _, PComida, Id_depa, DistanciaHotel),
 
-    CostoPasaje is (Pasaje * Var_CantPersonas),
+    CostoPasaje is (Pasaje * Var_CantPersonas * 2),
     CostoComida is  (((PComida*Var_CantidadComida)* Var_CantPersonas) * Var_CantNoches),
     CostoHabitacion is (HSimple * Var_CantPersonas),
     Sumatoria is ( CostoHabitacion + CostoComida + CostoPasaje),
@@ -1706,7 +1712,7 @@ mostrarinferencia_clima_calor_cerca_vehiculon_hsimple(Var_Clima, NombreHotel,Nom
     fail.
 
 %----------------------Calor-Bajo-Cerca-Doble
-analisis_clima_calor_cerca_vehiculos_hdoble(Var_Clima, Var_Presupuesto, Var_CantNoches, Var_CantidadComida,Var_CantPersonas):-
+analisis_clima_calor_cerca_vehiculos_hdoble(Var_Clima, Var_CantNoches, Var_CantidadComida,Var_CantPersonas):-
     departamento(Id_depa, NombreDepartamento, _,_,Clima_dep,_),
     hotel(_, NombreHotel, DireccionHotel, _, _, Hdoble, PComida, Id_depa, DistanciaHotel),
 
@@ -1738,11 +1744,11 @@ mostrarinferencia_clima_calor_cerca_vehiculos_hdoble(NombreHotel,NombreDepartame
     nl, 
     fail.
 
-analisis_clima_calor_cerca_vehiculon_hdoble(Var_Clima, Var_Presupuesto, Var_CantNoches, Var_CantidadComida,Var_CantPersonas):-
+analisis_clima_calor_cerca_vehiculon_hdoble(Var_Clima, Var_CantNoches, Var_CantidadComida,Var_CantPersonas):-
     departamento(Id_depa, NombreDepartamento, CantidadHoras,_,Clima_dep,Pasaje),
     hotel(_, NombreHotel, DireccionHotel, _, _, Hdoble, PComida, Id_depa, DistanciaHotel),
 
-    CostoPasaje is (Pasaje * Var_CantPersonas),
+    CostoPasaje is (Pasaje * Var_CantPersonas * 2),
     CostoComida is  (((PComida*Var_CantidadComida)* Var_CantPersonas) * Var_CantNoches),
     CostoHabitacion is (Hdoble * round(Var_CantPersonas/2)),
     Sumatoria is ( CostoHabitacion + CostoComida + CostoPasaje),
@@ -1773,7 +1779,7 @@ mostrarinferencia_clima_calor_cerca_vehiculon_hdoble(Var_Clima, NombreHotel,Nomb
 
 
 %----------Calor Lejos
-analisis_clima_calor_bajo_lejos(Var_Clima, Var_Presupuesto,Var_Distancia):-
+analisis_clima_calor_bajo_lejos(Var_Clima):-
     write('Tipo de habitacion: \n1. Simple \n2. Doble'),
     nl, 
     read(Var_TipoHabitacion),
@@ -1794,22 +1800,22 @@ analisis_clima_calor_bajo_lejos(Var_Clima, Var_Presupuesto,Var_Distancia):-
     nl, 
     read(Var_CantPersonas),
     nl,
-    analsis_clima_calor_lejos_generales(Var_Clima, Var_Presupuesto,Var_Distancia,  Var_TipoHabitacion, Var_CantNoches, Var_CantidadComida,Var_CantPersonas, Var_Vehiculo),
+    analsis_clima_calor_lejos_generales(Var_Clima, Var_TipoHabitacion, Var_CantNoches, Var_CantidadComida,Var_CantPersonas, Var_Vehiculo),
     nl.
 
-analsis_clima_calor_lejos_generales(Var_Clima, Var_Presupuesto,Var_Distancia,  Var_TipoHabitacion, Var_CantNoches, Var_CantidadComida,Var_CantPersonas, Var_Vehiculo):-
+analsis_clima_calor_lejos_generales(Var_Clima, Var_TipoHabitacion, Var_CantNoches, Var_CantidadComida,Var_CantPersonas, Var_Vehiculo):-
     (
-     %- Habitaciones - Simples 
-    (Var_TipoHabitacion == 1 , Var_Vehiculo == 's')->analisis_clima_calor_lejos_vehiculos_hsimple(Var_Clima, Var_Presupuesto, Var_CantNoches, Var_CantidadComida,Var_CantPersonas);
-    (Var_TipoHabitacion == 1 , Var_Vehiculo == 'n')->analisis_clima_calor_lejos_vehiculon_hsimple(Var_Clima, Var_Presupuesto,  Var_CantNoches, Var_CantidadComida,Var_CantPersonas);
+    %- Habitaciones - Simples 
+    (Var_TipoHabitacion == 1 , Var_Vehiculo == 's')->analisis_clima_calor_lejos_vehiculos_hsimple(Var_Clima, Var_CantNoches, Var_CantidadComida, Var_CantPersonas);
+    (Var_TipoHabitacion == 1 , Var_Vehiculo == 'n')->analisis_clima_calor_lejos_vehiculon_hsimple(Var_Clima, Var_CantNoches, Var_CantidadComida, Var_CantPersonas);
     %- Habitacion - dobles 
-    (Var_TipoHabitacion == 2  , Var_Vehiculo == 's') ->  analisis_clima_lejos_cerca_vehiculos_hdoble(Var_Clima, Var_Presupuesto, Var_CantNoches, Var_CantidadComida,Var_CantPersonas);
-    (Var_TipoHabitacion == 2  , Var_Vehiculo == 'n') ->  analisis_clima_lejos_cerca_vehiculon_hdoble(Var_Clima, Var_Presupuesto, Var_CantNoches, Var_CantidadComida,Var_CantPersonas)
+    (Var_TipoHabitacion == 2 , Var_Vehiculo == 's')->analisis_clima_lejos_cerca_vehiculos_hdoble(Var_Clima, Var_CantNoches, Var_CantidadComida, Var_CantPersonas);
+    (Var_TipoHabitacion == 2 , Var_Vehiculo == 'n')->analisis_clima_lejos_cerca_vehiculon_hdoble(Var_Clima, Var_CantNoches, Var_CantidadComida, Var_CantPersonas)
     ).
 
 
 %----------------------Calor-Bajo-Cerca-Simple
-analisis_clima_calor_lejos_vehiculos_hsimple(Var_Clima, Var_Presupuesto, Var_CantNoches, Var_CantidadComida,Var_CantPersonas):-
+analisis_clima_calor_lejos_vehiculos_hsimple(Var_Clima, Var_CantNoches, Var_CantidadComida,Var_CantPersonas):-
     departamento(Id_depa, NombreDepartamento, _,_,Clima_dep,_),
     hotel(_, NombreHotel, DireccionHotel, _, HSimple, _, PComida, Id_depa, DistanciaHotel),
 
@@ -1841,11 +1847,11 @@ mostrarinferencia_clima_calor_lejos_vehiculos_hsimple(NombreHotel,NombreDepartam
     fail.
 
 
-analisis_clima_calor_lejos_vehiculon_hsimple(Var_Clima, Var_Presupuesto, Var_CantNoches, Var_CantidadComida,Var_CantPersonas):-
+analisis_clima_calor_lejos_vehiculon_hsimple(Var_Clima, Var_CantNoches, Var_CantidadComida,Var_CantPersonas):-
     departamento(Id_depa, NombreDepartamento, CantidadHoras,_,Clima_dep,Pasaje),
     hotel(_, NombreHotel, DireccionHotel, _, HSimple, _, PComida, Id_depa, DistanciaHotel),
 
-    CostoPasaje is (Pasaje * Var_CantPersonas),
+    CostoPasaje is (Pasaje * Var_CantPersonas * 2),
     CostoComida is  (((PComida*Var_CantidadComida)* Var_CantPersonas) * Var_CantNoches),
     CostoHabitacion is (HSimple * Var_CantPersonas),
     Sumatoria is ( CostoHabitacion + CostoComida + CostoPasaje),
@@ -1875,7 +1881,7 @@ mostrarinferencia_clima_calor_lejos_vehiculon_hsimple(Var_Clima, NombreHotel,Nom
     fail.
 
 %----------------------Calor-Bajo-Cerca-Doble
-analisis_clima_lejos_cerca_vehiculos_hdoble(Var_Clima, Var_Presupuesto, Var_CantNoches, Var_CantidadComida,Var_CantPersonas):-
+analisis_clima_lejos_cerca_vehiculos_hdoble(Var_Clima, Var_CantNoches, Var_CantidadComida,Var_CantPersonas):-
     departamento(Id_depa, NombreDepartamento, _,_,Clima_dep,_),
     hotel(_, NombreHotel, DireccionHotel, _, _, Hdoble, PComida, Id_depa, DistanciaHotel),
 
@@ -1907,11 +1913,11 @@ mostrarinferencia_clima_calor_lejos_vehiculos_hdoble(NombreHotel,NombreDepartame
     nl, 
     fail.
 
-analisis_clima_lejos_cerca_vehiculon_hdoble(Var_Clima, Var_Presupuesto, Var_CantNoches, Var_CantidadComida,Var_CantPersonas):-
+analisis_clima_lejos_cerca_vehiculon_hdoble(Var_Clima, Var_CantNoches, Var_CantidadComida,Var_CantPersonas):-
     departamento(Id_depa, NombreDepartamento, CantidadHoras,_,Clima_dep,Pasaje),
     hotel(_, NombreHotel, DireccionHotel, _, _, Hdoble, PComida, Id_depa, DistanciaHotel),
 
-    CostoPasaje is (Pasaje * Var_CantPersonas),
+    CostoPasaje is (Pasaje * Var_CantPersonas * 2),
     CostoComida is  (((PComida*Var_CantidadComida)* Var_CantPersonas) * Var_CantNoches),
     CostoHabitacion is (Hdoble * round(Var_CantPersonas/2)),
     Sumatoria is ( CostoHabitacion + CostoComida + CostoPasaje),
@@ -1942,23 +1948,23 @@ mostrarinferencia_clima_calor_lejos_vehiculon_hdoble(Var_Clima, NombreHotel,Nomb
 %----------------------------------------------------------------Calor-Alto
 %----------------------------------------------------------------Calor-Alto
 %----------------------------------------------------------------Calor-Alto
-analisis_clima_calor_alto(Var_Clima, Var_Presupuesto):-   
+analisis_clima_calor_alto(Var_Clima):-   
     write('Como desea la distancia del punto de partida \n1. Cerca (0 - 100km)  \n2. Lejos (> 100Km)'),
     nl,
     read(Var_Distancia),
     nl, 
-    analsis_clima_calor_alto_distancia(Var_Clima, Var_Presupuesto,Var_Distancia),
+    analsis_clima_calor_alto_distancia(Var_Clima,Var_Distancia),
     nl.
 
 
-analsis_clima_calor_alto_distancia(Var_Clima, Var_Presupuesto,Var_Distancia):-
+analsis_clima_calor_alto_distancia(Var_Clima,Var_Distancia):-
     (
-    Var_Distancia == 1 -> analisis_clima_calor_alto_cerca(Var_Clima, Var_Presupuesto,Var_Distancia);
-    Var_Distancia == 2 -> analisis_clima_calor_alto_lejos(Var_Clima, Var_Presupuesto,Var_Distancia)
+    Var_Distancia == 1 -> analisis_clima_calor_alto_cerca(Var_Clima);
+    Var_Distancia == 2 -> analisis_clima_calor_alto_lejos(Var_Clima)
     ).
 
 %---------------Calor - alto -Cerca
-analisis_clima_calor_alto_cerca(Var_Clima, Var_Presupuesto,Var_Distancia):-  write('Tipo de habitacion: \n1. Simple \n2. Doble'),
+analisis_clima_calor_alto_cerca(Var_Clima):-  write('Tipo de habitacion: \n1. Simple \n2. Doble'),
     nl, 
     read(Var_TipoHabitacion),
     nl,
@@ -1978,21 +1984,21 @@ analisis_clima_calor_alto_cerca(Var_Clima, Var_Presupuesto,Var_Distancia):-  wri
     nl, 
     read(Var_CantPersonas),
     nl,
-    analsis_clima_calor_alto_cerca_generales(Var_Clima, Var_Presupuesto,Var_Distancia,  Var_TipoHabitacion, Var_CantNoches, Var_CantidadComida,Var_CantPersonas, Var_Vehiculo),
+    analsis_clima_calor_alto_cerca_generales(Var_Clima,  Var_TipoHabitacion, Var_CantNoches, Var_CantidadComida,Var_CantPersonas, Var_Vehiculo),
     nl.
 
-analsis_clima_calor_alto_cerca_generales(Var_Clima, Var_Presupuesto,Var_Distancia,  Var_TipoHabitacion, Var_CantNoches, Var_CantidadComida,Var_CantPersonas, Var_Vehiculo):-
+analsis_clima_calor_alto_cerca_generales(Var_Clima,  Var_TipoHabitacion, Var_CantNoches, Var_CantidadComida,Var_CantPersonas, Var_Vehiculo):-
     (
      %- Habitaciones - Simples 
-    (Var_TipoHabitacion == 1 , Var_Vehiculo == 's')->analisis_clima_calor_alto_cerca_vehiculos_hsimple(Var_Clima, Var_Presupuesto, Var_CantNoches, Var_CantidadComida,Var_CantPersonas);
-    (Var_TipoHabitacion == 1 , Var_Vehiculo == 'n')->analisis_clima_calor_alto_cerca_vehiculon_hsimple(Var_Clima, Var_Presupuesto,  Var_CantNoches, Var_CantidadComida,Var_CantPersonas);
+    (Var_TipoHabitacion == 1 , Var_Vehiculo == 's')->analisis_clima_calor_alto_cerca_vehiculos_hsimple(Var_Clima, Var_CantNoches, Var_CantidadComida,Var_CantPersonas);
+    (Var_TipoHabitacion == 1 , Var_Vehiculo == 'n')->analisis_clima_calor_alto_cerca_vehiculon_hsimple(Var_Clima,  Var_CantNoches, Var_CantidadComida,Var_CantPersonas);
     %- Habitacion - dobles 
-    (Var_TipoHabitacion == 2  , Var_Vehiculo == 's') ->  analisis_clima_calor_alto_cerca_vehiculos_hdoble(Var_Clima, Var_Presupuesto, Var_CantNoches, Var_CantidadComida,Var_CantPersonas);
-    (Var_TipoHabitacion == 2  , Var_Vehiculo == 'n') ->  analisis_clima_calor_alto_cerca_vehiculon_hdoble(Var_Clima, Var_Presupuesto, Var_CantNoches, Var_CantidadComida,Var_CantPersonas)
+    (Var_TipoHabitacion == 2  , Var_Vehiculo == 's') ->  analisis_clima_calor_alto_cerca_vehiculos_hdoble(Var_Clima, Var_CantNoches, Var_CantidadComida,Var_CantPersonas);
+    (Var_TipoHabitacion == 2  , Var_Vehiculo == 'n') ->  analisis_clima_calor_alto_cerca_vehiculon_hdoble(Var_Clima, Var_CantNoches, Var_CantidadComida,Var_CantPersonas)
     ).
 
 %----------------------Calor-alto-Cerca-Simple
-analisis_clima_calor_alto_cerca_vehiculos_hsimple(Var_Clima, Var_Presupuesto, Var_CantNoches, Var_CantidadComida,Var_CantPersonas):-
+analisis_clima_calor_alto_cerca_vehiculos_hsimple(Var_Clima, Var_CantNoches, Var_CantidadComida,Var_CantPersonas):-
     departamento(Id_depa, NombreDepartamento, _,_,Clima_dep,_),
     hotel(_, NombreHotel, DireccionHotel, _, HSimple, _, PComida, Id_depa, DistanciaHotel),
 
@@ -2024,11 +2030,11 @@ mostrarinferencia_clima_calor_alto_cerca_vehiculos_hsimple(NombreHotel,NombreDep
     fail.
 
 
-analisis_clima_calor_alto_cerca_vehiculon_hsimple(Var_Clima, Var_Presupuesto, Var_CantNoches, Var_CantidadComida,Var_CantPersonas):-
+analisis_clima_calor_alto_cerca_vehiculon_hsimple(Var_Clima, Var_CantNoches, Var_CantidadComida,Var_CantPersonas):-
     departamento(Id_depa, NombreDepartamento, CantidadHoras,_,Clima_dep,Pasaje),
     hotel(_, NombreHotel, DireccionHotel, _, HSimple, _, PComida, Id_depa, DistanciaHotel),
 
-    CostoPasaje is (Pasaje * Var_CantPersonas),
+    CostoPasaje is (Pasaje * Var_CantPersonas * 2),
     CostoComida is  (((PComida*Var_CantidadComida)* Var_CantPersonas) * Var_CantNoches),
     CostoHabitacion is (HSimple * Var_CantPersonas),
     Sumatoria is ( CostoHabitacion + CostoComida + CostoPasaje),
@@ -2058,7 +2064,7 @@ mostrarinferencia_clima_calor_alto_cerca_vehiculon_hsimple(Var_Clima, NombreHote
     fail.
 
 %----------------------Calor-alto-Cerca-Doble
-analisis_clima_calor_alto_cerca_vehiculos_hdoble(Var_Clima, Var_Presupuesto, Var_CantNoches, Var_CantidadComida,Var_CantPersonas):-
+analisis_clima_calor_alto_cerca_vehiculos_hdoble(Var_Clima, Var_CantNoches, Var_CantidadComida,Var_CantPersonas):-
     departamento(Id_depa, NombreDepartamento, _,_,Clima_dep,_),
     hotel(_, NombreHotel, DireccionHotel, _, _, Hdoble, PComida, Id_depa, DistanciaHotel),
 
@@ -2090,11 +2096,11 @@ mostrarinferencia_clima_calor_alto_cerca_vehiculos_hdoble(NombreHotel,NombreDepa
     nl, 
     fail.
 
-analisis_clima_calor_alto_cerca_vehiculon_hdoble(Var_Clima, Var_Presupuesto, Var_CantNoches, Var_CantidadComida,Var_CantPersonas):-
+analisis_clima_calor_alto_cerca_vehiculon_hdoble(Var_Clima, Var_CantNoches, Var_CantidadComida,Var_CantPersonas):-
     departamento(Id_depa, NombreDepartamento, CantidadHoras,_,Clima_dep,Pasaje),
     hotel(_, NombreHotel, DireccionHotel, _, _, Hdoble, PComida, Id_depa, DistanciaHotel),
 
-    CostoPasaje is (Pasaje * Var_CantPersonas),
+    CostoPasaje is (Pasaje * Var_CantPersonas * 2),
     CostoComida is  (((PComida*Var_CantidadComida)* Var_CantPersonas) * Var_CantNoches),
     CostoHabitacion is (Hdoble * round(Var_CantPersonas/2)),
     Sumatoria is ( CostoHabitacion + CostoComida + CostoPasaje),
@@ -2125,7 +2131,7 @@ mostrarinferencia_clima_calor_alto_cerca_vehiculon_hdoble(Var_Clima, NombreHotel
 
 
 %----------Calor Lejos
-analisis_clima_calor_alto_lejos(Var_Clima, Var_Presupuesto,Var_Distancia):-
+analisis_clima_calor_alto_lejos(Var_Clima):-
     write('Tipo de habitacion: \n1. Simple \n2. Doble'),
     nl, 
     read(Var_TipoHabitacion),
@@ -2146,22 +2152,22 @@ analisis_clima_calor_alto_lejos(Var_Clima, Var_Presupuesto,Var_Distancia):-
     nl, 
     read(Var_CantPersonas),
     nl,
-    analsis_clima_calor_alto_lejos_generales(Var_Clima, Var_Presupuesto,Var_Distancia,  Var_TipoHabitacion, Var_CantNoches, Var_CantidadComida,Var_CantPersonas, Var_Vehiculo),
+    analsis_clima_calor_alto_lejos_generales(Var_Clima,  Var_TipoHabitacion, Var_CantNoches, Var_CantidadComida,Var_CantPersonas, Var_Vehiculo),
     nl.
 
-analsis_clima_calor_alto_lejos_generales(Var_Clima, Var_Presupuesto,Var_Distancia,  Var_TipoHabitacion, Var_CantNoches, Var_CantidadComida,Var_CantPersonas, Var_Vehiculo):-
+analsis_clima_calor_alto_lejos_generales(Var_Clima,  Var_TipoHabitacion, Var_CantNoches, Var_CantidadComida,Var_CantPersonas, Var_Vehiculo):-
     (
      %- Habitaciones - Simples 
-    (Var_TipoHabitacion == 1 , Var_Vehiculo == 's')->analisis_clima_calor_alto_lejos_vehiculos_hsimple(Var_Clima, Var_Presupuesto, Var_CantNoches, Var_CantidadComida,Var_CantPersonas);
-    (Var_TipoHabitacion == 1 , Var_Vehiculo == 'n')->analisis_clima_calor_alto_lejos_vehiculon_hsimple(Var_Clima, Var_Presupuesto,  Var_CantNoches, Var_CantidadComida,Var_CantPersonas);
+    (Var_TipoHabitacion == 1 , Var_Vehiculo == 's')->analisis_clima_calor_alto_lejos_vehiculos_hsimple(Var_Clima, Var_CantNoches, Var_CantidadComida,Var_CantPersonas);
+    (Var_TipoHabitacion == 1 , Var_Vehiculo == 'n')->analisis_clima_calor_alto_lejos_vehiculon_hsimple(Var_Clima,  Var_CantNoches, Var_CantidadComida,Var_CantPersonas);
     %- Habitacion - dobles 
-    (Var_TipoHabitacion == 2  , Var_Vehiculo == 's') ->  analisis_clima_alto_lejos_cerca_vehiculos_hdoble(Var_Clima, Var_Presupuesto, Var_CantNoches, Var_CantidadComida,Var_CantPersonas);
-    (Var_TipoHabitacion == 2  , Var_Vehiculo == 'n') ->  analisis_clima_alto_lejos_cerca_vehiculon_hdoble(Var_Clima, Var_Presupuesto, Var_CantNoches, Var_CantidadComida,Var_CantPersonas)
+    (Var_TipoHabitacion == 2  , Var_Vehiculo == 's') ->  analisis_clima_alto_lejos_cerca_vehiculos_hdoble(Var_Clima, Var_CantNoches, Var_CantidadComida,Var_CantPersonas);
+    (Var_TipoHabitacion == 2  , Var_Vehiculo == 'n') ->  analisis_clima_alto_lejos_cerca_vehiculon_hdoble(Var_Clima, Var_CantNoches, Var_CantidadComida,Var_CantPersonas)
     ).
 
 
 %----------------------Calor-alto-Lejos-Simple
-analisis_clima_calor_alto_lejos_vehiculos_hsimple(Var_Clima, Var_Presupuesto, Var_CantNoches, Var_CantidadComida,Var_CantPersonas):-
+analisis_clima_calor_alto_lejos_vehiculos_hsimple(Var_Clima, Var_CantNoches, Var_CantidadComida,Var_CantPersonas):-
     departamento(Id_depa, NombreDepartamento, _,_,Clima_dep,_),
     hotel(_, NombreHotel, DireccionHotel, _, HSimple, _, PComida, Id_depa, DistanciaHotel),
 
@@ -2193,11 +2199,11 @@ mostrarinferencia_clima_calor_alto_lejos_vehiculos_hsimple(NombreHotel,NombreDep
     fail.
 
 
-analisis_clima_calor_alto_lejos_vehiculon_hsimple(Var_Clima, Var_Presupuesto, Var_CantNoches, Var_CantidadComida,Var_CantPersonas):-
+analisis_clima_calor_alto_lejos_vehiculon_hsimple(Var_Clima, Var_CantNoches, Var_CantidadComida,Var_CantPersonas):-
     departamento(Id_depa, NombreDepartamento, CantidadHoras,_,Clima_dep,Pasaje),
     hotel(_, NombreHotel, DireccionHotel, _, HSimple, _, PComida, Id_depa, DistanciaHotel),
 
-    CostoPasaje is (Pasaje * Var_CantPersonas),
+    CostoPasaje is (Pasaje * Var_CantPersonas * 2),
     CostoComida is  (((PComida*Var_CantidadComida)* Var_CantPersonas) * Var_CantNoches),
     CostoHabitacion is (HSimple * Var_CantPersonas),
     Sumatoria is ( CostoHabitacion + CostoComida + CostoPasaje),
@@ -2227,7 +2233,7 @@ mostrarinferencia_clima_calor_alto_lejos_vehiculon_hsimple(Var_Clima, NombreHote
     fail.
 
 %----------------------Calor-alto-Lejos-Doble
-analisis_clima_alto_lejos_cerca_vehiculos_hdoble(Var_Clima, Var_Presupuesto, Var_CantNoches, Var_CantidadComida,Var_CantPersonas):-
+analisis_clima_alto_lejos_cerca_vehiculos_hdoble(Var_Clima, Var_CantNoches, Var_CantidadComida,Var_CantPersonas):-
     departamento(Id_depa, NombreDepartamento, _,_,Clima_dep,_),
     hotel(_, NombreHotel, DireccionHotel, _, _, Hdoble, PComida, Id_depa, DistanciaHotel),
 
@@ -2259,11 +2265,11 @@ mostrarinferencia_clima_calor_alto_lejos_vehiculos_hdoble(NombreHotel,NombreDepa
     nl, 
     fail.
 
-analisis_clima_alto_lejos_cerca_vehiculon_hdoble(Var_Clima, Var_Presupuesto, Var_CantNoches, Var_CantidadComida,Var_CantPersonas):-
+analisis_clima_alto_lejos_cerca_vehiculon_hdoble(Var_Clima, Var_CantNoches, Var_CantidadComida,Var_CantPersonas):-
     departamento(Id_depa, NombreDepartamento, CantidadHoras,_,Clima_dep,Pasaje),
     hotel(_, NombreHotel, DireccionHotel, _, _, Hdoble, PComida, Id_depa, DistanciaHotel),
 
-    CostoPasaje is (Pasaje * Var_CantPersonas),
+    CostoPasaje is (Pasaje * Var_CantPersonas * 2),
     CostoComida is  (((PComida*Var_CantidadComida)* Var_CantPersonas) * Var_CantNoches),
     CostoHabitacion is (Hdoble * round(Var_CantPersonas/2)),
     Sumatoria is ( CostoHabitacion + CostoComida + CostoPasaje),
@@ -2305,26 +2311,26 @@ analisisclimafrio(Var_Clima):-write('Conteste las siguientes preguntas sobre pre
 
 
 analsis_clima_frio_presupuesto(Var_Clima, Var_Presupuesto):-(
-        Var_Presupuesto == 1 -> analisis_clima_frio_bajo(Var_Clima, Var_Presupuesto);
-        Var_Presupuesto == 2 -> analisis_clima_frio_alto(Var_Clima, Var_Presupuesto)
+        Var_Presupuesto == 1 -> analisis_clima_frio_bajo(Var_Clima);
+        Var_Presupuesto == 2 -> analisis_clima_frio_alto(Var_Clima)
     ). 
 
-analisis_clima_frio_bajo(Var_Clima, Var_Presupuesto):-
+analisis_clima_frio_bajo(Var_Clima):-
     write('Como desea la distancia del punto de partida \n1. Cerca (0 - 100km)  \n2. Lejos (> 100Km)'),
     nl,
     read(Var_Distancia),
     nl, 
-    analsis_clima_frio_presupuesto_distancia(Var_Clima, Var_Presupuesto,Var_Distancia),
+    analsis_clima_frio_presupuesto_distancia(Var_Clima,Var_Distancia),
     nl.
 
-analsis_clima_frio_presupuesto_distancia(Var_Clima, Var_Presupuesto,Var_Distancia):-
+analsis_clima_frio_presupuesto_distancia(Var_Clima,Var_Distancia):-
     (
-    Var_Distancia == 1 -> analisis_clima_frio_bajo_cerca(Var_Clima, Var_Presupuesto,Var_Distancia);
-    Var_Distancia == 2 -> analisis_clima_frio_bajo_lejos(Var_Clima, Var_Presupuesto,Var_Distancia)
+    Var_Distancia == 1 -> analisis_clima_frio_bajo_cerca(Var_Clima);
+    Var_Distancia == 2 -> analisis_clima_frio_bajo_lejos(Var_Clima)
     ).
 
 %---------------frio - Bajo -Cerca
-analisis_clima_frio_bajo_cerca(Var_Clima, Var_Presupuesto,Var_Distancia):-  write('Tipo de habitacion: \n1. Simple \n2. Doble'),
+analisis_clima_frio_bajo_cerca(Var_Clima):-  write('Tipo de habitacion: \n1. Simple \n2. Doble'),
     nl, 
     read(Var_TipoHabitacion),
     nl,
@@ -2344,21 +2350,21 @@ analisis_clima_frio_bajo_cerca(Var_Clima, Var_Presupuesto,Var_Distancia):-  writ
     nl, 
     read(Var_CantPersonas),
     nl,
-    analsis_clima_frio_cerca_generales(Var_Clima, Var_Presupuesto,Var_Distancia,  Var_TipoHabitacion, Var_CantNoches, Var_CantidadComida,Var_CantPersonas, Var_Vehiculo),
+    analsis_clima_frio_cerca_generales(Var_Clima, Var_TipoHabitacion, Var_CantNoches, Var_CantidadComida,Var_CantPersonas, Var_Vehiculo),
     nl.
 
-analsis_clima_frio_cerca_generales(Var_Clima, Var_Presupuesto,Var_Distancia,  Var_TipoHabitacion, Var_CantNoches, Var_CantidadComida,Var_CantPersonas, Var_Vehiculo):-
+analsis_clima_frio_cerca_generales(Var_Clima,  Var_TipoHabitacion, Var_CantNoches, Var_CantidadComida,Var_CantPersonas, Var_Vehiculo):-
     (
      %- Habitaciones - Simples 
-    (Var_TipoHabitacion == 1 , Var_Vehiculo == 's')->analisis_clima_frio_cerca_vehiculos_hsimple(Var_Clima, Var_Presupuesto, Var_CantNoches, Var_CantidadComida,Var_CantPersonas);
-    (Var_TipoHabitacion == 1 , Var_Vehiculo == 'n')->analisis_clima_frio_cerca_vehiculon_hsimple(Var_Clima, Var_Presupuesto,  Var_CantNoches, Var_CantidadComida,Var_CantPersonas);
+    (Var_TipoHabitacion == 1 , Var_Vehiculo == 's')->analisis_clima_frio_cerca_vehiculos_hsimple(Var_Clima, Var_CantNoches, Var_CantidadComida,Var_CantPersonas);
+    (Var_TipoHabitacion == 1 , Var_Vehiculo == 'n')->analisis_clima_frio_cerca_vehiculon_hsimple(Var_Clima,  Var_CantNoches, Var_CantidadComida,Var_CantPersonas);
     %- Habitacion - dobles 
-    (Var_TipoHabitacion == 2  , Var_Vehiculo == 's') ->  analisis_clima_frio_cerca_vehiculos_hdoble(Var_Clima, Var_Presupuesto, Var_CantNoches, Var_CantidadComida,Var_CantPersonas);
-    (Var_TipoHabitacion == 2  , Var_Vehiculo == 'n') ->  analisis_clima_frio_cerca_vehiculon_hdoble(Var_Clima, Var_Presupuesto, Var_CantNoches, Var_CantidadComida,Var_CantPersonas)
+    (Var_TipoHabitacion == 2  , Var_Vehiculo == 's') ->  analisis_clima_frio_cerca_vehiculos_hdoble(Var_Clima, Var_CantNoches, Var_CantidadComida,Var_CantPersonas);
+    (Var_TipoHabitacion == 2  , Var_Vehiculo == 'n') ->  analisis_clima_frio_cerca_vehiculon_hdoble(Var_Clima, Var_CantNoches, Var_CantidadComida,Var_CantPersonas)
     ).
 
 %----------------------frio-Bajo-Cerca-Simple
-analisis_clima_frio_cerca_vehiculos_hsimple(Var_Clima, Var_Presupuesto, Var_CantNoches, Var_CantidadComida,Var_CantPersonas):-
+analisis_clima_frio_cerca_vehiculos_hsimple(Var_Clima, Var_CantNoches, Var_CantidadComida,Var_CantPersonas):-
     departamento(Id_depa, NombreDepartamento, _,_,Clima_dep,_),
     hotel(_, NombreHotel, DireccionHotel, _, HSimple, _, PComida, Id_depa, DistanciaHotel),
 
@@ -2390,11 +2396,11 @@ mostrarinferencia_clima_frio_cerca_vehiculos_hsimple(NombreHotel,NombreDepartame
     fail.
 
 
-analisis_clima_frio_cerca_vehiculon_hsimple(Var_Clima, Var_Presupuesto, Var_CantNoches, Var_CantidadComida,Var_CantPersonas):-
+analisis_clima_frio_cerca_vehiculon_hsimple(Var_Clima, Var_CantNoches, Var_CantidadComida,Var_CantPersonas):-
     departamento(Id_depa, NombreDepartamento, CantidadHoras,_,Clima_dep,Pasaje),
     hotel(_, NombreHotel, DireccionHotel, _, HSimple, _, PComida, Id_depa, DistanciaHotel),
 
-    CostoPasaje is (Pasaje * Var_CantPersonas),
+    CostoPasaje is (Pasaje * Var_CantPersonas * 2),
     CostoComida is  (((PComida*Var_CantidadComida)* Var_CantPersonas) * Var_CantNoches),
     CostoHabitacion is (HSimple * Var_CantPersonas),
     Sumatoria is ( CostoHabitacion + CostoComida + CostoPasaje),
@@ -2424,7 +2430,7 @@ mostrarinferencia_clima_frio_cerca_vehiculon_hsimple(Var_Clima, NombreHotel,Nomb
     fail.
 
 %----------------------frio-Bajo-Cerca-Doble
-analisis_clima_frio_cerca_vehiculos_hdoble(Var_Clima, Var_Presupuesto, Var_CantNoches, Var_CantidadComida,Var_CantPersonas):-
+analisis_clima_frio_cerca_vehiculos_hdoble(Var_Clima, Var_CantNoches, Var_CantidadComida,Var_CantPersonas):-
     departamento(Id_depa, NombreDepartamento, _,_,Clima_dep,_),
     hotel(_, NombreHotel, DireccionHotel, _, _, Hdoble, PComida, Id_depa, DistanciaHotel),
 
@@ -2456,11 +2462,11 @@ mostrarinferencia_clima_frio_cerca_vehiculos_hdoble(NombreHotel,NombreDepartamen
     nl, 
     fail.
 
-analisis_clima_frio_cerca_vehiculon_hdoble(Var_Clima, Var_Presupuesto, Var_CantNoches, Var_CantidadComida,Var_CantPersonas):-
+analisis_clima_frio_cerca_vehiculon_hdoble(Var_Clima, Var_CantNoches, Var_CantidadComida,Var_CantPersonas):-
     departamento(Id_depa, NombreDepartamento, CantidadHoras,_,Clima_dep,Pasaje),
     hotel(_, NombreHotel, DireccionHotel, _, _, Hdoble, PComida, Id_depa, DistanciaHotel),
 
-    CostoPasaje is (Pasaje * Var_CantPersonas),
+    CostoPasaje is (Pasaje * Var_CantPersonas * 2),
     CostoComida is  (((PComida*Var_CantidadComida)* Var_CantPersonas) * Var_CantNoches),
     CostoHabitacion is (Hdoble * round(Var_CantPersonas/2)),
     Sumatoria is ( CostoHabitacion + CostoComida + CostoPasaje),
@@ -2491,7 +2497,7 @@ mostrarinferencia_clima_frio_cerca_vehiculon_hdoble(Var_Clima, NombreHotel,Nombr
 
 
 %----------frio Lejos
-analisis_clima_frio_bajo_lejos(Var_Clima, Var_Presupuesto,Var_Distancia):-
+analisis_clima_frio_bajo_lejos(Var_Clima):-
     write('Tipo de habitacion: \n1. Simple \n2. Doble'),
     nl, 
     read(Var_TipoHabitacion),
@@ -2512,22 +2518,22 @@ analisis_clima_frio_bajo_lejos(Var_Clima, Var_Presupuesto,Var_Distancia):-
     nl, 
     read(Var_CantPersonas),
     nl,
-    analsis_clima_frio_lejos_generales(Var_Clima, Var_Presupuesto,Var_Distancia,  Var_TipoHabitacion, Var_CantNoches, Var_CantidadComida,Var_CantPersonas, Var_Vehiculo),
+    analsis_clima_frio_lejos_generales(Var_Clima,  Var_TipoHabitacion, Var_CantNoches, Var_CantidadComida,Var_CantPersonas, Var_Vehiculo),
     nl.
 
-analsis_clima_frio_lejos_generales(Var_Clima, Var_Presupuesto,Var_Distancia,  Var_TipoHabitacion, Var_CantNoches, Var_CantidadComida,Var_CantPersonas, Var_Vehiculo):-
+analsis_clima_frio_lejos_generales(Var_Clima,  Var_TipoHabitacion, Var_CantNoches, Var_CantidadComida,Var_CantPersonas, Var_Vehiculo):-
     (
      %- Habitaciones - Simples 
-    (Var_TipoHabitacion == 1 , Var_Vehiculo == 's')->analisis_clima_frio_lejos_vehiculos_hsimple(Var_Clima, Var_Presupuesto, Var_CantNoches, Var_CantidadComida,Var_CantPersonas);
-    (Var_TipoHabitacion == 1 , Var_Vehiculo == 'n')->analisis_clima_frio_lejos_vehiculon_hsimple(Var_Clima, Var_Presupuesto,  Var_CantNoches, Var_CantidadComida,Var_CantPersonas);
+    (Var_TipoHabitacion == 1 , Var_Vehiculo == 's')->analisis_clima_frio_lejos_vehiculos_hsimple(Var_Clima, Var_CantNoches, Var_CantidadComida,Var_CantPersonas);
+    (Var_TipoHabitacion == 1 , Var_Vehiculo == 'n')->analisis_clima_frio_lejos_vehiculon_hsimple(Var_Clima,  Var_CantNoches, Var_CantidadComida,Var_CantPersonas);
     %- Habitacion - dobles 
-    (Var_TipoHabitacion == 2  , Var_Vehiculo == 's') ->  analisis_clima_frio_lejos_cerca_vehiculos_hdoble(Var_Clima, Var_Presupuesto, Var_CantNoches, Var_CantidadComida,Var_CantPersonas);
-    (Var_TipoHabitacion == 2  , Var_Vehiculo == 'n') ->  analisis_clima_frio_lejos_cerca_vehiculon_hdoble(Var_Clima, Var_Presupuesto, Var_CantNoches, Var_CantidadComida,Var_CantPersonas)
+    (Var_TipoHabitacion == 2  , Var_Vehiculo == 's') ->  analisis_clima_frio_lejos_cerca_vehiculos_hdoble(Var_Clima, Var_CantNoches, Var_CantidadComida,Var_CantPersonas);
+    (Var_TipoHabitacion == 2  , Var_Vehiculo == 'n') ->  analisis_clima_frio_lejos_cerca_vehiculon_hdoble(Var_Clima, Var_CantNoches, Var_CantidadComida,Var_CantPersonas)
     ).
 
 
 %----------------------frio-Bajo-Lejos-Simple
-analisis_clima_frio_lejos_vehiculos_hsimple(Var_Clima, Var_Presupuesto, Var_CantNoches, Var_CantidadComida,Var_CantPersonas):-
+analisis_clima_frio_lejos_vehiculos_hsimple(Var_Clima, Var_CantNoches, Var_CantidadComida,Var_CantPersonas):-
     departamento(Id_depa, NombreDepartamento, _,_,Clima_dep,_),
     hotel(_, NombreHotel, DireccionHotel, _, HSimple, _, PComida, Id_depa, DistanciaHotel),
 
@@ -2559,11 +2565,11 @@ mostrarinferencia_clima_frio_lejos_vehiculos_hsimple(NombreHotel,NombreDepartame
     fail.
 
 
-analisis_clima_frio_lejos_vehiculon_hsimple(Var_Clima, Var_Presupuesto, Var_CantNoches, Var_CantidadComida,Var_CantPersonas):-
+analisis_clima_frio_lejos_vehiculon_hsimple(Var_Clima, Var_CantNoches, Var_CantidadComida,Var_CantPersonas):-
     departamento(Id_depa, NombreDepartamento, CantidadHoras,_,Clima_dep,Pasaje),
     hotel(_, NombreHotel, DireccionHotel, _, HSimple, _, PComida, Id_depa, DistanciaHotel),
 
-    CostoPasaje is (Pasaje * Var_CantPersonas),
+    CostoPasaje is (Pasaje * Var_CantPersonas * 2),
     CostoComida is  (((PComida*Var_CantidadComida)* Var_CantPersonas) * Var_CantNoches),
     CostoHabitacion is (HSimple * Var_CantPersonas),
     Sumatoria is ( CostoHabitacion + CostoComida + CostoPasaje),
@@ -2593,7 +2599,7 @@ mostrarinferencia_clima_frio_lejos_vehiculon_hsimple(Var_Clima, NombreHotel,Nomb
     fail.
 
 %----------------------frio-Bajo-lejos-Doble
-analisis_clima_frio_lejos_cerca_vehiculos_hdoble(Var_Clima, Var_Presupuesto, Var_CantNoches, Var_CantidadComida,Var_CantPersonas):-
+analisis_clima_frio_lejos_cerca_vehiculos_hdoble(Var_Clima, Var_CantNoches, Var_CantidadComida,Var_CantPersonas):-
     departamento(Id_depa, NombreDepartamento, _,_,Clima_dep,_),
     hotel(_, NombreHotel, DireccionHotel, _, _, Hdoble, PComida, Id_depa, DistanciaHotel),
 
@@ -2625,11 +2631,11 @@ mostrarinferencia_clima_frio_lejos_vehiculos_hdoble(NombreHotel,NombreDepartamen
     nl, 
     fail.
 
-analisis_clima_frio_lejos_cerca_vehiculon_hdoble(Var_Clima, Var_Presupuesto, Var_CantNoches, Var_CantidadComida,Var_CantPersonas):-
+analisis_clima_frio_lejos_cerca_vehiculon_hdoble(Var_Clima, Var_CantNoches, Var_CantidadComida,Var_CantPersonas):-
     departamento(Id_depa, NombreDepartamento, CantidadHoras,_,Clima_dep,Pasaje),
     hotel(_, NombreHotel, DireccionHotel, _, _, Hdoble, PComida, Id_depa, DistanciaHotel),
 
-    CostoPasaje is (Pasaje * Var_CantPersonas),
+    CostoPasaje is (Pasaje * Var_CantPersonas * 2),
     CostoComida is  (((PComida*Var_CantidadComida)* Var_CantPersonas) * Var_CantNoches),
     CostoHabitacion is (Hdoble * round(Var_CantPersonas/2)),
     Sumatoria is ( CostoHabitacion + CostoComida + CostoPasaje),
@@ -2658,23 +2664,23 @@ mostrarinferencia_clima_frio_lejos_vehiculon_hdoble(Var_Clima, NombreHotel,Nombr
     nl, 
     fail.
 %----------------------------------------------------------------frio-Alto
-analisis_clima_frio_alto(Var_Clima, Var_Presupuesto):-   
+analisis_clima_frio_alto(Var_Clima):-   
     write('Como desea la distancia del punto de partida \n1. Cerca (0 - 100km)  \n2. Lejos (> 100Km)'),
     nl,
     read(Var_Distancia),
     nl, 
-    analsis_clima_frio_alto_distancia(Var_Clima, Var_Presupuesto,Var_Distancia),
+    analsis_clima_frio_alto_distancia(Var_Clima,Var_Distancia),
     nl.
 
 
-analsis_clima_frio_alto_distancia(Var_Clima, Var_Presupuesto,Var_Distancia):-
+analsis_clima_frio_alto_distancia(Var_Clima,Var_Distancia):-
     (
-    Var_Distancia == 1 -> analisis_clima_frio_alto_cerca(Var_Clima, Var_Presupuesto,Var_Distancia);
-    Var_Distancia == 2 -> analisis_clima_frio_alto_lejos(Var_Clima, Var_Presupuesto,Var_Distancia)
+    Var_Distancia == 1 -> analisis_clima_frio_alto_cerca(Var_Clima);
+    Var_Distancia == 2 -> analisis_clima_frio_alto_lejos(Var_Clima)
     ).
 
 %---------------frio - alto -Cerca
-analisis_clima_frio_alto_cerca(Var_Clima, Var_Presupuesto,Var_Distancia):-  write('Tipo de habitacion: \n1. Simple \n2. Doble'),
+analisis_clima_frio_alto_cerca(Var_Clima):-  write('Tipo de habitacion: \n1. Simple \n2. Doble'),
     nl, 
     read(Var_TipoHabitacion),
     nl,
@@ -2694,21 +2700,21 @@ analisis_clima_frio_alto_cerca(Var_Clima, Var_Presupuesto,Var_Distancia):-  writ
     nl, 
     read(Var_CantPersonas),
     nl,
-    analsis_clima_frio_alto_cerca_generales(Var_Clima, Var_Presupuesto,Var_Distancia,  Var_TipoHabitacion, Var_CantNoches, Var_CantidadComida,Var_CantPersonas, Var_Vehiculo),
+    analsis_clima_frio_alto_cerca_generales(Var_Clima,  Var_TipoHabitacion, Var_CantNoches, Var_CantidadComida,Var_CantPersonas, Var_Vehiculo),
     nl.
 
-analsis_clima_frio_alto_cerca_generales(Var_Clima, Var_Presupuesto,Var_Distancia,  Var_TipoHabitacion, Var_CantNoches, Var_CantidadComida,Var_CantPersonas, Var_Vehiculo):-
+analsis_clima_frio_alto_cerca_generales(Var_Clima,  Var_TipoHabitacion, Var_CantNoches, Var_CantidadComida,Var_CantPersonas, Var_Vehiculo):-
     (
      %- Habitaciones - Simples 
-    (Var_TipoHabitacion == 1 , Var_Vehiculo == 's')->analisis_clima_frio_alto_cerca_vehiculos_hsimple(Var_Clima, Var_Presupuesto, Var_CantNoches, Var_CantidadComida,Var_CantPersonas);
-    (Var_TipoHabitacion == 1 , Var_Vehiculo == 'n')->analisis_clima_frio_alto_cerca_vehiculon_hsimple(Var_Clima, Var_Presupuesto,  Var_CantNoches, Var_CantidadComida,Var_CantPersonas);
+    (Var_TipoHabitacion == 1 , Var_Vehiculo == 's')->analisis_clima_frio_alto_cerca_vehiculos_hsimple(Var_Clima, Var_CantNoches, Var_CantidadComida,Var_CantPersonas);
+    (Var_TipoHabitacion == 1 , Var_Vehiculo == 'n')->analisis_clima_frio_alto_cerca_vehiculon_hsimple(Var_Clima,  Var_CantNoches, Var_CantidadComida,Var_CantPersonas);
     %- Habitacion - dobles 
-    (Var_TipoHabitacion == 2  , Var_Vehiculo == 's') ->  analisis_clima_frio_alto_cerca_vehiculos_hdoble(Var_Clima, Var_Presupuesto, Var_CantNoches, Var_CantidadComida,Var_CantPersonas);
-    (Var_TipoHabitacion == 2  , Var_Vehiculo == 'n') ->  analisis_clima_frio_alto_cerca_vehiculon_hdoble(Var_Clima, Var_Presupuesto, Var_CantNoches, Var_CantidadComida,Var_CantPersonas)
+    (Var_TipoHabitacion == 2  , Var_Vehiculo == 's') ->  analisis_clima_frio_alto_cerca_vehiculos_hdoble(Var_Clima, Var_CantNoches, Var_CantidadComida,Var_CantPersonas);
+    (Var_TipoHabitacion == 2  , Var_Vehiculo == 'n') ->  analisis_clima_frio_alto_cerca_vehiculon_hdoble(Var_Clima, Var_CantNoches, Var_CantidadComida,Var_CantPersonas)
     ).
 
 %----------------------frio-alto-Cerca-Simple
-analisis_clima_frio_alto_cerca_vehiculos_hsimple(Var_Clima, Var_Presupuesto, Var_CantNoches, Var_CantidadComida,Var_CantPersonas):-
+analisis_clima_frio_alto_cerca_vehiculos_hsimple(Var_Clima, Var_CantNoches, Var_CantidadComida,Var_CantPersonas):-
     departamento(Id_depa, NombreDepartamento, _,_,Clima_dep,_),
     hotel(_, NombreHotel, DireccionHotel, _, HSimple, _, PComida, Id_depa, DistanciaHotel),
 
@@ -2740,11 +2746,11 @@ mostrarinferencia_clima_frio_alto_cerca_vehiculos_hsimple(NombreHotel,NombreDepa
     fail.
 
 
-analisis_clima_frio_alto_cerca_vehiculon_hsimple(Var_Clima, Var_Presupuesto, Var_CantNoches, Var_CantidadComida,Var_CantPersonas):-
+analisis_clima_frio_alto_cerca_vehiculon_hsimple(Var_Clima, Var_CantNoches, Var_CantidadComida,Var_CantPersonas):-
     departamento(Id_depa, NombreDepartamento, CantidadHoras,_,Clima_dep,Pasaje),
     hotel(_, NombreHotel, DireccionHotel, _, HSimple, _, PComida, Id_depa, DistanciaHotel),
 
-    CostoPasaje is (Pasaje * Var_CantPersonas),
+    CostoPasaje is (Pasaje * Var_CantPersonas * 2),
     CostoComida is  (((PComida*Var_CantidadComida)* Var_CantPersonas) * Var_CantNoches),
     CostoHabitacion is (HSimple * Var_CantPersonas),
     Sumatoria is ( CostoHabitacion + CostoComida + CostoPasaje),
@@ -2774,7 +2780,7 @@ mostrarinferencia_clima_frio_alto_cerca_vehiculon_hsimple(Var_Clima, NombreHotel
     fail.
 
 %----------------------frio-alto-Cerca-Doble
-analisis_clima_frio_alto_cerca_vehiculos_hdoble(Var_Clima, Var_Presupuesto, Var_CantNoches, Var_CantidadComida,Var_CantPersonas):-
+analisis_clima_frio_alto_cerca_vehiculos_hdoble(Var_Clima, Var_CantNoches, Var_CantidadComida,Var_CantPersonas):-
     departamento(Id_depa, NombreDepartamento, _,_,Clima_dep,_),
     hotel(_, NombreHotel, DireccionHotel, _, _, Hdoble, PComida, Id_depa, DistanciaHotel),
 
@@ -2806,11 +2812,11 @@ mostrarinferencia_clima_frio_alto_cerca_vehiculos_hdoble(NombreHotel,NombreDepar
     nl, 
     fail.
 
-analisis_clima_frio_alto_cerca_vehiculon_hdoble(Var_Clima, Var_Presupuesto, Var_CantNoches, Var_CantidadComida,Var_CantPersonas):-
+analisis_clima_frio_alto_cerca_vehiculon_hdoble(Var_Clima, Var_CantNoches, Var_CantidadComida,Var_CantPersonas):-
     departamento(Id_depa, NombreDepartamento, CantidadHoras,_,Clima_dep,Pasaje),
     hotel(_, NombreHotel, DireccionHotel, _, _, Hdoble, PComida, Id_depa, DistanciaHotel),
 
-    CostoPasaje is (Pasaje * Var_CantPersonas),
+    CostoPasaje is (Pasaje * Var_CantPersonas * 2),
     CostoComida is  (((PComida*Var_CantidadComida)* Var_CantPersonas) * Var_CantNoches),
     CostoHabitacion is (Hdoble * round(Var_CantPersonas/2)),
     Sumatoria is ( CostoHabitacion + CostoComida + CostoPasaje),
@@ -2841,7 +2847,7 @@ mostrarinferencia_clima_frio_alto_cerca_vehiculon_hdoble(Var_Clima, NombreHotel,
 
 
 %----------frio Lejos
-analisis_clima_frio_alto_lejos(Var_Clima, Var_Presupuesto,Var_Distancia):-
+analisis_clima_frio_alto_lejos(Var_Clima):-
     write('Tipo de habitacion: \n1. Simple \n2. Doble'),
     nl, 
     read(Var_TipoHabitacion),
@@ -2862,22 +2868,22 @@ analisis_clima_frio_alto_lejos(Var_Clima, Var_Presupuesto,Var_Distancia):-
     nl, 
     read(Var_CantPersonas),
     nl,
-    analsis_clima_frio_alto_lejos_generales(Var_Clima, Var_Presupuesto,Var_Distancia,  Var_TipoHabitacion, Var_CantNoches, Var_CantidadComida,Var_CantPersonas, Var_Vehiculo),
+    analsis_clima_frio_alto_lejos_generales(Var_Clima, Var_TipoHabitacion, Var_CantNoches, Var_CantidadComida,Var_CantPersonas, Var_Vehiculo),
     nl.
 
-analsis_clima_frio_alto_lejos_generales(Var_Clima, Var_Presupuesto,Var_Distancia,  Var_TipoHabitacion, Var_CantNoches, Var_CantidadComida,Var_CantPersonas, Var_Vehiculo):-
+analsis_clima_frio_alto_lejos_generales(Var_Clima, Var_TipoHabitacion, Var_CantNoches, Var_CantidadComida,Var_CantPersonas, Var_Vehiculo):-
     (
      %- Habitaciones - Simples 
-    (Var_TipoHabitacion == 1 , Var_Vehiculo == 's')->analisis_clima_frio_alto_lejos_vehiculos_hsimple(Var_Clima, Var_Presupuesto, Var_CantNoches, Var_CantidadComida,Var_CantPersonas);
-    (Var_TipoHabitacion == 1 , Var_Vehiculo == 'n')->analisis_clima_frio_alto_lejos_vehiculon_hsimple(Var_Clima, Var_Presupuesto,  Var_CantNoches, Var_CantidadComida,Var_CantPersonas);
+    (Var_TipoHabitacion == 1 , Var_Vehiculo == 's')->analisis_clima_frio_alto_lejos_vehiculos_hsimple(Var_Clima, Var_CantNoches, Var_CantidadComida,Var_CantPersonas);
+    (Var_TipoHabitacion == 1 , Var_Vehiculo == 'n')->analisis_clima_frio_alto_lejos_vehiculon_hsimple(Var_Clima,  Var_CantNoches, Var_CantidadComida,Var_CantPersonas);
     %- Habitacion - dobles 
-    (Var_TipoHabitacion == 2  , Var_Vehiculo == 's') ->  analisis_clima_frio_alto_lejos_cerca_vehiculos_hdoble(Var_Clima, Var_Presupuesto, Var_CantNoches, Var_CantidadComida,Var_CantPersonas);
-    (Var_TipoHabitacion == 2  , Var_Vehiculo == 'n') ->  analisis_clima_frio_alto_lejos_vehiculon_hdoble(Var_Clima, Var_Presupuesto, Var_CantNoches, Var_CantidadComida,Var_CantPersonas)
+    (Var_TipoHabitacion == 2  , Var_Vehiculo == 's') ->  analisis_clima_frio_alto_lejos_cerca_vehiculos_hdoble(Var_Clima, Var_CantNoches, Var_CantidadComida,Var_CantPersonas);
+    (Var_TipoHabitacion == 2  , Var_Vehiculo == 'n') ->  analisis_clima_frio_alto_lejos_vehiculon_hdoble(Var_Clima, Var_CantNoches, Var_CantidadComida,Var_CantPersonas)
     ).
 
 
 %----------------------frio-alto-lejos-Simple
-analisis_clima_frio_alto_lejos_vehiculos_hsimple(Var_Clima, Var_Presupuesto, Var_CantNoches, Var_CantidadComida,Var_CantPersonas):-
+analisis_clima_frio_alto_lejos_vehiculos_hsimple(Var_Clima, Var_CantNoches, Var_CantidadComida,Var_CantPersonas):-
     departamento(Id_depa, NombreDepartamento, _,_,Clima_dep,_),
     hotel(_, NombreHotel, DireccionHotel, _, HSimple, _, PComida, Id_depa, DistanciaHotel),
 
@@ -2909,11 +2915,11 @@ mostrarinferencia_clima_frio_alto_lejos_vehiculos_hsimple(NombreHotel,NombreDepa
     fail.
 
 
-analisis_clima_frio_alto_lejos_vehiculon_hsimple(Var_Clima, Var_Presupuesto, Var_CantNoches, Var_CantidadComida,Var_CantPersonas):-
+analisis_clima_frio_alto_lejos_vehiculon_hsimple(Var_Clima, Var_CantNoches, Var_CantidadComida,Var_CantPersonas):-
     departamento(Id_depa, NombreDepartamento, CantidadHoras,_,Clima_dep,Pasaje),
     hotel(_, NombreHotel, DireccionHotel, _, HSimple, _, PComida, Id_depa, DistanciaHotel),
 
-    CostoPasaje is (Pasaje * Var_CantPersonas),
+    CostoPasaje is (Pasaje * Var_CantPersonas * 2),
     CostoComida is  (((PComida*Var_CantidadComida)* Var_CantPersonas) * Var_CantNoches),
     CostoHabitacion is (HSimple * Var_CantPersonas),
     Sumatoria is ( CostoHabitacion + CostoComida + CostoPasaje),
@@ -2943,7 +2949,7 @@ mostrarinferencia_clima_frio_alto_lejos_vehiculon_hsimple(Var_Clima, NombreHotel
     fail.
 
 %----------------------frio-alto-lejos-Doble
-analisis_clima_frio_alto_lejos_cerca_vehiculos_hdoble(Var_Clima, Var_Presupuesto, Var_CantNoches, Var_CantidadComida,Var_CantPersonas):-
+analisis_clima_frio_alto_lejos_cerca_vehiculos_hdoble(Var_Clima, Var_CantNoches, Var_CantidadComida,Var_CantPersonas):-
     departamento(Id_depa, NombreDepartamento, _,_,Clima_dep,_),
     hotel(_, NombreHotel, DireccionHotel, _, _, Hdoble, PComida, Id_depa, DistanciaHotel),
 
@@ -2975,11 +2981,11 @@ mostrarinferencia_clima_frio_alto_lejos_vehiculos_hdoble(NombreHotel,NombreDepar
     nl, 
     fail.
 
-analisis_clima_frio_alto_lejos_vehiculon_hdoble(Var_Clima, Var_Presupuesto, Var_CantNoches, Var_CantidadComida,Var_CantPersonas):-
+analisis_clima_frio_alto_lejos_vehiculon_hdoble(Var_Clima, Var_CantNoches, Var_CantidadComida,Var_CantPersonas):-
     departamento(Id_depa, NombreDepartamento, CantidadHoras,_,Clima_dep,Pasaje),
     hotel(_, NombreHotel, DireccionHotel, _, _, Hdoble, PComida, Id_depa, DistanciaHotel),
 
-    CostoPasaje is (Pasaje * Var_CantPersonas),
+    CostoPasaje is (Pasaje * Var_CantPersonas * 2),
     CostoComida is  (((PComida*Var_CantidadComida)* Var_CantPersonas) * Var_CantNoches),
     CostoHabitacion is (Hdoble * round(Var_CantPersonas/2)),
     Sumatoria is ( CostoHabitacion + CostoComida + CostoPasaje),
@@ -3020,26 +3026,26 @@ analisisclimatemplado(Var_Clima):-write('Conteste las siguientes preguntas sobre
 
 
 analsis_clima_templado_presupuesto(Var_Clima, Var_Presupuesto):-(
-        Var_Presupuesto == 1 -> analisis_clima_templado_bajo(Var_Clima, Var_Presupuesto);
-        Var_Presupuesto == 2 -> analisis_clima_templado_alto(Var_Clima, Var_Presupuesto)
+        Var_Presupuesto == 1 -> analisis_clima_templado_bajo(Var_Clima);
+        Var_Presupuesto == 2 -> analisis_clima_templado_alto(Var_Clima)
     ). 
 
-analisis_clima_templado_bajo(Var_Clima, Var_Presupuesto):-
+analisis_clima_templado_bajo(Var_Clima):-
     write('Como desea la distancia del punto de partida \n1. Cerca (0 - 100km)  \n2. Lejos (> 100Km)'),
     nl,
     read(Var_Distancia),
     nl, 
-    analsis_clima_templado_presupuesto_distancia(Var_Clima, Var_Presupuesto,Var_Distancia),
+    analsis_clima_templado_presupuesto_distancia(Var_Clima,Var_Distancia),
     nl.
 
-analsis_clima_templado_presupuesto_distancia(Var_Clima, Var_Presupuesto,Var_Distancia):-
+analsis_clima_templado_presupuesto_distancia(Var_Clima,Var_Distancia):-
     (
-    Var_Distancia == 1 -> analisis_clima_templado_bajo_cerca(Var_Clima, Var_Presupuesto,Var_Distancia);
-    Var_Distancia == 2 -> analisis_clima_templado_bajo_lejos(Var_Clima, Var_Presupuesto,Var_Distancia)
+    Var_Distancia == 1 -> analisis_clima_templado_bajo_cerca(Var_Clima);
+    Var_Distancia == 2 -> analisis_clima_templado_bajo_lejos(Var_Clima)
     ).
 
 %---------------templado - Bajo -Cerca
-analisis_clima_templado_bajo_cerca(Var_Clima, Var_Presupuesto,Var_Distancia):-  write('Tipo de habitacion: \n1. Simple \n2. Doble'),
+analisis_clima_templado_bajo_cerca(Var_Clima):-  write('Tipo de habitacion: \n1. Simple \n2. Doble'),
     nl, 
     read(Var_TipoHabitacion),
     nl,
@@ -3059,21 +3065,21 @@ analisis_clima_templado_bajo_cerca(Var_Clima, Var_Presupuesto,Var_Distancia):-  
     nl, 
     read(Var_CantPersonas),
     nl,
-    analsis_clima_templado_cerca_generales(Var_Clima, Var_Presupuesto,Var_Distancia,  Var_TipoHabitacion, Var_CantNoches, Var_CantidadComida,Var_CantPersonas, Var_Vehiculo),
+    analsis_clima_templado_cerca_generales(Var_Clima,  Var_TipoHabitacion, Var_CantNoches, Var_CantidadComida,Var_CantPersonas, Var_Vehiculo),
     nl.
 
-analsis_clima_templado_cerca_generales(Var_Clima, Var_Presupuesto,Var_Distancia,  Var_TipoHabitacion, Var_CantNoches, Var_CantidadComida,Var_CantPersonas, Var_Vehiculo):-
+analsis_clima_templado_cerca_generales(Var_Clima,  Var_TipoHabitacion, Var_CantNoches, Var_CantidadComida,Var_CantPersonas, Var_Vehiculo):-
     (
      %- Habitaciones - Simples 
-    (Var_TipoHabitacion == 1 , Var_Vehiculo == 's')->analisis_clima_templado_cerca_vehiculos_hsimple(Var_Clima, Var_Presupuesto, Var_CantNoches, Var_CantidadComida,Var_CantPersonas);
-    (Var_TipoHabitacion == 1 , Var_Vehiculo == 'n')->analisis_clima_templado_cerca_vehiculon_hsimple(Var_Clima, Var_Presupuesto,  Var_CantNoches, Var_CantidadComida,Var_CantPersonas);
+    (Var_TipoHabitacion == 1 , Var_Vehiculo == 's')->analisis_clima_templado_cerca_vehiculos_hsimple(Var_Clima, Var_CantNoches, Var_CantidadComida,Var_CantPersonas);
+    (Var_TipoHabitacion == 1 , Var_Vehiculo == 'n')->analisis_clima_templado_cerca_vehiculon_hsimple(Var_Clima,  Var_CantNoches, Var_CantidadComida,Var_CantPersonas);
     %- Habitacion - dobles 
-    (Var_TipoHabitacion == 2  , Var_Vehiculo == 's') ->  analisis_clima_templado_cerca_vehiculos_hdoble(Var_Clima, Var_Presupuesto, Var_CantNoches, Var_CantidadComida,Var_CantPersonas);
-    (Var_TipoHabitacion == 2  , Var_Vehiculo == 'n') ->  analisis_clima_templado_cerca_vehiculon_hdoble(Var_Clima, Var_Presupuesto, Var_CantNoches, Var_CantidadComida,Var_CantPersonas)
+    (Var_TipoHabitacion == 2  , Var_Vehiculo == 's') ->  analisis_clima_templado_cerca_vehiculos_hdoble(Var_Clima, Var_CantNoches, Var_CantidadComida,Var_CantPersonas);
+    (Var_TipoHabitacion == 2  , Var_Vehiculo == 'n') ->  analisis_clima_templado_cerca_vehiculon_hdoble(Var_Clima, Var_CantNoches, Var_CantidadComida,Var_CantPersonas)
     ).
 
 %----------------------templado-Bajo-Cerca-Simple
-analisis_clima_templado_cerca_vehiculos_hsimple(Var_Clima, Var_Presupuesto, Var_CantNoches, Var_CantidadComida,Var_CantPersonas):-
+analisis_clima_templado_cerca_vehiculos_hsimple(Var_Clima , Var_CantNoches, Var_CantidadComida,Var_CantPersonas):-
     departamento(Id_depa, NombreDepartamento, _,_,Clima_dep,_),
     hotel(_, NombreHotel, DireccionHotel, _, HSimple, _, PComida, Id_depa, DistanciaHotel),
 
@@ -3105,11 +3111,11 @@ mostrarinferencia_clima_templado_cerca_vehiculos_hsimple(NombreHotel,NombreDepar
     fail.
 
 
-analisis_clima_templado_cerca_vehiculon_hsimple(Var_Clima, Var_Presupuesto, Var_CantNoches, Var_CantidadComida,Var_CantPersonas):-
+analisis_clima_templado_cerca_vehiculon_hsimple(Var_Clima,  Var_CantNoches, Var_CantidadComida,Var_CantPersonas):-
     departamento(Id_depa, NombreDepartamento, CantidadHoras,_,Clima_dep,Pasaje),
     hotel(_, NombreHotel, DireccionHotel, _, HSimple, _, PComida, Id_depa, DistanciaHotel),
 
-    CostoPasaje is (Pasaje * Var_CantPersonas),
+    CostoPasaje is (Pasaje * Var_CantPersonas * 2),
     CostoComida is  (((PComida*Var_CantidadComida)* Var_CantPersonas) * Var_CantNoches),
     CostoHabitacion is (HSimple * Var_CantPersonas),
     Sumatoria is ( CostoHabitacion + CostoComida + CostoPasaje),
@@ -3139,7 +3145,7 @@ mostrarinferencia_clima_templado_cerca_vehiculon_hsimple(Var_Clima, NombreHotel,
     fail.
 
 %----------------------templado-Bajo-Cerca-Doble
-analisis_clima_templado_cerca_vehiculos_hdoble(Var_Clima, Var_Presupuesto, Var_CantNoches, Var_CantidadComida,Var_CantPersonas):-
+analisis_clima_templado_cerca_vehiculos_hdoble(Var_Clima, Var_CantNoches, Var_CantidadComida,Var_CantPersonas):-
     departamento(Id_depa, NombreDepartamento, _,_,Clima_dep,_),
     hotel(_, NombreHotel, DireccionHotel, _, _, Hdoble, PComida, Id_depa, DistanciaHotel),
 
@@ -3171,11 +3177,11 @@ mostrarinferencia_clima_templado_cerca_vehiculos_hdoble(NombreHotel,NombreDepart
     nl, 
     fail.
 
-analisis_clima_templado_cerca_vehiculon_hdoble(Var_Clima, Var_Presupuesto, Var_CantNoches, Var_CantidadComida,Var_CantPersonas):-
+analisis_clima_templado_cerca_vehiculon_hdoble(Var_Clima, Var_CantNoches, Var_CantidadComida,Var_CantPersonas):-
     departamento(Id_depa, NombreDepartamento, CantidadHoras,_,Clima_dep,Pasaje),
     hotel(_, NombreHotel, DireccionHotel, _, _, Hdoble, PComida, Id_depa, DistanciaHotel),
 
-    CostoPasaje is (Pasaje * Var_CantPersonas),
+    CostoPasaje is (Pasaje * Var_CantPersonas * 2),
     CostoComida is  (((PComida*Var_CantidadComida)* Var_CantPersonas) * Var_CantNoches),
     CostoHabitacion is (Hdoble * round(Var_CantPersonas/2)),
     Sumatoria is ( CostoHabitacion + CostoComida + CostoPasaje),
@@ -3206,7 +3212,7 @@ mostrarinferencia_clima_templado_cerca_vehiculon_hdoble(Var_Clima, NombreHotel,N
 
 
 %----------templado Lejos
-analisis_clima_templado_bajo_lejos(Var_Clima, Var_Presupuesto,Var_Distancia):-
+analisis_clima_templado_bajo_lejos(Var_Clima):-
     write('Tipo de habitacion: \n1. Simple \n2. Doble'),
     nl, 
     read(Var_TipoHabitacion),
@@ -3227,22 +3233,22 @@ analisis_clima_templado_bajo_lejos(Var_Clima, Var_Presupuesto,Var_Distancia):-
     nl, 
     read(Var_CantPersonas),
     nl,
-    analsis_clima_templado_lejos_generales(Var_Clima, Var_Presupuesto,Var_Distancia,  Var_TipoHabitacion, Var_CantNoches, Var_CantidadComida,Var_CantPersonas, Var_Vehiculo),
+    analsis_clima_templado_lejos_generales(Var_Clima, Var_TipoHabitacion, Var_CantNoches, Var_CantidadComida,Var_CantPersonas, Var_Vehiculo),
     nl.
 
-analsis_clima_templado_lejos_generales(Var_Clima, Var_Presupuesto,Var_Distancia,  Var_TipoHabitacion, Var_CantNoches, Var_CantidadComida,Var_CantPersonas, Var_Vehiculo):-
+analsis_clima_templado_lejos_generales(Var_Clima,  Var_TipoHabitacion, Var_CantNoches, Var_CantidadComida,Var_CantPersonas, Var_Vehiculo):-
     (
      %- Habitaciones - Simples 
-    (Var_TipoHabitacion == 1 , Var_Vehiculo == 's')->analisis_clima_templado_lejos_vehiculos_hsimple(Var_Clima, Var_Presupuesto, Var_CantNoches, Var_CantidadComida,Var_CantPersonas);
-    (Var_TipoHabitacion == 1 , Var_Vehiculo == 'n')->analisis_clima_templado_lejos_vehiculon_hsimple(Var_Clima, Var_Presupuesto,  Var_CantNoches, Var_CantidadComida,Var_CantPersonas);
+    (Var_TipoHabitacion == 1 , Var_Vehiculo == 's')->analisis_clima_templado_lejos_vehiculos_hsimple(Var_Clima, Var_CantNoches, Var_CantidadComida,Var_CantPersonas);
+    (Var_TipoHabitacion == 1 , Var_Vehiculo == 'n')->analisis_clima_templado_lejos_vehiculon_hsimple(Var_Clima,  Var_CantNoches, Var_CantidadComida,Var_CantPersonas);
     %- Habitacion - dobles 
-    (Var_TipoHabitacion == 2  , Var_Vehiculo == 's') ->  analisis_clima_templado_lejos_cerca_vehiculos_hdoble(Var_Clima, Var_Presupuesto, Var_CantNoches, Var_CantidadComida,Var_CantPersonas);
-    (Var_TipoHabitacion == 2  , Var_Vehiculo == 'n') ->  analisis_clima_templado_lejos_cerca_vehiculon_hdoble(Var_Clima, Var_Presupuesto, Var_CantNoches, Var_CantidadComida,Var_CantPersonas)
+    (Var_TipoHabitacion == 2  , Var_Vehiculo == 's') ->  analisis_clima_templado_lejos_cerca_vehiculos_hdoble(Var_Clima, Var_CantNoches, Var_CantidadComida,Var_CantPersonas);
+    (Var_TipoHabitacion == 2  , Var_Vehiculo == 'n') ->  analisis_clima_templado_lejos_cerca_vehiculon_hdoble(Var_Clima, Var_CantNoches, Var_CantidadComida,Var_CantPersonas)
     ).
 
 
 %----------------------templado-Bajo-Cerca-Simple
-analisis_clima_templado_lejos_vehiculos_hsimple(Var_Clima, Var_Presupuesto, Var_CantNoches, Var_CantidadComida,Var_CantPersonas):-
+analisis_clima_templado_lejos_vehiculos_hsimple(Var_Clima, Var_CantNoches, Var_CantidadComida,Var_CantPersonas):-
     departamento(Id_depa, NombreDepartamento, _,_,Clima_dep,_),
     hotel(_, NombreHotel, DireccionHotel, _, HSimple, _, PComida, Id_depa, DistanciaHotel),
 
@@ -3274,11 +3280,11 @@ mostrarinferencia_clima_templado_lejos_vehiculos_hsimple(NombreHotel,NombreDepar
     fail.
 
 
-analisis_clima_templado_lejos_vehiculon_hsimple(Var_Clima, Var_Presupuesto, Var_CantNoches, Var_CantidadComida,Var_CantPersonas):-
+analisis_clima_templado_lejos_vehiculon_hsimple(Var_Clima, Var_CantNoches, Var_CantidadComida,Var_CantPersonas):-
     departamento(Id_depa, NombreDepartamento, CantidadHoras,_,Clima_dep,Pasaje),
     hotel(_, NombreHotel, DireccionHotel, _, HSimple, _, PComida, Id_depa, DistanciaHotel),
 
-    CostoPasaje is (Pasaje * Var_CantPersonas),
+    CostoPasaje is (Pasaje * Var_CantPersonas * 2),
     CostoComida is  (((PComida*Var_CantidadComida)* Var_CantPersonas) * Var_CantNoches),
     CostoHabitacion is (HSimple * Var_CantPersonas),
     Sumatoria is ( CostoHabitacion + CostoComida + CostoPasaje),
@@ -3308,7 +3314,7 @@ mostrarinferencia_clima_templado_lejos_vehiculon_hsimple(Var_Clima, NombreHotel,
     fail.
 
 %----------------------templado-Bajo-Cerca-Doble
-analisis_clima_templado_lejos_cerca_vehiculos_hdoble(Var_Clima, Var_Presupuesto, Var_CantNoches, Var_CantidadComida,Var_CantPersonas):-
+analisis_clima_templado_lejos_cerca_vehiculos_hdoble(Var_Clima, Var_CantNoches, Var_CantidadComida,Var_CantPersonas):-
     departamento(Id_depa, NombreDepartamento, _,_,Clima_dep,_),
     hotel(_, NombreHotel, DireccionHotel, _, _, Hdoble, PComida, Id_depa, DistanciaHotel),
 
@@ -3340,11 +3346,11 @@ mostrarinferencia_clima_templado_lejos_vehiculos_hdoble(NombreHotel,NombreDepart
     nl, 
     fail.
 
-analisis_clima_templado_lejos_cerca_vehiculon_hdoble(Var_Clima, Var_Presupuesto, Var_CantNoches, Var_CantidadComida,Var_CantPersonas):-
+analisis_clima_templado_lejos_cerca_vehiculon_hdoble(Var_Clima, Var_CantNoches, Var_CantidadComida,Var_CantPersonas):-
     departamento(Id_depa, NombreDepartamento, CantidadHoras,_,Clima_dep,Pasaje),
     hotel(_, NombreHotel, DireccionHotel, _, _, Hdoble, PComida, Id_depa, DistanciaHotel),
 
-    CostoPasaje is (Pasaje * Var_CantPersonas),
+    CostoPasaje is (Pasaje * Var_CantPersonas * 2),
     CostoComida is  (((PComida*Var_CantidadComida)* Var_CantPersonas) * Var_CantNoches),
     CostoHabitacion is (Hdoble * round(Var_CantPersonas/2)),
     Sumatoria is ( CostoHabitacion + CostoComida + CostoPasaje),
@@ -3373,23 +3379,23 @@ mostrarinferencia_clima_templado_lejos_vehiculon_hdoble(Var_Clima, NombreHotel,N
     nl, 
     fail.
 %----------------------------------------------------------------templado-Alto
-analisis_clima_templado_alto(Var_Clima, Var_Presupuesto):-   
+analisis_clima_templado_alto(Var_Clima):-   
     write('Como desea la distancia del punto de partida \n1. Cerca (0 - 100km)  \n2. Lejos (> 100Km)'),
     nl,
     read(Var_Distancia),
     nl, 
-    analsis_clima_templado_alto_distancia(Var_Clima, Var_Presupuesto,Var_Distancia),
+    analsis_clima_templado_alto_distancia(Var_Clima,Var_Distancia),
     nl.
 
 
-analsis_clima_templado_alto_distancia(Var_Clima, Var_Presupuesto,Var_Distancia):-
+analsis_clima_templado_alto_distancia(Var_Clima,Var_Distancia):-
     (
-    Var_Distancia == 1 -> analisis_clima_templado_alto_cerca(Var_Clima, Var_Presupuesto,Var_Distancia);
-    Var_Distancia == 2 -> analisis_clima_templado_alto_lejos(Var_Clima, Var_Presupuesto,Var_Distancia)
+    Var_Distancia == 1 -> analisis_clima_templado_alto_cerca(Var_Clima);
+    Var_Distancia == 2 -> analisis_clima_templado_alto_lejos(Var_Clima)
     ).
 
 %---------------templado - alto -Cerca
-analisis_clima_templado_alto_cerca(Var_Clima, Var_Presupuesto,Var_Distancia):-  write('Tipo de habitacion: \n1. Simple \n2. Doble'),
+analisis_clima_templado_alto_cerca(Var_Clima):-  write('Tipo de habitacion: \n1. Simple \n2. Doble'),
     nl, 
     read(Var_TipoHabitacion),
     nl,
@@ -3409,21 +3415,21 @@ analisis_clima_templado_alto_cerca(Var_Clima, Var_Presupuesto,Var_Distancia):-  
     nl, 
     read(Var_CantPersonas),
     nl,
-    analsis_clima_templado_alto_cerca_generales(Var_Clima, Var_Presupuesto,Var_Distancia,  Var_TipoHabitacion, Var_CantNoches, Var_CantidadComida,Var_CantPersonas, Var_Vehiculo),
+    analsis_clima_templado_alto_cerca_generales(Var_Clima,   Var_TipoHabitacion, Var_CantNoches, Var_CantidadComida,Var_CantPersonas, Var_Vehiculo),
     nl.
 
-analsis_clima_templado_alto_cerca_generales(Var_Clima, Var_Presupuesto,Var_Distancia,  Var_TipoHabitacion, Var_CantNoches, Var_CantidadComida,Var_CantPersonas, Var_Vehiculo):-
+analsis_clima_templado_alto_cerca_generales(Var_Clima,   Var_TipoHabitacion, Var_CantNoches, Var_CantidadComida,Var_CantPersonas, Var_Vehiculo):-
     (
      %- Habitaciones - Simples 
-    (Var_TipoHabitacion == 1 , Var_Vehiculo == 's')->analisis_clima_templado_alto_cerca_vehiculos_hsimple(Var_Clima, Var_Presupuesto, Var_CantNoches, Var_CantidadComida,Var_CantPersonas);
-    (Var_TipoHabitacion == 1 , Var_Vehiculo == 'n')->analisis_clima_templado_alto_cerca_vehiculon_hsimple(Var_Clima, Var_Presupuesto,  Var_CantNoches, Var_CantidadComida,Var_CantPersonas);
+    (Var_TipoHabitacion == 1 , Var_Vehiculo == 's')->analisis_clima_templado_alto_cerca_vehiculos_hsimple(Var_Clima, Var_CantNoches, Var_CantidadComida,Var_CantPersonas);
+    (Var_TipoHabitacion == 1 , Var_Vehiculo == 'n')->analisis_clima_templado_alto_cerca_vehiculon_hsimple(Var_Clima,  Var_CantNoches, Var_CantidadComida,Var_CantPersonas);
     %- Habitacion - dobles 
-    (Var_TipoHabitacion == 2  , Var_Vehiculo == 's') ->  analisis_clima_templado_alto_cerca_vehiculos_hdoble(Var_Clima, Var_Presupuesto, Var_CantNoches, Var_CantidadComida,Var_CantPersonas);
-    (Var_TipoHabitacion == 2  , Var_Vehiculo == 'n') ->  analisis_clima_templado_alto_cerca_vehiculon_hdoble(Var_Clima, Var_Presupuesto, Var_CantNoches, Var_CantidadComida,Var_CantPersonas)
+    (Var_TipoHabitacion == 2  , Var_Vehiculo == 's') ->  analisis_clima_templado_alto_cerca_vehiculos_hdoble(Var_Clima, Var_CantNoches, Var_CantidadComida,Var_CantPersonas);
+    (Var_TipoHabitacion == 2  , Var_Vehiculo == 'n') ->  analisis_clima_templado_alto_cerca_vehiculon_hdoble(Var_Clima, Var_CantNoches, Var_CantidadComida,Var_CantPersonas)
     ).
 
 %----------------------templado-alto-Cerca-Simple
-analisis_clima_templado_alto_cerca_vehiculos_hsimple(Var_Clima, Var_Presupuesto, Var_CantNoches, Var_CantidadComida,Var_CantPersonas):-
+analisis_clima_templado_alto_cerca_vehiculos_hsimple(Var_Clima, Var_CantNoches, Var_CantidadComida,Var_CantPersonas):-
     departamento(Id_depa, NombreDepartamento, _,_,Clima_dep,_),
     hotel(_, NombreHotel, DireccionHotel, _, HSimple, _, PComida, Id_depa, DistanciaHotel),
 
@@ -3455,11 +3461,11 @@ mostrarinferencia_clima_templado_alto_cerca_vehiculos_hsimple(NombreHotel,Nombre
     fail.
 
 
-analisis_clima_templado_alto_cerca_vehiculon_hsimple(Var_Clima, Var_Presupuesto, Var_CantNoches, Var_CantidadComida,Var_CantPersonas):-
+analisis_clima_templado_alto_cerca_vehiculon_hsimple(Var_Clima, Var_CantNoches, Var_CantidadComida,Var_CantPersonas):-
     departamento(Id_depa, NombreDepartamento, CantidadHoras,_,Clima_dep,Pasaje),
     hotel(_, NombreHotel, DireccionHotel, _, HSimple, _, PComida, Id_depa, DistanciaHotel),
 
-    CostoPasaje is (Pasaje * Var_CantPersonas),
+    CostoPasaje is (Pasaje * Var_CantPersonas * 2),
     CostoComida is  (((PComida*Var_CantidadComida)* Var_CantPersonas) * Var_CantNoches),
     CostoHabitacion is (HSimple * Var_CantPersonas),
     Sumatoria is ( CostoHabitacion + CostoComida + CostoPasaje),
@@ -3489,7 +3495,7 @@ mostrarinferencia_clima_templado_alto_cerca_vehiculon_hsimple(Var_Clima, NombreH
     fail.
 
 %----------------------templado-alto-Cerca-Doble
-analisis_clima_templado_alto_cerca_vehiculos_hdoble(Var_Clima, Var_Presupuesto, Var_CantNoches, Var_CantidadComida,Var_CantPersonas):-
+analisis_clima_templado_alto_cerca_vehiculos_hdoble(Var_Clima, Var_CantNoches, Var_CantidadComida,Var_CantPersonas):-
     departamento(Id_depa, NombreDepartamento, _,_,Clima_dep,_),
     hotel(_, NombreHotel, DireccionHotel, _, _, Hdoble, PComida, Id_depa, DistanciaHotel),
 
@@ -3521,11 +3527,11 @@ mostrarinferencia_clima_templado_alto_cerca_vehiculos_hdoble(NombreHotel,NombreD
     nl, 
     fail.
 
-analisis_clima_templado_alto_cerca_vehiculon_hdoble(Var_Clima, Var_Presupuesto, Var_CantNoches, Var_CantidadComida,Var_CantPersonas):-
+analisis_clima_templado_alto_cerca_vehiculon_hdoble(Var_Clima, Var_CantNoches, Var_CantidadComida,Var_CantPersonas):-
     departamento(Id_depa, NombreDepartamento, CantidadHoras,_,Clima_dep,Pasaje),
     hotel(_, NombreHotel, DireccionHotel, _, _, Hdoble, PComida, Id_depa, DistanciaHotel),
 
-    CostoPasaje is (Pasaje * Var_CantPersonas),
+    CostoPasaje is (Pasaje * Var_CantPersonas * 2),
     CostoComida is  (((PComida*Var_CantidadComida)* Var_CantPersonas) * Var_CantNoches),
     CostoHabitacion is (Hdoble * round(Var_CantPersonas/2)),
     Sumatoria is ( CostoHabitacion + CostoComida + CostoPasaje),
@@ -3556,7 +3562,7 @@ mostrarinferencia_clima_templado_alto_cerca_vehiculon_hdoble(Var_Clima, NombreHo
 
 
 %----------templado Lejos
-analisis_clima_templado_alto_lejos(Var_Clima, Var_Presupuesto,Var_Distancia):-
+analisis_clima_templado_alto_lejos(Var_Clima):-
     write('Tipo de habitacion: \n1. Simple \n2. Doble'),
     nl, 
     read(Var_TipoHabitacion),
@@ -3577,22 +3583,22 @@ analisis_clima_templado_alto_lejos(Var_Clima, Var_Presupuesto,Var_Distancia):-
     nl, 
     read(Var_CantPersonas),
     nl,
-    analsis_clima_templado_alto_lejos_generales(Var_Clima, Var_Presupuesto,Var_Distancia,  Var_TipoHabitacion, Var_CantNoches, Var_CantidadComida,Var_CantPersonas, Var_Vehiculo),
+    analsis_clima_templado_alto_lejos_generales(Var_Clima,   Var_TipoHabitacion, Var_CantNoches, Var_CantidadComida,Var_CantPersonas, Var_Vehiculo),
     nl.
 
-analsis_clima_templado_alto_lejos_generales(Var_Clima, Var_Presupuesto,Var_Distancia,  Var_TipoHabitacion, Var_CantNoches, Var_CantidadComida,Var_CantPersonas, Var_Vehiculo):-
+analsis_clima_templado_alto_lejos_generales(Var_Clima,  Var_TipoHabitacion, Var_CantNoches, Var_CantidadComida,Var_CantPersonas, Var_Vehiculo):-
     (
      %- Habitaciones - Simples 
-    (Var_TipoHabitacion == 1 , Var_Vehiculo == 's')->analisis_clima_templado_alto_lejos_vehiculos_hsimple(Var_Clima, Var_Presupuesto, Var_CantNoches, Var_CantidadComida,Var_CantPersonas);
-    (Var_TipoHabitacion == 1 , Var_Vehiculo == 'n')->analisis_clima_templado_alto_lejos_vehiculon_hsimple(Var_Clima, Var_Presupuesto,  Var_CantNoches, Var_CantidadComida,Var_CantPersonas);
+    (Var_TipoHabitacion == 1 , Var_Vehiculo == 's')->analisis_clima_templado_alto_lejos_vehiculos_hsimple(Var_Clima, Var_CantNoches, Var_CantidadComida,Var_CantPersonas);
+    (Var_TipoHabitacion == 1 , Var_Vehiculo == 'n')->analisis_clima_templado_alto_lejos_vehiculon_hsimple(Var_Clima,  Var_CantNoches, Var_CantidadComida,Var_CantPersonas);
     %- Habitacion - dobles 
-    (Var_TipoHabitacion == 2  , Var_Vehiculo == 's') ->  analisis_clima_templado_alto_lejos_cerca_vehiculos_hdoble(Var_Clima, Var_Presupuesto, Var_CantNoches, Var_CantidadComida,Var_CantPersonas);
-    (Var_TipoHabitacion == 2  , Var_Vehiculo == 'n') ->  analisis_clima_templado_alto_lejos_vehiculon_hdoble(Var_Clima, Var_Presupuesto, Var_CantNoches, Var_CantidadComida,Var_CantPersonas)
+    (Var_TipoHabitacion == 2  , Var_Vehiculo == 's') ->  analisis_clima_templado_alto_lejos_cerca_vehiculos_hdoble(Var_Clima, Var_CantNoches, Var_CantidadComida,Var_CantPersonas);
+    (Var_TipoHabitacion == 2  , Var_Vehiculo == 'n') ->  analisis_clima_templado_alto_lejos_vehiculon_hdoble(Var_Clima, Var_CantNoches, Var_CantidadComida,Var_CantPersonas)
     ).
 
 
 %----------------------templado-alto-lejos-Simple
-analisis_clima_templado_alto_lejos_vehiculos_hsimple(Var_Clima, Var_Presupuesto, Var_CantNoches, Var_CantidadComida,Var_CantPersonas):-
+analisis_clima_templado_alto_lejos_vehiculos_hsimple(Var_Clima, Var_CantNoches, Var_CantidadComida,Var_CantPersonas):-
     departamento(Id_depa, NombreDepartamento, _,_,Clima_dep,_),
     hotel(_, NombreHotel, DireccionHotel, _, HSimple, _, PComida, Id_depa, DistanciaHotel),
 
@@ -3624,11 +3630,11 @@ mostrarinferencia_clima_templado_alto_lejos_vehiculos_hsimple(NombreHotel,Nombre
     fail.
 
 
-analisis_clima_templado_alto_lejos_vehiculon_hsimple(Var_Clima, Var_Presupuesto, Var_CantNoches, Var_CantidadComida,Var_CantPersonas):-
+analisis_clima_templado_alto_lejos_vehiculon_hsimple(Var_Clima, Var_CantNoches, Var_CantidadComida,Var_CantPersonas):-
     departamento(Id_depa, NombreDepartamento, CantidadHoras,_,Clima_dep,Pasaje),
     hotel(_, NombreHotel, DireccionHotel, _, HSimple, _, PComida, Id_depa, DistanciaHotel),
 
-    CostoPasaje is (Pasaje * Var_CantPersonas),
+    CostoPasaje is (Pasaje * Var_CantPersonas * 2),
     CostoComida is  (((PComida*Var_CantidadComida)* Var_CantPersonas) * Var_CantNoches),
     CostoHabitacion is (HSimple * Var_CantPersonas),
     Sumatoria is ( CostoHabitacion + CostoComida + CostoPasaje),
@@ -3658,7 +3664,7 @@ mostrarinferencia_clima_templado_alto_lejos_vehiculon_hsimple(Var_Clima, NombreH
     fail.
 
 %----------------------templado-alto-lejos-Doble
-analisis_clima_templado_alto_lejos_cerca_vehiculos_hdoble(Var_Clima, Var_Presupuesto, Var_CantNoches, Var_CantidadComida,Var_CantPersonas):-
+analisis_clima_templado_alto_lejos_cerca_vehiculos_hdoble(Var_Clima, Var_CantNoches, Var_CantidadComida,Var_CantPersonas):-
     departamento(Id_depa, NombreDepartamento, _,_,Clima_dep,_),
     hotel(_, NombreHotel, DireccionHotel, _, _, Hdoble, PComida, Id_depa, DistanciaHotel),
 
@@ -3690,11 +3696,11 @@ mostrarinferencia_clima_templado_alto_lejos_vehiculos_hdoble(NombreHotel,NombreD
     nl, 
     fail.
 
-analisis_clima_templado_alto_lejos_vehiculon_hdoble(Var_Clima, Var_Presupuesto, Var_CantNoches, Var_CantidadComida,Var_CantPersonas):-
+analisis_clima_templado_alto_lejos_vehiculon_hdoble(Var_Clima, Var_CantNoches, Var_CantidadComida,Var_CantPersonas):-
     departamento(Id_depa, NombreDepartamento, CantidadHoras,_,Clima_dep,Pasaje),
     hotel(_, NombreHotel, DireccionHotel, _, _, Hdoble, PComida, Id_depa, DistanciaHotel),
 
-    CostoPasaje is (Pasaje * Var_CantPersonas),
+    CostoPasaje is (Pasaje * Var_CantPersonas * 2),
     CostoComida is  (((PComida*Var_CantidadComida)* Var_CantPersonas) * Var_CantNoches),
     CostoHabitacion is (Hdoble * round(Var_CantPersonas/2)),
     Sumatoria is ( CostoHabitacion + CostoComida + CostoPasaje),
@@ -3736,26 +3742,26 @@ analisisclimatropical(Var_Clima):-write('Conteste las siguientes preguntas sobre
 
 
 analsis_clima_tropical_presupuesto(Var_Clima, Var_Presupuesto):-(
-        Var_Presupuesto == 1 -> analisis_clima_tropical_bajo(Var_Clima, Var_Presupuesto);
-        Var_Presupuesto == 2 -> analisis_clima_tropical_alto(Var_Clima, Var_Presupuesto)
-    ). 
+        Var_Presupuesto == 1 -> analisis_clima_tropical_bajo(Var_Clima);
+        Var_Presupuesto == 2 -> analisis_clima_tropical_alto(Var_Clima)
+    ).
 
-analisis_clima_tropical_bajo(Var_Clima, Var_Presupuesto):-
+analisis_clima_tropical_bajo(Var_Clima ):-
     write('Como desea la distancia del punto de partida \n1. Cerca (0 - 100km)  \n2. Lejos (> 100Km)'),
     nl,
     read(Var_Distancia),
     nl, 
-    analsis_clima_tropical_presupuesto_distancia(Var_Clima, Var_Presupuesto,Var_Distancia),
+    analsis_clima_tropical_presupuesto_distancia(Var_Clima,Var_Distancia),
     nl.
 
-analsis_clima_tropical_presupuesto_distancia(Var_Clima, Var_Presupuesto,Var_Distancia):-
+analsis_clima_tropical_presupuesto_distancia(Var_Clima,Var_Distancia):-
     (
-    Var_Distancia == 1 -> analisis_clima_tropical_bajo_cerca(Var_Clima, Var_Presupuesto,Var_Distancia);
-    Var_Distancia == 2 -> analisis_clima_tropical_bajo_lejos(Var_Clima, Var_Presupuesto,Var_Distancia)
+    Var_Distancia == 1 -> analisis_clima_tropical_bajo_cerca(Var_Clima);
+    Var_Distancia == 2 -> analisis_clima_tropical_bajo_lejos(Var_Clima)
     ).
 
 %---------------tropical - Bajo -Cerca
-analisis_clima_tropical_bajo_cerca(Var_Clima, Var_Presupuesto,Var_Distancia):-  write('Tipo de habitacion: \n1. Simple \n2. Doble'),
+analisis_clima_tropical_bajo_cerca(Var_Clima):-  write('Tipo de habitacion: \n1. Simple \n2. Doble'),
     nl, 
     read(Var_TipoHabitacion),
     nl,
@@ -3775,21 +3781,21 @@ analisis_clima_tropical_bajo_cerca(Var_Clima, Var_Presupuesto,Var_Distancia):-  
     nl, 
     read(Var_CantPersonas),
     nl,
-    analsis_clima_tropical_cerca_generales(Var_Clima, Var_Presupuesto,Var_Distancia,  Var_TipoHabitacion, Var_CantNoches, Var_CantidadComida,Var_CantPersonas, Var_Vehiculo),
+    analsis_clima_tropical_cerca_generales(Var_Clima , Var_TipoHabitacion, Var_CantNoches, Var_CantidadComida,Var_CantPersonas, Var_Vehiculo),
     nl.
 
-analsis_clima_tropical_cerca_generales(Var_Clima, Var_Presupuesto,Var_Distancia,  Var_TipoHabitacion, Var_CantNoches, Var_CantidadComida,Var_CantPersonas, Var_Vehiculo):-
+analsis_clima_tropical_cerca_generales(Var_Clima,  Var_TipoHabitacion, Var_CantNoches, Var_CantidadComida,Var_CantPersonas, Var_Vehiculo):-
     (
      %- Habitaciones - Simples 
-    (Var_TipoHabitacion == 1 , Var_Vehiculo == 's')->analisis_clima_tropical_cerca_vehiculos_hsimple(Var_Clima, Var_Presupuesto, Var_CantNoches, Var_CantidadComida,Var_CantPersonas);
-    (Var_TipoHabitacion == 1 , Var_Vehiculo == 'n')->analisis_clima_tropical_cerca_vehiculon_hsimple(Var_Clima, Var_Presupuesto,  Var_CantNoches, Var_CantidadComida,Var_CantPersonas);
+    (Var_TipoHabitacion == 1 , Var_Vehiculo == 's')->analisis_clima_tropical_cerca_vehiculos_hsimple(Var_Clima, Var_CantNoches, Var_CantidadComida,Var_CantPersonas);
+    (Var_TipoHabitacion == 1 , Var_Vehiculo == 'n')->analisis_clima_tropical_cerca_vehiculon_hsimple(Var_Clima,  Var_CantNoches, Var_CantidadComida,Var_CantPersonas);
     %- Habitacion - dobles 
-    (Var_TipoHabitacion == 2  , Var_Vehiculo == 's') ->  analisis_clima_tropical_cerca_vehiculos_hdoble(Var_Clima, Var_Presupuesto, Var_CantNoches, Var_CantidadComida,Var_CantPersonas);
-    (Var_TipoHabitacion == 2  , Var_Vehiculo == 'n') ->  analisis_clima_tropical_cerca_vehiculon_hdoble(Var_Clima, Var_Presupuesto, Var_CantNoches, Var_CantidadComida,Var_CantPersonas)
+    (Var_TipoHabitacion == 2  , Var_Vehiculo == 's') ->  analisis_clima_tropical_cerca_vehiculos_hdoble(Var_Clima, Var_CantNoches, Var_CantidadComida,Var_CantPersonas);
+    (Var_TipoHabitacion == 2  , Var_Vehiculo == 'n') ->  analisis_clima_tropical_cerca_vehiculon_hdoble(Var_Clima, Var_CantNoches, Var_CantidadComida,Var_CantPersonas)
     ).
 
 %----------------------tropical-Bajo-Cerca-Simple
-analisis_clima_tropical_cerca_vehiculos_hsimple(Var_Clima, Var_Presupuesto, Var_CantNoches, Var_CantidadComida,Var_CantPersonas):-
+analisis_clima_tropical_cerca_vehiculos_hsimple(Var_Clima, Var_CantNoches, Var_CantidadComida,Var_CantPersonas):-
     departamento(Id_depa, NombreDepartamento, _,_,Clima_dep,_),
     hotel(_, NombreHotel, DireccionHotel, _, HSimple, _, PComida, Id_depa, DistanciaHotel),
 
@@ -3821,11 +3827,11 @@ mostrarinferencia_clima_tropical_cerca_vehiculos_hsimple(NombreHotel,NombreDepar
     fail.
 
 
-analisis_clima_tropical_cerca_vehiculon_hsimple(Var_Clima, Var_Presupuesto, Var_CantNoches, Var_CantidadComida,Var_CantPersonas):-
+analisis_clima_tropical_cerca_vehiculon_hsimple(Var_Clima, Var_CantNoches, Var_CantidadComida,Var_CantPersonas):-
     departamento(Id_depa, NombreDepartamento, CantidadHoras,_,Clima_dep,Pasaje),
     hotel(_, NombreHotel, DireccionHotel, _, HSimple, _, PComida, Id_depa, DistanciaHotel),
 
-    CostoPasaje is (Pasaje * Var_CantPersonas),
+    CostoPasaje is (Pasaje * Var_CantPersonas * 2),
     CostoComida is  (((PComida*Var_CantidadComida)* Var_CantPersonas) * Var_CantNoches),
     CostoHabitacion is (HSimple * Var_CantPersonas),
     Sumatoria is ( CostoHabitacion + CostoComida + CostoPasaje),
@@ -3855,7 +3861,7 @@ mostrarinferencia_clima_tropical_cerca_vehiculon_hsimple(Var_Clima, NombreHotel,
     fail.
 
 %----------------------tropical-Bajo-Cerca-Doble
-analisis_clima_tropical_cerca_vehiculos_hdoble(Var_Clima, Var_Presupuesto, Var_CantNoches, Var_CantidadComida,Var_CantPersonas):-
+analisis_clima_tropical_cerca_vehiculos_hdoble(Var_Clima, Var_CantNoches, Var_CantidadComida,Var_CantPersonas):-
     departamento(Id_depa, NombreDepartamento, _,_,Clima_dep,_),
     hotel(_, NombreHotel, DireccionHotel, _, _, Hdoble, PComida, Id_depa, DistanciaHotel),
 
@@ -3887,11 +3893,11 @@ mostrarinferencia_clima_tropical_cerca_vehiculos_hdoble(NombreHotel,NombreDepart
     nl, 
     fail.
 
-analisis_clima_tropical_cerca_vehiculon_hdoble(Var_Clima, Var_Presupuesto, Var_CantNoches, Var_CantidadComida,Var_CantPersonas):-
+analisis_clima_tropical_cerca_vehiculon_hdoble(Var_Clima, Var_CantNoches, Var_CantidadComida,Var_CantPersonas):-
     departamento(Id_depa, NombreDepartamento, CantidadHoras,_,Clima_dep,Pasaje),
     hotel(_, NombreHotel, DireccionHotel, _, _, Hdoble, PComida, Id_depa, DistanciaHotel),
 
-    CostoPasaje is (Pasaje * Var_CantPersonas),
+    CostoPasaje is (Pasaje * Var_CantPersonas * 2),
     CostoComida is  (((PComida*Var_CantidadComida)* Var_CantPersonas) * Var_CantNoches),
     CostoHabitacion is (Hdoble * round(Var_CantPersonas/2)),
     Sumatoria is ( CostoHabitacion + CostoComida + CostoPasaje),
@@ -3922,7 +3928,7 @@ mostrarinferencia_clima_tropical_cerca_vehiculon_hdoble(Var_Clima, NombreHotel,N
 
 
 %----------tropical Lejos
-analisis_clima_tropical_bajo_lejos(Var_Clima, Var_Presupuesto,Var_Distancia):-
+analisis_clima_tropical_bajo_lejos(Var_Clima):-
     write('Tipo de habitacion: \n1. Simple \n2. Doble'),
     nl, 
     read(Var_TipoHabitacion),
@@ -3943,22 +3949,22 @@ analisis_clima_tropical_bajo_lejos(Var_Clima, Var_Presupuesto,Var_Distancia):-
     nl, 
     read(Var_CantPersonas),
     nl,
-    analsis_clima_tropical_lejos_generales(Var_Clima, Var_Presupuesto,Var_Distancia,  Var_TipoHabitacion, Var_CantNoches, Var_CantidadComida,Var_CantPersonas, Var_Vehiculo),
+    analsis_clima_tropical_lejos_generales(Var_Clima,   Var_TipoHabitacion, Var_CantNoches, Var_CantidadComida,Var_CantPersonas, Var_Vehiculo),
     nl.
 
-analsis_clima_tropical_lejos_generales(Var_Clima, Var_Presupuesto,Var_Distancia,  Var_TipoHabitacion, Var_CantNoches, Var_CantidadComida,Var_CantPersonas, Var_Vehiculo):-
+analsis_clima_tropical_lejos_generales(Var_Clima,  Var_TipoHabitacion, Var_CantNoches, Var_CantidadComida,Var_CantPersonas, Var_Vehiculo):-
     (
      %- Habitaciones - Simples 
-    (Var_TipoHabitacion == 1 , Var_Vehiculo == 's')->analisis_clima_tropical_lejos_vehiculos_hsimple(Var_Clima, Var_Presupuesto, Var_CantNoches, Var_CantidadComida,Var_CantPersonas);
-    (Var_TipoHabitacion == 1 , Var_Vehiculo == 'n')->analisis_clima_tropical_lejos_vehiculon_hsimple(Var_Clima, Var_Presupuesto,  Var_CantNoches, Var_CantidadComida,Var_CantPersonas);
+    (Var_TipoHabitacion == 1 , Var_Vehiculo == 's')->analisis_clima_tropical_lejos_vehiculos_hsimple(Var_Clima, Var_CantNoches, Var_CantidadComida,Var_CantPersonas);
+    (Var_TipoHabitacion == 1 , Var_Vehiculo == 'n')->analisis_clima_tropical_lejos_vehiculon_hsimple(Var_Clima,  Var_CantNoches, Var_CantidadComida,Var_CantPersonas);
     %- Habitacion - dobles 
-    (Var_TipoHabitacion == 2  , Var_Vehiculo == 's') ->  analisis_clima_tropical_lejos_cerca_vehiculos_hdoble(Var_Clima, Var_Presupuesto, Var_CantNoches, Var_CantidadComida,Var_CantPersonas);
-    (Var_TipoHabitacion == 2  , Var_Vehiculo == 'n') ->  analisis_clima_tropical_lejos_cerca_vehiculon_hdoble(Var_Clima, Var_Presupuesto, Var_CantNoches, Var_CantidadComida,Var_CantPersonas)
+    (Var_TipoHabitacion == 2  , Var_Vehiculo == 's') ->  analisis_clima_tropical_lejos_cerca_vehiculos_hdoble(Var_Clima, Var_CantNoches, Var_CantidadComida,Var_CantPersonas);
+    (Var_TipoHabitacion == 2  , Var_Vehiculo == 'n') ->  analisis_clima_tropical_lejos_cerca_vehiculon_hdoble(Var_Clima, Var_CantNoches, Var_CantidadComida,Var_CantPersonas)
     ).
 
 
 %----------------------tropical-Bajo-Cerca-Simple
-analisis_clima_tropical_lejos_vehiculos_hsimple(Var_Clima, Var_Presupuesto, Var_CantNoches, Var_CantidadComida,Var_CantPersonas):-
+analisis_clima_tropical_lejos_vehiculos_hsimple(Var_Clima, Var_CantNoches, Var_CantidadComida,Var_CantPersonas):-
     departamento(Id_depa, NombreDepartamento, _,_,Clima_dep,_),
     hotel(_, NombreHotel, DireccionHotel, _, HSimple, _, PComida, Id_depa, DistanciaHotel),
 
@@ -3990,11 +3996,11 @@ mostrarinferencia_clima_tropical_lejos_vehiculos_hsimple(NombreHotel,NombreDepar
     fail.
 
 
-analisis_clima_tropical_lejos_vehiculon_hsimple(Var_Clima, Var_Presupuesto, Var_CantNoches, Var_CantidadComida,Var_CantPersonas):-
+analisis_clima_tropical_lejos_vehiculon_hsimple(Var_Clima, Var_CantNoches, Var_CantidadComida,Var_CantPersonas):-
     departamento(Id_depa, NombreDepartamento, CantidadHoras,_,Clima_dep,Pasaje),
     hotel(_, NombreHotel, DireccionHotel, _, HSimple, _, PComida, Id_depa, DistanciaHotel),
 
-    CostoPasaje is (Pasaje * Var_CantPersonas),
+    CostoPasaje is (Pasaje * Var_CantPersonas * 2),
     CostoComida is  (((PComida*Var_CantidadComida)* Var_CantPersonas) * Var_CantNoches),
     CostoHabitacion is (HSimple * Var_CantPersonas),
     Sumatoria is ( CostoHabitacion + CostoComida + CostoPasaje),
@@ -4024,7 +4030,7 @@ mostrarinferencia_clima_tropical_lejos_vehiculon_hsimple(Var_Clima, NombreHotel,
     fail.
 
 %----------------------tropical-Bajo-Cerca-Doble
-analisis_clima_tropical_lejos_cerca_vehiculos_hdoble(Var_Clima, Var_Presupuesto, Var_CantNoches, Var_CantidadComida,Var_CantPersonas):-
+analisis_clima_tropical_lejos_cerca_vehiculos_hdoble(Var_Clima, Var_CantNoches, Var_CantidadComida,Var_CantPersonas):-
     departamento(Id_depa, NombreDepartamento, _,_,Clima_dep,_),
     hotel(_, NombreHotel, DireccionHotel, _, _, Hdoble, PComida, Id_depa, DistanciaHotel),
 
@@ -4056,11 +4062,11 @@ mostrarinferencia_clima_tropical_lejos_vehiculos_hdoble(NombreHotel,NombreDepart
     nl, 
     fail.
 
-analisis_clima_tropical_lejos_cerca_vehiculon_hdoble(Var_Clima, Var_Presupuesto, Var_CantNoches, Var_CantidadComida,Var_CantPersonas):-
+analisis_clima_tropical_lejos_cerca_vehiculon_hdoble(Var_Clima, Var_CantNoches, Var_CantidadComida,Var_CantPersonas):-
     departamento(Id_depa, NombreDepartamento, CantidadHoras,_,Clima_dep,Pasaje),
     hotel(_, NombreHotel, DireccionHotel, _, _, Hdoble, PComida, Id_depa, DistanciaHotel),
 
-    CostoPasaje is (Pasaje * Var_CantPersonas),
+    CostoPasaje is (Pasaje * Var_CantPersonas * 2),
     CostoComida is  (((PComida*Var_CantidadComida)* Var_CantPersonas) * Var_CantNoches),
     CostoHabitacion is (Hdoble * round(Var_CantPersonas/2)),
     Sumatoria is ( CostoHabitacion + CostoComida + CostoPasaje),
@@ -4089,23 +4095,23 @@ mostrarinferencia_clima_tropical_lejos_vehiculon_hdoble(Var_Clima, NombreHotel,N
     nl, 
     fail.
 %----------------------------------------------------------------tropical-Alto
-analisis_clima_tropical_alto(Var_Clima, Var_Presupuesto):-   
+analisis_clima_tropical_alto(Var_Clima):-   
     write('Como desea la distancia del punto de partida \n1. Cerca (0 - 100km)  \n2. Lejos (> 100Km)'),
     nl,
     read(Var_Distancia),
     nl, 
-    analsis_clima_tropical_alto_distancia(Var_Clima, Var_Presupuesto,Var_Distancia),
+    analsis_clima_tropical_alto_distancia(Var_Clima,Var_Distancia),
     nl.
 
 
-analsis_clima_tropical_alto_distancia(Var_Clima, Var_Presupuesto,Var_Distancia):-
+analsis_clima_tropical_alto_distancia(Var_Clima,Var_Distancia):-
     (
-    Var_Distancia == 1 -> analisis_clima_tropical_alto_cerca(Var_Clima, Var_Presupuesto,Var_Distancia);
-    Var_Distancia == 2 -> analisis_clima_tropical_alto_lejos(Var_Clima, Var_Presupuesto,Var_Distancia)
+    Var_Distancia == 1 -> analisis_clima_tropical_alto_cerca(Var_Clima);
+    Var_Distancia == 2 -> analisis_clima_tropical_alto_lejos(Var_Clima)
     ).
 
 %---------------tropical - alto -Cerca
-analisis_clima_tropical_alto_cerca(Var_Clima, Var_Presupuesto,Var_Distancia):-  write('Tipo de habitacion: \n1. Simple \n2. Doble'),
+analisis_clima_tropical_alto_cerca(Var_Clima):-  write('Tipo de habitacion: \n1. Simple \n2. Doble'),
     nl, 
     read(Var_TipoHabitacion),
     nl,
@@ -4125,21 +4131,21 @@ analisis_clima_tropical_alto_cerca(Var_Clima, Var_Presupuesto,Var_Distancia):-  
     nl, 
     read(Var_CantPersonas),
     nl,
-    analsis_clima_tropical_alto_cerca_generales(Var_Clima, Var_Presupuesto,Var_Distancia,  Var_TipoHabitacion, Var_CantNoches, Var_CantidadComida,Var_CantPersonas, Var_Vehiculo),
+    analsis_clima_tropical_alto_cerca_generales(Var_Clima,Var_TipoHabitacion, Var_CantNoches, Var_CantidadComida,Var_CantPersonas, Var_Vehiculo),
     nl.
 
-analsis_clima_tropical_alto_cerca_generales(Var_Clima, Var_Presupuesto,Var_Distancia,  Var_TipoHabitacion, Var_CantNoches, Var_CantidadComida,Var_CantPersonas, Var_Vehiculo):-
+analsis_clima_tropical_alto_cerca_generales(Var_Clima, Var_TipoHabitacion, Var_CantNoches, Var_CantidadComida,Var_CantPersonas, Var_Vehiculo):-
     (
      %- Habitaciones - Simples 
-    (Var_TipoHabitacion == 1 , Var_Vehiculo == 's')->analisis_clima_tropical_alto_cerca_vehiculos_hsimple(Var_Clima, Var_Presupuesto, Var_CantNoches, Var_CantidadComida,Var_CantPersonas);
-    (Var_TipoHabitacion == 1 , Var_Vehiculo == 'n')->analisis_clima_tropical_alto_cerca_vehiculon_hsimple(Var_Clima, Var_Presupuesto,  Var_CantNoches, Var_CantidadComida,Var_CantPersonas);
+    (Var_TipoHabitacion == 1 , Var_Vehiculo == 's')->analisis_clima_tropical_alto_cerca_vehiculos_hsimple(Var_Clima,  Var_CantNoches, Var_CantidadComida,Var_CantPersonas);
+    (Var_TipoHabitacion == 1 , Var_Vehiculo == 'n')->analisis_clima_tropical_alto_cerca_vehiculon_hsimple(Var_Clima,   Var_CantNoches, Var_CantidadComida,Var_CantPersonas);
     %- Habitacion - dobles 
-    (Var_TipoHabitacion == 2  , Var_Vehiculo == 's') ->  analisis_clima_tropical_alto_cerca_vehiculos_hdoble(Var_Clima, Var_Presupuesto, Var_CantNoches, Var_CantidadComida,Var_CantPersonas);
-    (Var_TipoHabitacion == 2  , Var_Vehiculo == 'n') ->  analisis_clima_tropical_alto_cerca_vehiculon_hdoble(Var_Clima, Var_Presupuesto, Var_CantNoches, Var_CantidadComida,Var_CantPersonas)
+    (Var_TipoHabitacion == 2  , Var_Vehiculo == 's') ->  analisis_clima_tropical_alto_cerca_vehiculos_hdoble(Var_Clima, Var_CantNoches, Var_CantidadComida,Var_CantPersonas);
+    (Var_TipoHabitacion == 2  , Var_Vehiculo == 'n') ->  analisis_clima_tropical_alto_cerca_vehiculon_hdoble(Var_Clima, Var_CantNoches, Var_CantidadComida,Var_CantPersonas)
     ).
 
 %----------------------tropical-alto-Cerca-Simple
-analisis_clima_tropical_alto_cerca_vehiculos_hsimple(Var_Clima, Var_Presupuesto, Var_CantNoches, Var_CantidadComida,Var_CantPersonas):-
+analisis_clima_tropical_alto_cerca_vehiculos_hsimple(Var_Clima, Var_CantNoches, Var_CantidadComida,Var_CantPersonas):-
     departamento(Id_depa, NombreDepartamento, _,_,Clima_dep,_),
     hotel(_, NombreHotel, DireccionHotel, _, HSimple, _, PComida, Id_depa, DistanciaHotel),
 
@@ -4171,11 +4177,11 @@ mostrarinferencia_clima_tropical_alto_cerca_vehiculos_hsimple(NombreHotel,Nombre
     fail.
 
 
-analisis_clima_tropical_alto_cerca_vehiculon_hsimple(Var_Clima, Var_Presupuesto, Var_CantNoches, Var_CantidadComida,Var_CantPersonas):-
+analisis_clima_tropical_alto_cerca_vehiculon_hsimple(Var_Clima, Var_CantNoches, Var_CantidadComida,Var_CantPersonas):-
     departamento(Id_depa, NombreDepartamento, CantidadHoras,_,Clima_dep,Pasaje),
     hotel(_, NombreHotel, DireccionHotel, _, HSimple, _, PComida, Id_depa, DistanciaHotel),
 
-    CostoPasaje is (Pasaje * Var_CantPersonas),
+    CostoPasaje is (Pasaje * Var_CantPersonas * 2),
     CostoComida is  (((PComida*Var_CantidadComida)* Var_CantPersonas) * Var_CantNoches),
     CostoHabitacion is (HSimple * Var_CantPersonas),
     Sumatoria is ( CostoHabitacion + CostoComida + CostoPasaje),
@@ -4205,7 +4211,7 @@ mostrarinferencia_clima_tropical_alto_cerca_vehiculon_hsimple(Var_Clima, NombreH
     fail.
 
 %----------------------tropical-alto-Cerca-Doble
-analisis_clima_tropical_alto_cerca_vehiculos_hdoble(Var_Clima, Var_Presupuesto, Var_CantNoches, Var_CantidadComida,Var_CantPersonas):-
+analisis_clima_tropical_alto_cerca_vehiculos_hdoble(Var_Clima, Var_CantNoches, Var_CantidadComida,Var_CantPersonas):-
     departamento(Id_depa, NombreDepartamento, _,_,Clima_dep,_),
     hotel(_, NombreHotel, DireccionHotel, _, _, Hdoble, PComida, Id_depa, DistanciaHotel),
 
@@ -4237,11 +4243,11 @@ mostrarinferencia_clima_tropical_alto_cerca_vehiculos_hdoble(NombreHotel,NombreD
     nl, 
     fail.
 
-analisis_clima_tropical_alto_cerca_vehiculon_hdoble(Var_Clima, Var_Presupuesto, Var_CantNoches, Var_CantidadComida,Var_CantPersonas):-
+analisis_clima_tropical_alto_cerca_vehiculon_hdoble(Var_Clima, Var_CantNoches, Var_CantidadComida,Var_CantPersonas):-
     departamento(Id_depa, NombreDepartamento, CantidadHoras,_,Clima_dep,Pasaje),
     hotel(_, NombreHotel, DireccionHotel, _, _, Hdoble, PComida, Id_depa, DistanciaHotel),
 
-    CostoPasaje is (Pasaje * Var_CantPersonas),
+    CostoPasaje is (Pasaje * Var_CantPersonas * 2),
     CostoComida is  (((PComida*Var_CantidadComida)* Var_CantPersonas) * Var_CantNoches),
     CostoHabitacion is (Hdoble * round(Var_CantPersonas/2)),
     Sumatoria is ( CostoHabitacion + CostoComida + CostoPasaje),
@@ -4272,7 +4278,7 @@ mostrarinferencia_clima_tropical_alto_cerca_vehiculon_hdoble(Var_Clima, NombreHo
 
 
 %----------tropical Lejos
-analisis_clima_tropical_alto_lejos(Var_Clima, Var_Presupuesto,Var_Distancia):-
+analisis_clima_tropical_alto_lejos(Var_Clima):-
     write('Tipo de habitacion: \n1. Simple \n2. Doble'),
     nl, 
     read(Var_TipoHabitacion),
@@ -4293,22 +4299,22 @@ analisis_clima_tropical_alto_lejos(Var_Clima, Var_Presupuesto,Var_Distancia):-
     nl, 
     read(Var_CantPersonas),
     nl,
-    analsis_clima_tropical_alto_lejos_generales(Var_Clima, Var_Presupuesto,Var_Distancia,  Var_TipoHabitacion, Var_CantNoches, Var_CantidadComida,Var_CantPersonas, Var_Vehiculo),
+    analsis_clima_tropical_alto_lejos_generales(Var_Clima,  Var_TipoHabitacion, Var_CantNoches, Var_CantidadComida,Var_CantPersonas, Var_Vehiculo),
     nl.
 
-analsis_clima_tropical_alto_lejos_generales(Var_Clima, Var_Presupuesto,Var_Distancia,  Var_TipoHabitacion, Var_CantNoches, Var_CantidadComida,Var_CantPersonas, Var_Vehiculo):-
+analsis_clima_tropical_alto_lejos_generales(Var_Clima, Var_TipoHabitacion, Var_CantNoches, Var_CantidadComida,Var_CantPersonas, Var_Vehiculo):-
     (
      %- Habitaciones - Simples 
-    (Var_TipoHabitacion == 1 , Var_Vehiculo == 's')->analisis_clima_tropical_alto_lejos_vehiculos_hsimple(Var_Clima, Var_Presupuesto, Var_CantNoches, Var_CantidadComida,Var_CantPersonas);
-    (Var_TipoHabitacion == 1 , Var_Vehiculo == 'n')->analisis_clima_tropical_alto_lejos_vehiculon_hsimple(Var_Clima, Var_Presupuesto,  Var_CantNoches, Var_CantidadComida,Var_CantPersonas);
+    (Var_TipoHabitacion == 1 , Var_Vehiculo == 's')->analisis_clima_tropical_alto_lejos_vehiculos_hsimple(Var_Clima, Var_CantNoches, Var_CantidadComida,Var_CantPersonas);
+    (Var_TipoHabitacion == 1 , Var_Vehiculo == 'n')->analisis_clima_tropical_alto_lejos_vehiculon_hsimple(Var_Clima,  Var_CantNoches, Var_CantidadComida,Var_CantPersonas);
     %- Habitacion - dobles 
-    (Var_TipoHabitacion == 2  , Var_Vehiculo == 's') ->  analisis_clima_tropical_alto_lejos_cerca_vehiculos_hdoble(Var_Clima, Var_Presupuesto, Var_CantNoches, Var_CantidadComida,Var_CantPersonas);
-    (Var_TipoHabitacion == 2  , Var_Vehiculo == 'n') ->  analisis_clima_tropical_alto_lejos_vehiculon_hdoble(Var_Clima, Var_Presupuesto, Var_CantNoches, Var_CantidadComida,Var_CantPersonas)
+    (Var_TipoHabitacion == 2  , Var_Vehiculo == 's') ->  analisis_clima_tropical_alto_lejos_cerca_vehiculos_hdoble(Var_Clima, Var_CantNoches, Var_CantidadComida,Var_CantPersonas);
+    (Var_TipoHabitacion == 2  , Var_Vehiculo == 'n') ->  analisis_clima_tropical_alto_lejos_vehiculon_hdoble(Var_Clima, Var_CantNoches, Var_CantidadComida,Var_CantPersonas)
     ).
 
 
 %----------------------tropical-alto-lejos-Simple
-analisis_clima_tropical_alto_lejos_vehiculos_hsimple(Var_Clima, Var_Presupuesto, Var_CantNoches, Var_CantidadComida,Var_CantPersonas):-
+analisis_clima_tropical_alto_lejos_vehiculos_hsimple(Var_Clima, Var_CantNoches, Var_CantidadComida,Var_CantPersonas):-
     departamento(Id_depa, NombreDepartamento, _,_,Clima_dep,_),
     hotel(_, NombreHotel, DireccionHotel, _, HSimple, _, PComida, Id_depa, DistanciaHotel),
 
@@ -4340,11 +4346,11 @@ mostrarinferencia_clima_tropical_alto_lejos_vehiculos_hsimple(NombreHotel,Nombre
     fail.
 
 
-analisis_clima_tropical_alto_lejos_vehiculon_hsimple(Var_Clima, Var_Presupuesto, Var_CantNoches, Var_CantidadComida,Var_CantPersonas):-
+analisis_clima_tropical_alto_lejos_vehiculon_hsimple(Var_Clima, Var_CantNoches, Var_CantidadComida,Var_CantPersonas):-
     departamento(Id_depa, NombreDepartamento, CantidadHoras,_,Clima_dep,Pasaje),
     hotel(_, NombreHotel, DireccionHotel, _, HSimple, _, PComida, Id_depa, DistanciaHotel),
 
-    CostoPasaje is (Pasaje * Var_CantPersonas),
+    CostoPasaje is (Pasaje * Var_CantPersonas * 2),
     CostoComida is  (((PComida*Var_CantidadComida)* Var_CantPersonas) * Var_CantNoches),
     CostoHabitacion is (HSimple * Var_CantPersonas),
     Sumatoria is ( CostoHabitacion + CostoComida + CostoPasaje),
@@ -4374,7 +4380,7 @@ mostrarinferencia_clima_tropical_alto_lejos_vehiculon_hsimple(Var_Clima, NombreH
     fail.
 
 %----------------------tropical-alto-lejos-Doble
-analisis_clima_tropical_alto_lejos_cerca_vehiculos_hdoble(Var_Clima, Var_Presupuesto, Var_CantNoches, Var_CantidadComida,Var_CantPersonas):-
+analisis_clima_tropical_alto_lejos_cerca_vehiculos_hdoble(Var_Clima, Var_CantNoches, Var_CantidadComida,Var_CantPersonas):-
     departamento(Id_depa, NombreDepartamento, _,_,Clima_dep,_),
     hotel(_, NombreHotel, DireccionHotel, _, _, Hdoble, PComida, Id_depa, DistanciaHotel),
 
@@ -4406,11 +4412,11 @@ mostrarinferencia_clima_tropical_alto_lejos_vehiculos_hdoble(NombreHotel,NombreD
     nl, 
     fail.
 
-analisis_clima_tropical_alto_lejos_vehiculon_hdoble(Var_Clima, Var_Presupuesto, Var_CantNoches, Var_CantidadComida,Var_CantPersonas):-
+analisis_clima_tropical_alto_lejos_vehiculon_hdoble(Var_Clima, Var_CantNoches, Var_CantidadComida,Var_CantPersonas):-
     departamento(Id_depa, NombreDepartamento, CantidadHoras,_,Clima_dep,Pasaje),
     hotel(_, NombreHotel, DireccionHotel, _, _, Hdoble, PComida, Id_depa, DistanciaHotel),
 
-    CostoPasaje is (Pasaje * Var_CantPersonas),
+    CostoPasaje is (Pasaje * Var_CantPersonas * 2),
     CostoComida is  (((PComida*Var_CantidadComida)* Var_CantPersonas) * Var_CantNoches),
     CostoHabitacion is (Hdoble * round(Var_CantPersonas/2)),
     Sumatoria is ( CostoHabitacion + CostoComida + CostoPasaje),
@@ -4443,7 +4449,7 @@ mostrarinferencia_clima_tropical_alto_lejos_vehiculon_hdoble(Var_Clima, NombreHo
 %-------------------------------------------------------------------IDIOMA---------------------------------------------------------
 preguntasidioma():-write('Conteste las siguientes preguntas sobre la preferencia de Idioma'),
     nl,
-    write('Cual es su presupuesto? \n1. Espanol \n2. Ingles  \n3. Ketchi \n4. Katchikel'),
+    write('Cual es su Idioma? \n1. Espanol \n2. Ingles  \n3. Ketchi \n4. Katchikel'),
     nl, 
     read(Var_Idioma),
     nl,
@@ -4472,19 +4478,19 @@ analisis_espanol(Var_Idioma):- write('Conteste las siguientes preguntas sobre pr
 
 analsis_idioma_espanol_presupuesto(Var_Idioma, Var_Presupuesto):-
     (
-        Var_Presupuesto == 1 -> analisis_idioma_espanol_bajo(Var_Idioma, Var_Presupuesto);
-        Var_Presupuesto == 2 -> analisis_idioma_espanol_alto(Var_Idioma, Var_Presupuesto)
+        Var_Presupuesto == 1 -> analisis_idioma_espanol_bajo(Var_Idioma);
+        Var_Presupuesto == 2 -> analisis_idioma_espanol_alto(Var_Idioma)
     ). 
 
-analisis_idioma_espanol_bajo(Var_Idioma, Var_Presupuesto):-
+analisis_idioma_espanol_bajo(Var_Idioma):-
     write('Como desea la distancia del punto de partida \n1. Cerca (0 - 100km)  \n2. Lejos (> 100Km)'),
     nl,
     read(Var_Distancia),
     nl, 
-    analsis_idioma_espanol_presupuesto_distancia(Var_Idioma, Var_Presupuesto,Var_Distancia),
+    analsis_idioma_espanol_presupuesto_distancia(Var_Idioma,Var_Distancia),
     nl.
     
-analsis_idioma_espanol_presupuesto_distancia(Var_Idioma, Var_Presupuesto,Var_Distancia):-
+analsis_idioma_espanol_presupuesto_distancia(Var_Idioma,Var_Distancia):-
     (
     Var_Distancia == 1 -> analisis_idioma_espanol_bajo_cerca(Var_Idioma);
     Var_Distancia == 2 -> analisis_idioma_espanol_bajo_lejos(Var_Idioma)
@@ -4568,7 +4574,7 @@ analisis_idioma_espanol_cerca_bajo_vehiculon_hsimple(Var_Idioma, Var_Clima,  Var
     departamento(Id_depa, NombreDepartamento, CantidadHoras,Var_lenguaje,Clima_dep,Pasaje),
     hotel(_, NombreHotel, DireccionHotel, _, HSimple, _, PComida, Id_depa, DistanciaHotel),
 
-    CostoPasaje is (Pasaje * Var_CantPersonas),
+    CostoPasaje is (Pasaje * Var_CantPersonas * 2),
     CostoComida is  (((PComida*Var_CantidadComida)* Var_CantPersonas) * Var_CantNoches),
     CostoHabitacion is (HSimple * Var_CantPersonas),
     Sumatoria is ( CostoHabitacion + CostoComida + CostoPasaje),
@@ -4635,7 +4641,7 @@ analisis_idioma_espanol_bajo_cerca_vehiculon_hdoble(Var_Idioma, Var_Clima,  Var_
     departamento(Id_depa, NombreDepartamento, CantidadHoras,Var_lenguaje,Clima_dep,Pasaje),
     hotel(_, NombreHotel, DireccionHotel, _, _, Hdoble, PComida, Id_depa, DistanciaHotel),
 
-    CostoPasaje is (Pasaje * Var_CantPersonas),
+    CostoPasaje is (Pasaje * Var_CantPersonas * 2),
     CostoComida is  (((PComida*Var_CantidadComida)* Var_CantPersonas) * Var_CantNoches),
     CostoHabitacion is (Hdoble * round(Var_CantPersonas/2)),
     Sumatoria is ( CostoHabitacion + CostoComida + CostoPasaje),
@@ -4743,7 +4749,7 @@ analisis_idioma_espanol_lejos_bajo_vehiculon_hsimple(Var_Idioma, Var_Clima,  Var
     departamento(Id_depa, NombreDepartamento, CantidadHoras,Var_lenguaje,Clima_dep,Pasaje),
     hotel(_, NombreHotel, DireccionHotel, _, HSimple, _, PComida, Id_depa, DistanciaHotel),
 
-    CostoPasaje is (Pasaje * Var_CantPersonas),
+    CostoPasaje is (Pasaje * Var_CantPersonas * 2),
     CostoComida is  (((PComida*Var_CantidadComida)* Var_CantPersonas) * Var_CantNoches),
     CostoHabitacion is (HSimple * Var_CantPersonas),
     Sumatoria is ( CostoHabitacion + CostoComida + CostoPasaje),
@@ -4810,7 +4816,7 @@ analisis_idioma_espanol_lejos_cerca_vehiculon_hdoble(Var_Idioma, Var_Clima,  Var
     departamento(Id_depa, NombreDepartamento, CantidadHoras,Var_lenguaje,Clima_dep,Pasaje),
     hotel(_, NombreHotel, DireccionHotel, _, _, Hdoble, PComida, Id_depa, DistanciaHotel),
 
-    CostoPasaje is (Pasaje * Var_CantPersonas),
+    CostoPasaje is (Pasaje * Var_CantPersonas * 2),
     CostoComida is  (((PComida*Var_CantidadComida)* Var_CantPersonas) * Var_CantNoches),
     CostoHabitacion is (Hdoble * round(Var_CantPersonas/2)),
     Sumatoria is ( CostoHabitacion + CostoComida + CostoPasaje),
@@ -4840,13 +4846,13 @@ mostrarinferencia_idioma_espanol_lejos_bajo_vehiculon_hdoble(Var_Idioma, NombreH
 
 %-------------------------Espanol-Alto--------------
 %-------------------------Espanol-Alto--------------
-analisis_idioma_espanol_alto(Var_Idioma, Var_Presupuesto):-   write('Como desea la distancia del punto de partida \n1. Cerca (0 - 100km)  \n2. Lejos (> 100Km)'),
+analisis_idioma_espanol_alto(Var_Idioma):-   write('Como desea la distancia del punto de partida \n1. Cerca (0 - 100km)  \n2. Lejos (> 100Km)'),
     nl,
     read(Var_Distancia),
     nl, 
-    analsis_idioma_espanol_presupuesto_distancia_alto(Var_Idioma, Var_Presupuesto,Var_Distancia),
+    analsis_idioma_espanol_presupuesto_distancia_alto(Var_Idioma,Var_Distancia),
     nl.
-    analsis_idioma_espanol_presupuesto_distancia_alto(Var_Idioma, Var_Presupuesto,Var_Distancia):-
+    analsis_idioma_espanol_presupuesto_distancia_alto(Var_Idioma,Var_Distancia):-
     (
     Var_Distancia == 1 -> analisis_idioma_espanol_alto_cerca(Var_Idioma);
     Var_Distancia == 2 -> analisis_idioma_espanol_alto_lejos(Var_Idioma)
@@ -4930,7 +4936,7 @@ analisis_idioma_espanol_cerca_alto_vehiculon_hsimple(Var_Idioma, Var_Clima,  Var
     departamento(Id_depa, NombreDepartamento, CantidadHoras,Var_lenguaje,Clima_dep,Pasaje),
     hotel(_, NombreHotel, DireccionHotel, _, HSimple, _, PComida, Id_depa, DistanciaHotel),
 
-    CostoPasaje is (Pasaje * Var_CantPersonas),
+    CostoPasaje is (Pasaje * Var_CantPersonas * 2),
     CostoComida is  (((PComida*Var_CantidadComida)* Var_CantPersonas) * Var_CantNoches),
     CostoHabitacion is (HSimple * Var_CantPersonas),
     Sumatoria is ( CostoHabitacion + CostoComida + CostoPasaje),
@@ -4997,7 +5003,7 @@ analisis_idioma_espanol_alto_cerca_vehiculon_hdoble(Var_Idioma, Var_Clima,  Var_
     departamento(Id_depa, NombreDepartamento, CantidadHoras,Var_lenguaje,Clima_dep,Pasaje),
     hotel(_, NombreHotel, DireccionHotel, _, _, Hdoble, PComida, Id_depa, DistanciaHotel),
 
-    CostoPasaje is (Pasaje * Var_CantPersonas),
+    CostoPasaje is (Pasaje * Var_CantPersonas * 2),
     CostoComida is  (((PComida*Var_CantidadComida)* Var_CantPersonas) * Var_CantNoches),
     CostoHabitacion is (Hdoble * round(Var_CantPersonas/2)),
     Sumatoria is ( CostoHabitacion + CostoComida + CostoPasaje),
@@ -5104,7 +5110,7 @@ analisis_idioma_espanol_lejos_alto_vehiculon_hsimple(Var_Idioma, Var_Clima,  Var
     departamento(Id_depa, NombreDepartamento, CantidadHoras,Var_lenguaje,Clima_dep,Pasaje),
     hotel(_, NombreHotel, DireccionHotel, _, HSimple, _, PComida, Id_depa, DistanciaHotel),
 
-    CostoPasaje is (Pasaje * Var_CantPersonas),
+    CostoPasaje is (Pasaje * Var_CantPersonas * 2),
     CostoComida is  (((PComida*Var_CantidadComida)* Var_CantPersonas) * Var_CantNoches),
     CostoHabitacion is (HSimple * Var_CantPersonas),
     Sumatoria is ( CostoHabitacion + CostoComida + CostoPasaje),
@@ -5171,7 +5177,7 @@ analisis_idioma_espanol_lejos_alto_vehiculon_hdoble(Var_Idioma, Var_Clima,  Var_
     departamento(Id_depa, NombreDepartamento, CantidadHoras,Var_lenguaje,Clima_dep,Pasaje),
     hotel(_, NombreHotel, DireccionHotel, _, _, Hdoble, PComida, Id_depa, DistanciaHotel),
 
-    CostoPasaje is (Pasaje * Var_CantPersonas),
+    CostoPasaje is (Pasaje * Var_CantPersonas * 2),
     CostoComida is  (((PComida*Var_CantidadComida)* Var_CantPersonas) * Var_CantNoches),
     CostoHabitacion is (Hdoble * round(Var_CantPersonas/2)),
     Sumatoria is ( CostoHabitacion + CostoComida + CostoPasaje),
@@ -5214,19 +5220,19 @@ analisis_ingles(Var_Idioma):- write('Conteste las siguientes preguntas sobre pre
 
 analsis_idioma_ingles_presupuesto(Var_Idioma, Var_Presupuesto):-
     (
-        Var_Presupuesto == 1 -> analisis_idioma_ingles_bajo(Var_Idioma, Var_Presupuesto);
-        Var_Presupuesto == 2 -> analisis_idioma_ingles_alto(Var_Idioma, Var_Presupuesto)
+        Var_Presupuesto == 1 -> analisis_idioma_ingles_bajo(Var_Idioma);
+        Var_Presupuesto == 2 -> analisis_idioma_ingles_alto(Var_Idioma)
     ). 
 
-analisis_idioma_ingles_bajo(Var_Idioma, Var_Presupuesto):-
+analisis_idioma_ingles_bajo(Var_Idioma):-
     write('Como desea la distancia del punto de partida \n1. Cerca (0 - 100km)  \n2. Lejos (> 100Km)'),
     nl,
     read(Var_Distancia),
     nl, 
-    analsis_idioma_ingles_presupuesto_distancia(Var_Idioma, Var_Presupuesto,Var_Distancia),
+    analsis_idioma_ingles_presupuesto_distancia(Var_Idioma,Var_Distancia),
     nl.
     
-analsis_idioma_ingles_presupuesto_distancia(Var_Idioma, Var_Presupuesto,Var_Distancia):-
+analsis_idioma_ingles_presupuesto_distancia(Var_Idioma,Var_Distancia):-
     (
     Var_Distancia == 1 -> analisis_idioma_ingles_bajo_cerca(Var_Idioma);
     Var_Distancia == 2 -> analisis_idioma_ingles_bajo_lejos(Var_Idioma)
@@ -5310,7 +5316,7 @@ analisis_idioma_ingles_cerca_bajo_vehiculon_hsimple(Var_Idioma, Var_Clima,  Var_
     departamento(Id_depa, NombreDepartamento, CantidadHoras,Var_lenguaje,Clima_dep,Pasaje),
     hotel(_, NombreHotel, DireccionHotel, _, HSimple, _, PComida, Id_depa, DistanciaHotel),
 
-    CostoPasaje is (Pasaje * Var_CantPersonas),
+    CostoPasaje is (Pasaje * Var_CantPersonas * 2),
     CostoComida is  (((PComida*Var_CantidadComida)* Var_CantPersonas) * Var_CantNoches),
     CostoHabitacion is (HSimple * Var_CantPersonas),
     Sumatoria is ( CostoHabitacion + CostoComida + CostoPasaje),
@@ -5377,7 +5383,7 @@ analisis_idioma_ingles_bajo_cerca_vehiculon_hdoble(Var_Idioma, Var_Clima,  Var_C
     departamento(Id_depa, NombreDepartamento, CantidadHoras,Var_lenguaje,Clima_dep,Pasaje),
     hotel(_, NombreHotel, DireccionHotel, _, _, Hdoble, PComida, Id_depa, DistanciaHotel),
 
-    CostoPasaje is (Pasaje * Var_CantPersonas),
+    CostoPasaje is (Pasaje * Var_CantPersonas * 2),
     CostoComida is  (((PComida*Var_CantidadComida)* Var_CantPersonas) * Var_CantNoches),
     CostoHabitacion is (Hdoble * round(Var_CantPersonas/2)),
     Sumatoria is ( CostoHabitacion + CostoComida + CostoPasaje),
@@ -5485,7 +5491,7 @@ analisis_idioma_ingles_lejos_bajo_vehiculon_hsimple(Var_Idioma, Var_Clima,  Var_
     departamento(Id_depa, NombreDepartamento, CantidadHoras,Var_lenguaje,Clima_dep,Pasaje),
     hotel(_, NombreHotel, DireccionHotel, _, HSimple, _, PComida, Id_depa, DistanciaHotel),
 
-    CostoPasaje is (Pasaje * Var_CantPersonas),
+    CostoPasaje is (Pasaje * Var_CantPersonas * 2),
     CostoComida is  (((PComida*Var_CantidadComida)* Var_CantPersonas) * Var_CantNoches),
     CostoHabitacion is (HSimple * Var_CantPersonas),
     Sumatoria is ( CostoHabitacion + CostoComida + CostoPasaje),
@@ -5552,7 +5558,7 @@ analisis_idioma_ingles_lejos_cerca_vehiculon_hdoble(Var_Idioma, Var_Clima,  Var_
     departamento(Id_depa, NombreDepartamento, CantidadHoras,Var_lenguaje,Clima_dep,Pasaje),
     hotel(_, NombreHotel, DireccionHotel, _, _, Hdoble, PComida, Id_depa, DistanciaHotel),
 
-    CostoPasaje is (Pasaje * Var_CantPersonas),
+    CostoPasaje is (Pasaje * Var_CantPersonas * 2),
     CostoComida is  (((PComida*Var_CantidadComida)* Var_CantPersonas) * Var_CantNoches),
     CostoHabitacion is (Hdoble * round(Var_CantPersonas/2)),
     Sumatoria is ( CostoHabitacion + CostoComida + CostoPasaje),
@@ -5582,13 +5588,13 @@ mostrarinferencia_idioma_ingles_lejos_bajo_vehiculon_hdoble(Var_Idioma, NombreHo
 
 %-------------------------ingles-Alto--------------
 %-------------------------ingles-Alto--------------
-analisis_idioma_ingles_alto(Var_Idioma, Var_Presupuesto):-   write('Como desea la distancia del punto de partida \n1. Cerca (0 - 100km)  \n2. Lejos (> 100Km)'),
+analisis_idioma_ingles_alto(Var_Idioma):-   write('Como desea la distancia del punto de partida \n1. Cerca (0 - 100km)  \n2. Lejos (> 100Km)'),
     nl,
     read(Var_Distancia),
     nl, 
-    analsis_idioma_ingles_presupuesto_distancia_alto(Var_Idioma, Var_Presupuesto,Var_Distancia),
+    analsis_idioma_ingles_presupuesto_distancia_alto(Var_Idioma,Var_Distancia),
     nl.
-    analsis_idioma_ingles_presupuesto_distancia_alto(Var_Idioma, Var_Presupuesto,Var_Distancia):-
+    analsis_idioma_ingles_presupuesto_distancia_alto(Var_Idioma,Var_Distancia):-
     (
     Var_Distancia == 1 -> analisis_idioma_ingles_alto_cerca(Var_Idioma);
     Var_Distancia == 2 -> analisis_idioma_ingles_alto_lejos(Var_Idioma)
@@ -5672,7 +5678,7 @@ analisis_idioma_ingles_cerca_alto_vehiculon_hsimple(Var_Idioma, Var_Clima,  Var_
     departamento(Id_depa, NombreDepartamento, CantidadHoras,Var_lenguaje,Clima_dep,Pasaje),
     hotel(_, NombreHotel, DireccionHotel, _, HSimple, _, PComida, Id_depa, DistanciaHotel),
 
-    CostoPasaje is (Pasaje * Var_CantPersonas),
+    CostoPasaje is (Pasaje * Var_CantPersonas * 2),
     CostoComida is  (((PComida*Var_CantidadComida)* Var_CantPersonas) * Var_CantNoches),
     CostoHabitacion is (HSimple * Var_CantPersonas),
     Sumatoria is ( CostoHabitacion + CostoComida + CostoPasaje),
@@ -5739,7 +5745,7 @@ analisis_idioma_ingles_alto_cerca_vehiculon_hdoble(Var_Idioma, Var_Clima,  Var_C
     departamento(Id_depa, NombreDepartamento, CantidadHoras,Var_lenguaje,Clima_dep,Pasaje),
     hotel(_, NombreHotel, DireccionHotel, _, _, Hdoble, PComida, Id_depa, DistanciaHotel),
 
-    CostoPasaje is (Pasaje * Var_CantPersonas),
+    CostoPasaje is (Pasaje * Var_CantPersonas * 2),
     CostoComida is  (((PComida*Var_CantidadComida)* Var_CantPersonas) * Var_CantNoches),
     CostoHabitacion is (Hdoble * round(Var_CantPersonas/2)),
     Sumatoria is ( CostoHabitacion + CostoComida + CostoPasaje),
@@ -5846,7 +5852,7 @@ analisis_idioma_ingles_lejos_alto_vehiculon_hsimple(Var_Idioma, Var_Clima,  Var_
     departamento(Id_depa, NombreDepartamento, CantidadHoras,Var_lenguaje,Clima_dep,Pasaje),
     hotel(_, NombreHotel, DireccionHotel, _, HSimple, _, PComida, Id_depa, DistanciaHotel),
 
-    CostoPasaje is (Pasaje * Var_CantPersonas),
+    CostoPasaje is (Pasaje * Var_CantPersonas * 2),
     CostoComida is  (((PComida*Var_CantidadComida)* Var_CantPersonas) * Var_CantNoches),
     CostoHabitacion is (HSimple * Var_CantPersonas),
     Sumatoria is ( CostoHabitacion + CostoComida + CostoPasaje),
@@ -5913,7 +5919,7 @@ analisis_idioma_ingles_lejos_alto_vehiculon_hdoble(Var_Idioma, Var_Clima,  Var_C
     departamento(Id_depa, NombreDepartamento, CantidadHoras,Var_lenguaje,Clima_dep,Pasaje),
     hotel(_, NombreHotel, DireccionHotel, _, _, Hdoble, PComida, Id_depa, DistanciaHotel),
 
-    CostoPasaje is (Pasaje * Var_CantPersonas),
+    CostoPasaje is (Pasaje * Var_CantPersonas * 2),
     CostoComida is  (((PComida*Var_CantidadComida)* Var_CantPersonas) * Var_CantNoches),
     CostoHabitacion is (Hdoble * round(Var_CantPersonas/2)),
     Sumatoria is ( CostoHabitacion + CostoComida + CostoPasaje),
@@ -5959,19 +5965,19 @@ analisis_ketchi(Var_Idioma):- write('Conteste las siguientes preguntas sobre pre
 
 analsis_idioma_ketchi_presupuesto(Var_Idioma, Var_Presupuesto):-
     (
-        Var_Presupuesto == 1 -> analisis_idioma_ketchi_bajo(Var_Idioma, Var_Presupuesto);
-        Var_Presupuesto == 2 -> analisis_idioma_ketchi_alto(Var_Idioma, Var_Presupuesto)
+        Var_Presupuesto == 1 -> analisis_idioma_ketchi_bajo(Var_Idioma);
+        Var_Presupuesto == 2 -> analisis_idioma_ketchi_alto(Var_Idioma)
     ). 
 
-analisis_idioma_ketchi_bajo(Var_Idioma, Var_Presupuesto):-
+analisis_idioma_ketchi_bajo(Var_Idioma):-
     write('Como desea la distancia del punto de partida \n1. Cerca (0 - 100km)  \n2. Lejos (> 100Km)'),
     nl,
     read(Var_Distancia),
     nl, 
-    analsis_idioma_ketchi_presupuesto_distancia(Var_Idioma, Var_Presupuesto,Var_Distancia),
+    analsis_idioma_ketchi_presupuesto_distancia(Var_Idioma,Var_Distancia),
     nl.
     
-analsis_idioma_ketchi_presupuesto_distancia(Var_Idioma, Var_Presupuesto,Var_Distancia):-
+analsis_idioma_ketchi_presupuesto_distancia(Var_Idioma,Var_Distancia):-
     (
     Var_Distancia == 1 -> analisis_idioma_ketchi_bajo_cerca(Var_Idioma);
     Var_Distancia == 2 -> analisis_idioma_ketchi_bajo_lejos(Var_Idioma)
@@ -6055,7 +6061,7 @@ analisis_idioma_ketchi_cerca_bajo_vehiculon_hsimple(Var_Idioma, Var_Clima,  Var_
     departamento(Id_depa, NombreDepartamento, CantidadHoras,Var_lenguaje,Clima_dep,Pasaje),
     hotel(_, NombreHotel, DireccionHotel, _, HSimple, _, PComida, Id_depa, DistanciaHotel),
 
-    CostoPasaje is (Pasaje * Var_CantPersonas),
+    CostoPasaje is (Pasaje * Var_CantPersonas * 2),
     CostoComida is  (((PComida*Var_CantidadComida)* Var_CantPersonas) * Var_CantNoches),
     CostoHabitacion is (HSimple * Var_CantPersonas),
     Sumatoria is ( CostoHabitacion + CostoComida + CostoPasaje),
@@ -6122,7 +6128,7 @@ analisis_idioma_ketchi_bajo_cerca_vehiculon_hdoble(Var_Idioma, Var_Clima,  Var_C
     departamento(Id_depa, NombreDepartamento, CantidadHoras,Var_lenguaje,Clima_dep,Pasaje),
     hotel(_, NombreHotel, DireccionHotel, _, _, Hdoble, PComida, Id_depa, DistanciaHotel),
 
-    CostoPasaje is (Pasaje * Var_CantPersonas),
+    CostoPasaje is (Pasaje * Var_CantPersonas * 2),
     CostoComida is  (((PComida*Var_CantidadComida)* Var_CantPersonas) * Var_CantNoches),
     CostoHabitacion is (Hdoble * round(Var_CantPersonas/2)),
     Sumatoria is ( CostoHabitacion + CostoComida + CostoPasaje),
@@ -6230,7 +6236,7 @@ analisis_idioma_ketchi_lejos_bajo_vehiculon_hsimple(Var_Idioma, Var_Clima,  Var_
     departamento(Id_depa, NombreDepartamento, CantidadHoras,Var_lenguaje,Clima_dep,Pasaje),
     hotel(_, NombreHotel, DireccionHotel, _, HSimple, _, PComida, Id_depa, DistanciaHotel),
 
-    CostoPasaje is (Pasaje * Var_CantPersonas),
+    CostoPasaje is (Pasaje * Var_CantPersonas * 2),
     CostoComida is  (((PComida*Var_CantidadComida)* Var_CantPersonas) * Var_CantNoches),
     CostoHabitacion is (HSimple * Var_CantPersonas),
     Sumatoria is ( CostoHabitacion + CostoComida + CostoPasaje),
@@ -6297,7 +6303,7 @@ analisis_idioma_ketchi_lejos_cerca_vehiculon_hdoble(Var_Idioma, Var_Clima,  Var_
     departamento(Id_depa, NombreDepartamento, CantidadHoras,Var_lenguaje,Clima_dep,Pasaje),
     hotel(_, NombreHotel, DireccionHotel, _, _, Hdoble, PComida, Id_depa, DistanciaHotel),
 
-    CostoPasaje is (Pasaje * Var_CantPersonas),
+    CostoPasaje is (Pasaje * Var_CantPersonas * 2),
     CostoComida is  (((PComida*Var_CantidadComida)* Var_CantPersonas) * Var_CantNoches),
     CostoHabitacion is (Hdoble * round(Var_CantPersonas/2)),
     Sumatoria is ( CostoHabitacion + CostoComida + CostoPasaje),
@@ -6327,13 +6333,13 @@ mostrarinferencia_idioma_ketchi_lejos_bajo_vehiculon_hdoble(Var_Idioma, NombreHo
 
 %-------------------------ketchi-Alto--------------
 %-------------------------ketchi-Alto--------------
-analisis_idioma_ketchi_alto(Var_Idioma, Var_Presupuesto):-   write('Como desea la distancia del punto de partida \n1. Cerca (0 - 100km)  \n2. Lejos (> 100Km)'),
+analisis_idioma_ketchi_alto(Var_Idioma):-   write('Como desea la distancia del punto de partida \n1. Cerca (0 - 100km)  \n2. Lejos (> 100Km)'),
     nl,
     read(Var_Distancia),
     nl, 
-    analsis_idioma_ketchi_presupuesto_distancia_alto(Var_Idioma, Var_Presupuesto,Var_Distancia),
+    analsis_idioma_ketchi_presupuesto_distancia_alto(Var_Idioma,Var_Distancia),
     nl.
-    analsis_idioma_ketchi_presupuesto_distancia_alto(Var_Idioma, Var_Presupuesto,Var_Distancia):-
+    analsis_idioma_ketchi_presupuesto_distancia_alto(Var_Idioma,Var_Distancia):-
     (
     Var_Distancia == 1 -> analisis_idioma_ketchi_alto_cerca(Var_Idioma);
     Var_Distancia == 2 -> analisis_idioma_ketchi_alto_lejos(Var_Idioma)
@@ -6417,7 +6423,7 @@ analisis_idioma_ketchi_cerca_alto_vehiculon_hsimple(Var_Idioma, Var_Clima,  Var_
     departamento(Id_depa, NombreDepartamento, CantidadHoras,Var_lenguaje,Clima_dep,Pasaje),
     hotel(_, NombreHotel, DireccionHotel, _, HSimple, _, PComida, Id_depa, DistanciaHotel),
 
-    CostoPasaje is (Pasaje * Var_CantPersonas),
+    CostoPasaje is (Pasaje * Var_CantPersonas * 2),
     CostoComida is  (((PComida*Var_CantidadComida)* Var_CantPersonas) * Var_CantNoches),
     CostoHabitacion is (HSimple * Var_CantPersonas),
     Sumatoria is ( CostoHabitacion + CostoComida + CostoPasaje),
@@ -6484,7 +6490,7 @@ analisis_idioma_ketchi_alto_cerca_vehiculon_hdoble(Var_Idioma, Var_Clima,  Var_C
     departamento(Id_depa, NombreDepartamento, CantidadHoras,Var_lenguaje,Clima_dep,Pasaje),
     hotel(_, NombreHotel, DireccionHotel, _, _, Hdoble, PComida, Id_depa, DistanciaHotel),
 
-    CostoPasaje is (Pasaje * Var_CantPersonas),
+    CostoPasaje is (Pasaje * Var_CantPersonas * 2),
     CostoComida is  (((PComida*Var_CantidadComida)* Var_CantPersonas) * Var_CantNoches),
     CostoHabitacion is (Hdoble * round(Var_CantPersonas/2)),
     Sumatoria is ( CostoHabitacion + CostoComida + CostoPasaje),
@@ -6591,7 +6597,7 @@ analisis_idioma_ketchi_lejos_alto_vehiculon_hsimple(Var_Idioma, Var_Clima,  Var_
     departamento(Id_depa, NombreDepartamento, CantidadHoras,Var_lenguaje,Clima_dep,Pasaje),
     hotel(_, NombreHotel, DireccionHotel, _, HSimple, _, PComida, Id_depa, DistanciaHotel),
 
-    CostoPasaje is (Pasaje * Var_CantPersonas),
+    CostoPasaje is (Pasaje * Var_CantPersonas * 2),
     CostoComida is  (((PComida*Var_CantidadComida)* Var_CantPersonas) * Var_CantNoches),
     CostoHabitacion is (HSimple * Var_CantPersonas),
     Sumatoria is ( CostoHabitacion + CostoComida + CostoPasaje),
@@ -6658,7 +6664,7 @@ analisis_idioma_ketchi_lejos_alto_vehiculon_hdoble(Var_Idioma, Var_Clima,  Var_C
     departamento(Id_depa, NombreDepartamento, CantidadHoras,Var_lenguaje,Clima_dep,Pasaje),
     hotel(_, NombreHotel, DireccionHotel, _, _, Hdoble, PComida, Id_depa, DistanciaHotel),
 
-    CostoPasaje is (Pasaje * Var_CantPersonas),
+    CostoPasaje is (Pasaje * Var_CantPersonas * 2),
     CostoComida is  (((PComida*Var_CantidadComida)* Var_CantPersonas) * Var_CantNoches),
     CostoHabitacion is (Hdoble * round(Var_CantPersonas/2)),
     Sumatoria is ( CostoHabitacion + CostoComida + CostoPasaje),
@@ -6700,19 +6706,19 @@ analisis_katchikel(Var_Idioma):- write('Conteste las siguientes preguntas sobre 
 
 analsis_idioma_katchikel_presupuesto(Var_Idioma, Var_Presupuesto):-
     (
-        Var_Presupuesto == 1 -> analisis_idioma_katchikel_bajo(Var_Idioma, Var_Presupuesto);
-        Var_Presupuesto == 2 -> analisis_idioma_katchikel_alto(Var_Idioma, Var_Presupuesto)
+        Var_Presupuesto == 1 -> analisis_idioma_katchikel_bajo(Var_Idioma);
+        Var_Presupuesto == 2 -> analisis_idioma_katchikel_alto(Var_Idioma)
     ). 
 
-analisis_idioma_katchikel_bajo(Var_Idioma, Var_Presupuesto):-
+analisis_idioma_katchikel_bajo(Var_Idioma):-
     write('Como desea la distancia del punto de partida \n1. Cerca (0 - 100km)  \n2. Lejos (> 100Km)'),
     nl,
     read(Var_Distancia),
     nl, 
-    analsis_idioma_katchikel_presupuesto_distancia(Var_Idioma, Var_Presupuesto,Var_Distancia),
+    analsis_idioma_katchikel_presupuesto_distancia(Var_Idioma,Var_Distancia),
     nl.
     
-analsis_idioma_katchikel_presupuesto_distancia(Var_Idioma, Var_Presupuesto,Var_Distancia):-
+analsis_idioma_katchikel_presupuesto_distancia(Var_Idioma,Var_Distancia):-
     (
     Var_Distancia == 1 -> analisis_idioma_katchikel_bajo_cerca(Var_Idioma);
     Var_Distancia == 2 -> analisis_idioma_katchikel_bajo_lejos(Var_Idioma)
@@ -6796,7 +6802,7 @@ analisis_idioma_katchikel_cerca_bajo_vehiculon_hsimple(Var_Idioma, Var_Clima,  V
     departamento(Id_depa, NombreDepartamento, CantidadHoras,Var_lenguaje,Clima_dep,Pasaje),
     hotel(_, NombreHotel, DireccionHotel, _, HSimple, _, PComida, Id_depa, DistanciaHotel),
 
-    CostoPasaje is (Pasaje * Var_CantPersonas),
+    CostoPasaje is (Pasaje * Var_CantPersonas * 2),
     CostoComida is  (((PComida*Var_CantidadComida)* Var_CantPersonas) * Var_CantNoches),
     CostoHabitacion is (HSimple * Var_CantPersonas),
     Sumatoria is ( CostoHabitacion + CostoComida + CostoPasaje),
@@ -6863,7 +6869,7 @@ analisis_idioma_katchikel_bajo_cerca_vehiculon_hdoble(Var_Idioma, Var_Clima,  Va
     departamento(Id_depa, NombreDepartamento, CantidadHoras,Var_lenguaje,Clima_dep,Pasaje),
     hotel(_, NombreHotel, DireccionHotel, _, _, Hdoble, PComida, Id_depa, DistanciaHotel),
 
-    CostoPasaje is (Pasaje * Var_CantPersonas),
+    CostoPasaje is (Pasaje * Var_CantPersonas * 2),
     CostoComida is  (((PComida*Var_CantidadComida)* Var_CantPersonas) * Var_CantNoches),
     CostoHabitacion is (Hdoble * round(Var_CantPersonas/2)),
     Sumatoria is ( CostoHabitacion + CostoComida + CostoPasaje),
@@ -6971,7 +6977,7 @@ analisis_idioma_katchikel_lejos_bajo_vehiculon_hsimple(Var_Idioma, Var_Clima,  V
     departamento(Id_depa, NombreDepartamento, CantidadHoras,Var_lenguaje,Clima_dep,Pasaje),
     hotel(_, NombreHotel, DireccionHotel, _, HSimple, _, PComida, Id_depa, DistanciaHotel),
 
-    CostoPasaje is (Pasaje * Var_CantPersonas),
+    CostoPasaje is (Pasaje * Var_CantPersonas * 2),
     CostoComida is  (((PComida*Var_CantidadComida)* Var_CantPersonas) * Var_CantNoches),
     CostoHabitacion is (HSimple * Var_CantPersonas),
     Sumatoria is ( CostoHabitacion + CostoComida + CostoPasaje),
@@ -7038,7 +7044,7 @@ analisis_idioma_katchikel_lejos_cerca_vehiculon_hdoble(Var_Idioma, Var_Clima,  V
     departamento(Id_depa, NombreDepartamento, CantidadHoras,Var_lenguaje,Clima_dep,Pasaje),
     hotel(_, NombreHotel, DireccionHotel, _, _, Hdoble, PComida, Id_depa, DistanciaHotel),
 
-    CostoPasaje is (Pasaje * Var_CantPersonas),
+    CostoPasaje is (Pasaje * Var_CantPersonas * 2),
     CostoComida is  (((PComida*Var_CantidadComida)* Var_CantPersonas) * Var_CantNoches),
     CostoHabitacion is (Hdoble * round(Var_CantPersonas/2)),
     Sumatoria is ( CostoHabitacion + CostoComida + CostoPasaje),
@@ -7068,13 +7074,13 @@ mostrarinferencia_idioma_katchikel_lejos_bajo_vehiculon_hdoble(Var_Idioma, Nombr
 
 %-------------------------katchikel-Alto--------------
 %-------------------------katchikel-Alto--------------
-analisis_idioma_katchikel_alto(Var_Idioma, Var_Presupuesto):-   write('Como desea la distancia del punto de partida \n1. Cerca (0 - 100km)  \n2. Lejos (> 100Km)'),
+analisis_idioma_katchikel_alto(Var_Idioma):-   write('Como desea la distancia del punto de partida \n1. Cerca (0 - 100km)  \n2. Lejos (> 100Km)'),
     nl,
     read(Var_Distancia),
     nl, 
-    analsis_idioma_katchikel_presupuesto_distancia_alto(Var_Idioma, Var_Presupuesto,Var_Distancia),
+    analsis_idioma_katchikel_presupuesto_distancia_alto(Var_Idioma,Var_Distancia),
     nl.
-    analsis_idioma_katchikel_presupuesto_distancia_alto(Var_Idioma, Var_Presupuesto,Var_Distancia):-
+    analsis_idioma_katchikel_presupuesto_distancia_alto(Var_Idioma,Var_Distancia):-
     (
     Var_Distancia == 1 -> analisis_idioma_katchikel_alto_cerca(Var_Idioma);
     Var_Distancia == 2 -> analisis_idioma_katchikel_alto_lejos(Var_Idioma)
@@ -7158,7 +7164,7 @@ analisis_idioma_katchikel_cerca_alto_vehiculon_hsimple(Var_Idioma, Var_Clima,  V
     departamento(Id_depa, NombreDepartamento, CantidadHoras,Var_lenguaje,Clima_dep,Pasaje),
     hotel(_, NombreHotel, DireccionHotel, _, HSimple, _, PComida, Id_depa, DistanciaHotel),
 
-    CostoPasaje is (Pasaje * Var_CantPersonas),
+    CostoPasaje is (Pasaje * Var_CantPersonas * 2),
     CostoComida is  (((PComida*Var_CantidadComida)* Var_CantPersonas) * Var_CantNoches),
     CostoHabitacion is (HSimple * Var_CantPersonas),
     Sumatoria is ( CostoHabitacion + CostoComida + CostoPasaje),
@@ -7225,7 +7231,7 @@ analisis_idioma_katchikel_alto_cerca_vehiculon_hdoble(Var_Idioma, Var_Clima,  Va
     departamento(Id_depa, NombreDepartamento, CantidadHoras,Var_lenguaje,Clima_dep,Pasaje),
     hotel(_, NombreHotel, DireccionHotel, _, _, Hdoble, PComida, Id_depa, DistanciaHotel),
 
-    CostoPasaje is (Pasaje * Var_CantPersonas),
+    CostoPasaje is (Pasaje * Var_CantPersonas * 2),
     CostoComida is  (((PComida*Var_CantidadComida)* Var_CantPersonas) * Var_CantNoches),
     CostoHabitacion is (Hdoble * round(Var_CantPersonas/2)),
     Sumatoria is ( CostoHabitacion + CostoComida + CostoPasaje),
@@ -7332,7 +7338,7 @@ analisis_idioma_katchikel_lejos_alto_vehiculon_hsimple(Var_Idioma, Var_Clima,  V
     departamento(Id_depa, NombreDepartamento, CantidadHoras,Var_lenguaje,Clima_dep,Pasaje),
     hotel(_, NombreHotel, DireccionHotel, _, HSimple, _, PComida, Id_depa, DistanciaHotel),
 
-    CostoPasaje is (Pasaje * Var_CantPersonas),
+    CostoPasaje is (Pasaje * Var_CantPersonas * 2),
     CostoComida is  (((PComida*Var_CantidadComida)* Var_CantPersonas) * Var_CantNoches),
     CostoHabitacion is (HSimple * Var_CantPersonas),
     Sumatoria is ( CostoHabitacion + CostoComida + CostoPasaje),
@@ -7399,7 +7405,7 @@ analisis_idioma_katchikel_lejos_alto_vehiculon_hdoble(Var_Idioma, Var_Clima,  Va
     departamento(Id_depa, NombreDepartamento, CantidadHoras,Var_lenguaje,Clima_dep,Pasaje),
     hotel(_, NombreHotel, DireccionHotel, _, _, Hdoble, PComida, Id_depa, DistanciaHotel),
 
-    CostoPasaje is (Pasaje * Var_CantPersonas),
+    CostoPasaje is (Pasaje * Var_CantPersonas * 2),
     CostoComida is  (((PComida*Var_CantidadComida)* Var_CantPersonas) * Var_CantNoches),
     CostoHabitacion is (Hdoble * round(Var_CantPersonas/2)),
     Sumatoria is ( CostoHabitacion + CostoComida + CostoPasaje),
@@ -7537,7 +7543,7 @@ analisis_estrellas_bajas_cerca_bajo_vehiculon_hsimple(Var_CantNoches, Var_Cantid
     departamento(Id_depa, NombreDepartamento, CantidadHoras,_,Clima_dep,Pasaje),
     hotel(_, NombreHotel, DireccionHotel, Var_Estrellas, HSimple, _, PComida, Id_depa, DistanciaHotel),
 
-    CostoPasaje is (Pasaje * Var_CantPersonas),
+    CostoPasaje is (Pasaje * Var_CantPersonas * 2),
     CostoComida is  (((PComida*Var_CantidadComida)* Var_CantPersonas) * Var_CantNoches),
     CostoHabitacion is (HSimple * Var_CantPersonas),
     Sumatoria is ( CostoHabitacion + CostoComida + CostoPasaje),
@@ -7605,7 +7611,7 @@ analisis_estrellas_bajas_cerca_bajo_vehiculon_hdoble(Var_CantNoches, Var_Cantida
     departamento(Id_depa, NombreDepartamento, CantidadHoras,_,Clima_dep,Pasaje),
     hotel(_, NombreHotel, DireccionHotel, Var_Estrellas, _, Hdoble, PComida, Id_depa, DistanciaHotel),
 
-    CostoPasaje is (Pasaje * Var_CantPersonas),
+    CostoPasaje is (Pasaje * Var_CantPersonas * 2),
     CostoComida is  (((PComida*Var_CantidadComida)* Var_CantPersonas) * Var_CantNoches),
     CostoHabitacion is (Hdoble * round(Var_CantPersonas/2)),
     Sumatoria is ( CostoHabitacion + CostoComida + CostoPasaje),
@@ -7716,7 +7722,7 @@ analisis_estrellas_bajas_lejos_bajo_vehiculon_hsimple(Var_CantNoches, Var_Cantid
     departamento(Id_depa, NombreDepartamento, CantidadHoras,_,Clima_dep,Pasaje),
     hotel(_, NombreHotel, DireccionHotel, Var_Estrellas, HSimple, _, PComida, Id_depa, DistanciaHotel),
 
-    CostoPasaje is (Pasaje * Var_CantPersonas),
+    CostoPasaje is (Pasaje * Var_CantPersonas * 2),
     CostoComida is  (((PComida*Var_CantidadComida)* Var_CantPersonas) * Var_CantNoches),
     CostoHabitacion is (HSimple * Var_CantPersonas),
     Sumatoria is ( CostoHabitacion + CostoComida + CostoPasaje),
@@ -7784,7 +7790,7 @@ analisis_estrellas_bajas_lejos_bajo_vehiculon_hdoble(Var_CantNoches, Var_Cantida
     departamento(Id_depa, NombreDepartamento, CantidadHoras,_,Clima_dep,Pasaje),
     hotel(_, NombreHotel, DireccionHotel, Var_Estrellas, _, Hdoble, PComida, Id_depa, DistanciaHotel),
 
-    CostoPasaje is (Pasaje * Var_CantPersonas),
+    CostoPasaje is (Pasaje * Var_CantPersonas * 2),
     CostoComida is  (((PComida*Var_CantidadComida)* Var_CantPersonas) * Var_CantNoches),
     CostoHabitacion is (Hdoble * round(Var_CantPersonas/2)),
     Sumatoria is ( CostoHabitacion + CostoComida + CostoPasaje),
@@ -7909,7 +7915,7 @@ analisis_estrellas_altas_cerca_bajo_vehiculon_hsimple(Var_CantNoches, Var_Cantid
     departamento(Id_depa, NombreDepartamento, CantidadHoras,_,Clima_dep,Pasaje),
     hotel(_, NombreHotel, DireccionHotel, Var_Estrellas, HSimple, _, PComida, Id_depa, DistanciaHotel),
 
-    CostoPasaje is (Pasaje * Var_CantPersonas),
+    CostoPasaje is (Pasaje * Var_CantPersonas * 2),
     CostoComida is  (((PComida*Var_CantidadComida)* Var_CantPersonas) * Var_CantNoches),
     CostoHabitacion is (HSimple * Var_CantPersonas),
     Sumatoria is ( CostoHabitacion + CostoComida + CostoPasaje),
@@ -7977,7 +7983,7 @@ analisis_estrellas_altas_cerca_bajo_vehiculon_hdoble(Var_CantNoches, Var_Cantida
     departamento(Id_depa, NombreDepartamento, CantidadHoras,_,Clima_dep,Pasaje),
     hotel(_, NombreHotel, DireccionHotel, Var_Estrellas, _, Hdoble, PComida, Id_depa, DistanciaHotel),
 
-    CostoPasaje is (Pasaje * Var_CantPersonas),
+    CostoPasaje is (Pasaje * Var_CantPersonas * 2),
     CostoComida is  (((PComida*Var_CantidadComida)* Var_CantPersonas) * Var_CantNoches),
     CostoHabitacion is (Hdoble * round(Var_CantPersonas/2)),
     Sumatoria is ( CostoHabitacion + CostoComida + CostoPasaje),
@@ -8088,7 +8094,7 @@ analisis_estrellas_altas_lejos_bajo_vehiculon_hsimple(Var_CantNoches, Var_Cantid
     departamento(Id_depa, NombreDepartamento, CantidadHoras,_,Clima_dep,Pasaje),
     hotel(_, NombreHotel, DireccionHotel, Var_Estrellas, HSimple, _, PComida, Id_depa, DistanciaHotel),
 
-    CostoPasaje is (Pasaje * Var_CantPersonas),
+    CostoPasaje is (Pasaje * Var_CantPersonas * 2),
     CostoComida is  (((PComida*Var_CantidadComida)* Var_CantPersonas) * Var_CantNoches),
     CostoHabitacion is (HSimple * Var_CantPersonas),
     Sumatoria is ( CostoHabitacion + CostoComida + CostoPasaje),
@@ -8156,7 +8162,7 @@ analisis_estrellas_altas_lejos_bajo_vehiculon_hdoble(Var_CantNoches, Var_Cantida
     departamento(Id_depa, NombreDepartamento, CantidadHoras,_,Clima_dep,Pasaje),
     hotel(_, NombreHotel, DireccionHotel, Var_Estrellas, _, Hdoble, PComida, Id_depa, DistanciaHotel),
 
-    CostoPasaje is (Pasaje * Var_CantPersonas),
+    CostoPasaje is (Pasaje * Var_CantPersonas * 2),
     CostoComida is  (((PComida*Var_CantidadComida)* Var_CantPersonas) * Var_CantNoches),
     CostoHabitacion is (Hdoble * round(Var_CantPersonas/2)),
     Sumatoria is ( CostoHabitacion + CostoComida + CostoPasaje),
@@ -8181,6 +8187,145 @@ mostrarinferencia_estrellas_altas_lejos_bajo_vehiculon_hdoble(NombreHotel, Var_E
             \n Habitacion: ~a
             \n Alimentacion: ~a
             \n Total de Presupuesto: ~a', [NombreHotel, Var_Estrellas, NombreDepartamento, DireccionHotel,  CostoPasaje, CantidadHoras, CostoHabitacion, CostoComida, Sumatoria]
+            ),
+    nl, 
+    fail.
+
+%----------------------------------------------------REPORTES------------------------------------
+%----------------------------------------------------REPORTES------------------------------------
+%----------------------------------------------------REPORTES------------------------------------
+%----------------------------------------------------REPORTES------------------------------------
+
+reportes():-
+    write('Que reporte desea ver \n1. Consulta 1 \n2. Consulta 2 \n3. Consulta 3 \n4. Consulta 4 \n5. Consulta 5 \n6. Consulta 6 \n7.Consulta 7'),
+    nl,
+    read(Var_Reporte),
+    nl, 
+    analsis_reporte(Var_Reporte),
+    nl.
+
+analsis_reporte(Var_Reporte):-
+    (
+        Var_Reporte == 1 -> consulta1();
+        Var_Reporte == 2 -> consulta2();
+        Var_Reporte == 3 -> consulta3();
+        Var_Reporte == 4 -> consulta4();
+        Var_Reporte == 5 -> consulta5();
+        Var_Reporte == 6 -> consulta6();
+        Var_Reporte == 7 -> consulta7()
+
+    ).
+
+
+consulta1():-
+    cliente(IdCliente,NombreCliente,ApellidoCliente,Pais,_,_,_),
+    hotel(IdHotel,NombreHotel,_,_,_,_,_,_,_),
+    registro(_, IdCliente, IdHotel, _, _, Var_Opinion),
+
+    Var_Opinion >= 5,
+
+    nl, 
+    format('El listado del de clientes con opinion mayor o igual  5 \n
+            -> Hotel: ~a - Nombre Cliente: ~a - Apellido Cliente: ~a - Nacionalidad: ~a - Opinion: ~a', [NombreHotel, NombreCliente, ApellidoCliente, Pais,Var_Opinion]
+            ),
+    nl, 
+    fail.
+
+consulta2():-
+    cliente(IdCliente,NombreCliente,ApellidoCliente,_,_,VarEstadoCivil,_),
+    departamento(Id_depa, _, _,VarIdioma,_,_),
+    hotel(IdHotel,NombreHotel,_,_,_,_,_,Id_depa,_),
+    registro(_, IdCliente, IdHotel, _, _, _),
+
+    VarIdioma == 'katchikel',
+
+    nl, 
+    format('El listado del de clientes con reservaciones en hoteles de habla katchikel \n
+            -> Hotel: ~a - Nombre Cliente: ~a - Apellido Cliente: ~a - Estado Civil: ~a', [NombreHotel, NombreCliente, ApellidoCliente, VarEstadoCivil]
+            ),
+    nl, 
+    fail.
+
+consulta3():-
+    cliente(IdCliente,NombreCliente,ApellidoCliente,_,_,_,_),
+    departamento(Id_depa, _, _,VarIdioma,_,_),
+    hotel(IdHotel,NombreHotel,_,_,_,_,_,Id_depa,_),
+    registro(_, IdCliente, IdHotel, _, _, Var_Opinion),
+
+    Var_Opinion >= 6,
+    VarIdioma == 'ingles',
+    
+
+    nl, 
+    format('El listado del de clientes con opinion mayor o igual  6 de habla ingles \n
+            -> Hotel: ~a - Nombre Cliente: ~a - Apellido Cliente: ~a - Opinion: ~a', [NombreHotel, NombreCliente, ApellidoCliente, Var_Opinion]
+            ),
+    nl, 
+    fail.
+
+consulta4():-
+    hotel(IdHotel,NombreHotel,DireccionHotel,_,_,_,_,_,_),
+    registro(_, _, IdHotel, _, _, Var_Opinion),
+    trabajador(_,NombreTrabajador,VarCargo,IdHotel),
+
+    Var_Opinion == 10,
+    VarCargo == 'Administrador',
+    
+
+    nl, 
+    format('El listado de trabajadores con opinion de 10 \n
+            -> Hotel: ~a - Direccion: ~a - Nombre Empleado Administrador: ~a', [NombreHotel, DireccionHotel, NombreTrabajador]
+            ),
+    nl, 
+    fail.
+
+consulta5():-
+    cliente(IdCliente,_,_,_,_,EstadoCivil,MotivoViaje),
+    hotel(IdHotel,NombreHotel,DireccionHotel,_,_,_,_,_,_),
+    registro(_, IdCliente, IdHotel, _, _, _),
+
+    MotivoViaje == 'Trabajo',
+    EstadoCivil == 'Casado',
+    
+
+    nl, 
+    format('El listado del de clientes Casados con motivo de viaje de Trabajo \n
+            -> Hotel: ~a - Direccion: ~a ', [NombreHotel, DireccionHotel]
+            ),
+    nl, 
+    fail.
+
+
+consulta6():-
+    cliente(IdCliente,_,_,VarPais,_,_,_),
+    departamento(Id_depa, _, _,VarIdioma,_,_),
+    hotel(IdHotel,NombreHotel,_,_,_,_,_,Id_depa,_),
+    registro(_, IdCliente, IdHotel, _, _, _),
+
+    VarIdioma == 'ingles',
+    VarPais \== 'Guatemala',
+
+    nl, 
+    format('El listado del de clientes extranjeros hospedados en departamentos de habla ingles \n
+            -> Pais: ~a - Nombre Hotel: ~a ', [VarPais, NombreHotel]
+            ),
+    nl, 
+    fail.
+
+
+
+consulta7():-
+    cliente(IdCliente,NombreCliente,ApellidoCliente,_,_,_,_),
+    departamento(Id_depa, NombreDepartamento, _,VarIdioma,_,_),
+    hotel(IdHotel,NombreHotel,_,_,_,_,_,Id_depa,_),
+    registro(_, IdCliente, IdHotel, _, Var_Estadia, Var_Opinion),
+
+    Var_Opinion >= 7,
+    Var_Estadia >= 3,
+
+    nl, 
+    format('El listado del de clientes con opinion mayor o igual a 7 y estadilla mayor a 3 dias \n
+            -> Nombre Hotel: ~a - Departamento: ~a - Idioma: ~a - Nombre Cliente: ~a - Apellido Cliente: ~a', [NombreHotel, NombreDepartamento, VarIdioma, NombreCliente, ApellidoCliente]
             ),
     nl, 
     fail.
